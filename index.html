@@ -169,6 +169,11 @@
     [style*="flex: 1 1 600px"][style*="repeat(3"][data-cn-chips][data-cn-chips] > div > span:last-child { max-width: 100%; font-size: 12px !important; line-height: 16px !important; text-align: center !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
     [data-cn-chips]:not([data-open="1"]) > div:nth-of-type(n+9) { display: none !important; }
     [data-emo-dl], [data-emo-img] { display: none !important; }
+    div:has(> #promo-video) { right: 16px !important; bottom: 16px !important; width: 140px !important; border-radius: 14px !important; }
+    div:has(> #promo-video) > span:last-child { left: 8px !important; right: 8px !important; bottom: 8px !important; padding: 8px 10px !important; font-size: 13px !important; line-height: 18px !important; }
+    div:has(> span > #promo-video-mini) { right: 16px !important; bottom: 16px !important; gap: 8px !important; }
+    div:has(> span > #promo-video-mini) > span:first-child { width: 56px !important; height: 56px !important; border-radius: 14px !important; }
+    div:has(> span > #promo-video-mini) > span:last-child { padding: 12px 18px !important; font-size: 15px !important; }
     footer { background: radial-gradient(120% 90% at 115% 110%, rgba(255,255,255,0.06) 0 48%, rgba(255,255,255,0) 48.3%), linear-gradient(160deg, #1E5A3C 0%, #174A31 100%) !important; }
     footer [style*="grid-template-columns: 2fr 1.1fr"] { padding: 36px 22px 28px !important; }
     footer [style*="grid-template-columns: 2fr 1.1fr"] > div:nth-child(4) { display: none !important; }
@@ -182,7 +187,7 @@
     footer [style*="grid-template-columns: 2fr 1.1fr"] > div:first-child > div:last-child > span:nth-child(5) > span { display: none !important; }
     footer [style*="grid-template-columns: 2fr 1.1fr"] > div:first-child > div:last-child > span:nth-child(n+4)::before { content: ""; flex: 0 0 44px; width: 44px; height: 44px; border-radius: 999px; background: rgba(255,255,255,0.14) center / 22px no-repeat; display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-family: Pretendard, sans-serif; font-weight: 800; font-size: 19px; }
     footer [style*="grid-template-columns: 2fr 1.1fr"] > div:first-child > div:last-child > span:nth-child(4)::before { content: "in"; }
-    footer [style*="grid-template-columns: 2fr 1.1fr"] > div:first-child > div:last-child > span:nth-child(5)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='1.8' stroke-linejoin='round'%3E%3Cpath d='M4 10.5 12 4l8 6.5V20h-5.5v-5h-5v5H4z'/%3E%3C/svg%3E"); }
+    footer [style*="grid-template-columns: 2fr 1.1fr"] > div:first-child > div:last-child > span:nth-child(5)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='1.8' stroke-linejoin='round'%3E%3Cpath d='M4 10.5 12 4l8 6.5V20h-5.5v-5h-5v5H4z'/%3E%3C/svg%3E") !important; background-position: 50% 50% !important; background-size: 22px 22px !important; background-repeat: no-repeat !important; background-origin: border-box !important; padding: 0 !important; box-sizing: border-box !important; line-height: 0 !important; }
     footer > div:last-child { border-top: 1px solid rgba(255,255,255,0.12) !important; }
     footer > div:last-child > div { padding: 18px 22px 28px !important; flex-direction: column !important; align-items: flex-start !important; gap: 4px !important; font-size: 12px !important; line-height: 1.6 !important; color: rgba(255,255,255,0.78) !important; }
     [data-research-band] { background-color: #F1F9F4 !important; background-image: url('assets/bg-research-m.png') !important; background-size: auto 100% !important; background-position: right center !important; background-repeat: no-repeat !important; }
@@ -203,6 +208,12 @@
     div:has(> [data-about-step]) { gap: 20px !important; }
     div:has(> [data-about-step]) > div:first-child { flex: 1 1 100% !important; min-width: 0 !important; max-width: 100% !important; }
     [data-about-list] > div span[style*="font-size: 19px"] { white-space: normal !important; overflow: visible !important; display: block !important; font-size: clamp(16px, 4.6vw, 19px) !important; }
+    [data-about-list][data-about-list] > div { gap: 14px !important; padding: 12px 0 !important; border-bottom: 1px solid #E8ECEA !important; }
+    [data-about-list][data-about-list] > div:first-child { padding-top: 0 !important; }
+    [data-about-list][data-about-list] > div:last-child { padding-bottom: 0 !important; border-bottom: 0 !important; }
+    [data-about-list][data-about-list] > div > div:first-child { flex: 0 0 clamp(68px, 24vw, 92px) !important; width: clamp(68px, 24vw, 92px) !important; }
+    [data-about-list][data-about-list] > div span[style*="font-size: 19px"] { font-size: clamp(14px, 4.4vw, 18px) !important; line-height: 1.45 !important; font-weight: 700 !important; }
+    div:has(> [data-about-list])[style*="padding: 96px 80px"] { padding: 36px 22px !important; }
     [data-about-hero][data-about-hero] { position: relative; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: flex-start !important; gap: 0 !important; aspect-ratio: 1605 / 620; padding: 14px 22px !important; overflow: hidden; border-bottom: 0 !important; }
     [data-about-hero] > div:last-child { position: absolute !important; inset: 0; min-width: 0 !important; z-index: 0; }
     [data-about-hero] > div:last-child > span { display: none !important; }
@@ -212,12 +223,31 @@
     [data-about-hero] > div:first-child > span { font-size: clamp(11px, 3vw, 14px) !important; line-height: 1.4 !important; white-space: normal !important; }
     [data-about-hero] > div:first-child > h1 { font-size: clamp(20px, 5.8vw, 34px) !important; line-height: 1.3 !important; white-space: normal !important; }
     [data-about-hero] > div:first-child > p, [data-about-hero] > div:first-child > a { display: none !important; }
-    [data-emo-page] > section { text-align: center !important; }
+    [data-emo-page] > section { text-align: left !important; }
+    [data-emo-page] > section:first-of-type > div { padding: 40px 22px 36px !important; gap: 0 !important; }
+    [data-emo-page] > section:first-of-type > div > div:first-child { gap: 14px !important; min-width: 0 !important; flex-basis: 100% !important; }
+    [data-emo-page] > section:first-of-type > div > div:first-child > span { font-size: 13px !important; line-height: 20px !important; padding: 5px 12px; border-radius: 999px; background: rgba(80,190,130,0.14); }
+    [data-emo-page] > section:first-of-type h1 { font-size: min(6.4vw, 30px) !important; line-height: 1.38 !important; white-space: pre !important; letter-spacing: -0.035em !important; }
+    [data-emo-page] > section:first-of-type h1 + p { font-size: 15px !important; line-height: 24px !important; max-width: none !important; color: #5A6660 !important; }
+    [data-emo-page] > section, [data-emo-page] > section > div { max-width: none !important; margin-left: 0 !important; margin-right: 0 !important; }
+    [data-emo-page] > section > div > div, [data-emo-page] > section > div > p, [data-emo-page] > section > a { width: 100% !important; max-width: none !important; }
+    [data-emo-page] > section:first-of-type > div > div:first-child > div:last-child { gap: 8px !important; margin-top: 6px !important; font-size: 13px !important; line-height: 18px !important; }
+    [data-emo-page] > section:first-of-type > div > div:first-child > div:last-child > span { padding: 7px 12px; border-radius: 999px; background: #FFFFFF; border: 1px solid #E1EBE5; }
+    [data-emo-page] > section:is([style*="padding: 0 80px"], [style*="padding: 0px 80px"]) { padding: 0 22px 44px !important; gap: 16px !important; }
+    [data-emo-page] > section#sets { padding: 40px 0 0 !important; }
+    [data-emo-page] > section:is([style*="padding: 0 80px"], [style*="padding: 0px 80px"]) > div:first-child { padding-bottom: 0 !important; border-bottom: 0 !important; gap: 8px !important; }
+    [data-emo-page] > section:is([style*="padding: 0 80px"], [style*="padding: 0px 80px"]) > div:first-child > div { gap: 8px !important; }
+    [data-emo-page] > section:is([style*="padding: 0 80px"], [style*="padding: 0px 80px"]) > div:first-child > div > span { font-size: 12px !important; line-height: 18px !important; padding: 4px 11px !important; }
+    [data-emo-page] > section:is([style*="padding: 0 80px"], [style*="padding: 0px 80px"]) h3 { font-size: min(5.6vw, 22px) !important; line-height: 1.4 !important; white-space: nowrap !important; }
+    [data-emo-page] > section:is([style*="padding: 0 80px"], [style*="padding: 0px 80px"]) > div:first-child > p { flex-basis: auto !important; font-size: 14px !important; line-height: 22px !important; color: #5A6660 !important; max-width: none !important; }
+    [data-emo-page] a[download][style*="padding: 28px"] { padding: 8px !important; border-radius: 16px !important; background: #F3F8F5 !important; border-color: #E4EEE8 !important; }
+    [data-emo-page] a[download][style*="padding: 28px"] > img { max-width: 100% !important; }
     [data-emo-page] [style*="justify-content: center; margin-top: 48px"] { margin-top: 28px !important; }
     [data-emo-page] [style*="justify-content: center; margin-top: 48px"] > span { padding: 11px 22px !important; font-size: 15px !important; gap: 6px !important; border-radius: 10px !important; }
     [data-emo-page] [style*="justify-content: center; margin-top: 48px"] > span > span { font-size: 14px !important; }
-    [data-emo-page] > section :is(div, section) { justify-content: center !important; align-items: center !important; text-align: center !important; }
-    [data-emo-page] > section :is(span, p, h1, h2, h3, strong) { align-self: center !important; text-align: center !important; margin-left: auto !important; margin-right: auto !important; }
+    [data-emo-page] > section :is(div, section):not([style*="justify-content: center; margin-top: 48px"]) { justify-content: flex-start !important; align-items: flex-start !important; text-align: left !important; }
+    [data-emo-page] > section :is(span, p, h1, h2, h3, strong) { align-self: flex-start !important; text-align: left !important; margin-left: 0 !important; margin-right: 0 !important; }
+    [data-emo-page] [style*="justify-content: center; margin-top: 48px"] > span { align-self: center !important; }
     [data-cn-more] { display: flex !important; order: 99; grid-column: 1 / -1; align-items: center; justify-content: center; gap: 4px; min-height: 40px; border-radius: 999px; border: 1px solid #E4E6E5; background: #FFFFFF; color: #4C4B45; font-family: Pretendard, sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; }
     [style*="flex: 1 1 600px"][style*="repeat(3"][data-cn-chips] > div { flex-direction: row !important; justify-content: flex-start; min-height: 0; gap: 4px !important; padding: 3px 6px 3px 3px !important; border-radius: 999px !important; }
     [style*="flex: 1 1 600px"][style*="repeat(3"][data-cn-chips] > div > span:first-child { width: 22px !important; height: 22px !important; }
@@ -4310,49 +4340,49 @@ const __S = [
     steps: ["할 일 중에서 제일 작은 한 칸을 골라.", "영상 따라서 그 한 칸만 채워.", "다음 칸은 하고 싶어지면 이어서 해."],
     how: "카드를 한 장씩 넘겨 보고, 마지막 장의 한 칸을 진짜로 채워 봐.",
     poster: "assets/min-poster-start.jpg", wide: "assets/min-wide-start.jpg", card: "assets/cn-start-s.webp",
-    src: "https://drive.google.com/file/d/1cxnymMXhQDfpDeV7W1SiuBOYcvUhep6v/preview",
+    src: "https://drive.google.com/file/d/1QRCmGvS7ThQ43mqjpKC1SEQUpzw8mpdW/preview",
     deck: ["assets/comic-start-s.webp"] },
   { t: "딴 데를 보게 돼", why: "잠깐 딴 데를 봐도 괜찮아. 지금 할 일을 확인하고 다시 돌아오자.",
     steps: ["눈을 지금 할 것으로 옮겨.", "손을 연필이나 화면 위에 올려.", "한 줄만 읽고 다시 시작해."],
     how: "돌아오는 신호를 하나 정해서 책상에 붙여 둬.",
     poster: "assets/min-poster-look.jpg", wide: "assets/min-wide-look.jpg", card: "assets/cn-look-s.webp",
-    src: "https://drive.google.com/file/d/1nzKnAZ-AWwYdh52hOvlp1aSfXEXtkHf4/preview",
+    src: "https://drive.google.com/file/d/1NB08_eSZiEtsBX5xpnBPxrsZoBzEfuSG/preview",
     deck: ["assets/comic-look-s.webp"] },
   { t: "뭐부터 할지 모르겠어", why: "많아 보이는 건 순서가 없어서 그래. 세 칸만 적어 보자.",
     steps: ["제일 쉬운 걸 1번에 써.", "재밌게 할 수 있는 걸 2번에 써.", "빨리 끝나는 걸 3번에 써."],
     how: "쉬운 것 → 재밌는 것 → 빨리 끝나는 것 순서로 세 칸을 채워 봐.",
     poster: "assets/min-poster-order.jpg", wide: "assets/min-wide-order.jpg", card: "assets/cn-order-s.webp",
-    src: "https://drive.google.com/file/d/1wApyMWS_UuqXxM4BeM-eCuZrtSSQVkz-/preview",
+    src: "https://drive.google.com/file/d/19hb9kuX4MmgUOYmEiOYFgrS7mxmMVlkJ/preview",
     deck: ["assets/comic-order-s.webp"] },
   { t: "설명을 잊어버렸어", why: "머리에 안 남으면 밖에 적어두면 돼. 세 단어면 충분해.",
     steps: ["설명 들으면서 중요한 세 단어만 적어.", "적은 걸 소리 내서 한 번 읽어.", "막히면 적어둔 걸 먼저 봐."],
     how: "설명 들으면서 세 단어를 적고, 소리 내서 한 번 읽어 봐.",
     poster: "assets/min-poster-forget.jpg", wide: "assets/min-wide-forget.jpg", card: "assets/cn-forget-s.webp",
-    src: "https://drive.google.com/file/d/1pTbduyj0lJ33Y_zGh-O0-ewtAn4iE16K/preview",
+    src: "https://drive.google.com/file/d/14OgcW-D0PqcCK4vrmWTtTZZu2VeU7XXi/preview",
     deck: ["assets/comic-forget-s.webp"] },
   { t: "너무 어려워서 막혔어", why: "어려운 건 통째로 안 풀려. 반만 해도 잘한 거야.",
     steps: ["문제를 두 조각으로 나눠.", "앞 조각만 끝까지 해봐.", "남은 건 표시해 두고 나중에 물어봐."],
     how: "문제를 두 조각으로 나눠 표시하고, 앞 조각만 해봐.",
     poster: "assets/min-poster-hard.jpg", wide: "assets/min-wide-hard.jpg", card: "assets/cn-hard-s.webp",
-    src: "https://drive.google.com/file/d/1xrznY_Y8E3GLuBfmdiaHacciFbur4WSm/preview",
+    src: "https://drive.google.com/file/d/1saw15bjvFppWGaVitNs6wHfG2OwDALhq/preview",
     deck: ["assets/comic-hard-s.webp"] },
   { t: "몸이 계속 움직여", why: "움직이고 싶은 건 참는 게 아니라 바꾸면 돼.",
     steps: ["앉은 채로 어깨를 세 번 올렸다 내려.", "손을 꽉 쥐었다가 천천히 펴.", "숨을 길게 내쉬고 다시 앉아."],
     how: "카드에 있는 동작을 순서대로 따라 하고 다시 앉아 봐.",
     poster: "assets/min-poster-move.jpg", wide: "assets/min-wide-move.jpg", card: "assets/cn-move-s.webp",
-    src: "https://drive.google.com/file/d/1N74FFNiLAfGk3A10WxoIIoOKc7rO6YTM/preview",
+    src: "https://drive.google.com/file/d/1yrGy8cXZQl-VAHB9Dkk8uHQ_yp_ZPYzn/preview",
     deck: ["assets/comic-move-s.webp"] },
   { t: "틀려서 화가 나", why: "화나는 건 당연해. 잠깐 멈추면 다음이 보여.",
     steps: ["잠깐 멈추고 숨을 세 번 쉬어.", "지금 기분에 이름을 붙여 봐. \"짜증나\" 도 괜찮아.", "다음에 뭐 할지 하나만 골라."],
     how: "숨 세 번 쉬고, 기분에 이름 붙이고, 다음에 할 것 하나만 골라 봐.",
     poster: "assets/min-poster-angry.jpg", wide: "assets/min-wide-angry.jpg", card: "assets/cn-angry-s.webp",
-    src: "https://drive.google.com/file/d/1EVCz8obOsN7s4pogAUrwHco4BGF4qA4l/preview",
+    src: "https://drive.google.com/file/d/1Wj5JUfKjOZ--MH4XnqrISrdH78ILRhyM/preview",
     deck: ["assets/comic-angry-s.webp"] },
   { t: "도와달라고 말하기 어려워", why: "물어보는 것도 실력이야. 세 문장만 있으면 돼.",
     steps: ["\"여기까지 했어요\" 라고 말해.", "\"이 부분이 막혔어요\" 라고 짚어.", "\"이거 하나만 알려 주세요\" 라고 부탁해."],
     how: "카드의 세 문장을 소리 내서 읽고, 진짜로 그렇게 말해 봐.",
     poster: "assets/min-poster-help.jpg", wide: "assets/min-wide-help.jpg", card: "assets/cn-help-s.webp",
-    src: "https://drive.google.com/file/d/1X_0kBRTi3F_LMsWC6UWULi8_6G5SF4mh/preview",
+    src: "https://drive.google.com/file/d/1oMndFfzeVW6SMPuJeqg63BbrK4wazUkY/preview",
     deck: ["assets/comic-help-s.webp"] }
 ];
 
@@ -4393,14 +4423,14 @@ class SubLogic {
 
 let __CURLANG = "kr";
 const __VALT = {
-  "1xrznY_Y8E3GLuBfmdiaHacciFbur4WSm": "1YoK4ufag5YD8Pc0CGy5XZHl12_L15bjI",
-  "1N74FFNiLAfGk3A10WxoIIoOKc7rO6YTM": "1nQRDSACpqvI6WX4991Mzm0ohpGW6mpUv",
-  "1EVCz8obOsN7s4pogAUrwHco4BGF4qA4l": "1ununPsSyaY3XnqT7aqWgLHyemysaBvFo",
-  "1pTbduyj0lJ33Y_zGh-O0-ewtAn4iE16K": "1RZJLPY09dxysf_KLukXgMltMNUcDBImc",
-  "1nzKnAZ-AWwYdh52hOvlp1aSfXEXtkHf4": "1sx4Jt874cDlZM8euhur4fxGN1c6ekfye",
-  "1X_0kBRTi3F_LMsWC6UWULi8_6G5SF4mh": "1ctsiRo2k1hXWCRbipuYFnPlKAJviZjyn",
-  "1cxnymMXhQDfpDeV7W1SiuBOYcvUhep6v": "1TGOnkGIkCSxZv0_r4E_SxLW9zskfGAwI",
-  "1wApyMWS_UuqXxM4BeM-eCuZrtSSQVkz-": "1tgmTiIe9pJ-Eb0dMRMZIEeVk27F2DW1g"
+  "1saw15bjvFppWGaVitNs6wHfG2OwDALhq": "1YoK4ufag5YD8Pc0CGy5XZHl12_L15bjI",
+  "1yrGy8cXZQl-VAHB9Dkk8uHQ_yp_ZPYzn": "1nQRDSACpqvI6WX4991Mzm0ohpGW6mpUv",
+  "1Wj5JUfKjOZ--MH4XnqrISrdH78ILRhyM": "1ununPsSyaY3XnqT7aqWgLHyemysaBvFo",
+  "14OgcW-D0PqcCK4vrmWTtTZZu2VeU7XXi": "1RZJLPY09dxysf_KLukXgMltMNUcDBImc",
+  "1NB08_eSZiEtsBX5xpnBPxrsZoBzEfuSG": "1sx4Jt874cDlZM8euhur4fxGN1c6ekfye",
+  "1oMndFfzeVW6SMPuJeqg63BbrK4wazUkY": "1ctsiRo2k1hXWCRbipuYFnPlKAJviZjyn",
+  "1QRCmGvS7ThQ43mqjpKC1SEQUpzw8mpdW": "1TGOnkGIkCSxZv0_r4E_SxLW9zskfGAwI",
+  "19hb9kuX4MmgUOYmEiOYFgrS7mxmMVlkJ": "1tgmTiIe9pJ-Eb0dMRMZIEeVk27F2DW1g"
 };
 const __PICKSRC = (src) => {
   if (!src || __CURLANG === "kr") return src;
@@ -4717,10 +4747,13 @@ __P.p1 = (function () { const location = __hash.p1; return class extends SubLogi
         const stretchCard = () => ({ title: "스트레칭으로 풀기", bgImage: this.cssUrl("assets/wt-stretch.webp"), dur: "02:00", meta: "조회수 128회", href: "#video/w1" });
         const breatheCard = () => ({ title: "호흡으로 진정하기", bgImage: this.cssUrl("assets/wt-breathe.webp"), dur: "01:30", meta: "조회수 96회", href: "#video/w1" });
         const groups = [
-          { title: "에너지가 필요할 때", all: [vcard(1), vcard(5), gcard(0), pcard(), gcard(2), gcard(3), mcard(2), mcard(3), scard()] },
-          { title: "가라앉혀야 할 때", all: [vcard(6), mcard(1), stretchCard(), breatheCard()] },
-          { title: "도움이 더 필요할 때", all: [vcard(0), vcard(2), vcard(4), vcard(3), vcard(7), gcard(1), mcard(0)] }
+          { title: "집중하기 어려워해요", all: [vcard(1), vcard(5)] },
+          { title: "분위기가 처져 있어요", all: [gcard(0), pcard(), gcard(2), gcard(3)] },
+          { title: "마음을 가라앉히지 못해요", all: [vcard(6), breatheCard(), gcard(1), mcard(2)] },
+          { title: "수업을 따라오지 못해요", all: [vcard(0), vcard(2), vcard(4), vcard(3), vcard(7)] }
         ];
+        const views = (t) => { let h = 7; for (const ch of String(t)) h = (h * 31 + ch.charCodeAt(0)) % 100003; return 40 + (h % 460); };
+        groups.forEach(g => g.all.forEach(it => { if (!it.meta) it.meta = "조회수 " + views(it.title) + "회"; }));
         const open = this.state.railOpen || {};
         return groups.map((g, gi) => ({
           title: g.title,
@@ -4923,35 +4956,35 @@ __P.p2 = (function () { const location = __hash.p2; return class extends SubLogi
     const sel = this.state.sel;
     const wideOn = this.state.wsel !== undefined && this.state.wsel !== null;
     const data = [
-      { title: "아이들이 시작을 못해요", tag: "과제 시작", length: "40초", src: "https://drive.google.com/file/d/1cxnymMXhQDfpDeV7W1SiuBOYcvUhep6v/preview",
+      { title: "아이들이 시작을 못해요", tag: "과제 시작", length: "40초", src: "https://drive.google.com/file/d/1QRCmGvS7ThQ43mqjpKC1SEQUpzw8mpdW/preview",
         body: "다 하려고 하면 더 무겁습니다. 영상은 첫 칸 하나를 채우는 것까지만 같이 합니다. 시작의 문턱을 낮추는 게 전부입니다.",
         steps: [{ n: "1", text: "지금 해야 할 것 중 가장 작은 한 칸을 고릅니다." }, { n: "2", text: "영상 속도에 맞춰 그 한 칸만 채웁니다." }, { n: "3", text: "다음 칸은 하고 싶어질 때 이어서 합니다." }],
         adult: "\"왜 안 해?\" 대신 \"어디부터 할까?\"로 바꿔 물어봐 주세요." },
-      { title: "아이들이 집중을 못해요", tag: "주의 복귀", length: "40초", src: "https://drive.google.com/file/d/1nzKnAZ-AWwYdh52hOvlp1aSfXEXtkHf4/preview",
+      { title: "아이들이 집중을 못해요", tag: "주의 복귀", length: "40초", src: "https://drive.google.com/file/d/1NB08_eSZiEtsBX5xpnBPxrsZoBzEfuSG/preview",
         body: "딴 데를 본 건 잘못이 아닙니다. 눈, 손, 화면 세 곳을 순서대로 되돌리는 신호 하나면 다시 자리로 돌아올 수 있습니다.",
         steps: [{ n: "1", text: "눈을 지금 할 것으로 옮깁니다." }, { n: "2", text: "손을 연필이나 화면 위에 올립니다." }, { n: "3", text: "한 줄만 읽고 다시 시작합니다." }],
         adult: "주의가 흩어진 순간을 지적하기보다, 돌아오는 신호를 함께 정해 주세요." },
-      { title: "무엇부터 해야 할지 몰라요", tag: "계획", length: "40초", src: "https://drive.google.com/file/d/1wApyMWS_UuqXxM4BeM-eCuZrtSSQVkz-/preview",
+      { title: "무엇부터 해야 할지 몰라요", tag: "계획", length: "40초", src: "https://drive.google.com/file/d/19hb9kuX4MmgUOYmEiOYFgrS7mxmMVlkJ/preview",
         body: "할 일이 많아 보일 때는 순서가 없어서 막힙니다. 세 칸만 적으면 머릿속이 정리됩니다.",
         steps: [{ n: "1", text: "가장 쉬운 것을 첫 칸에 적습니다." }, { n: "2", text: "재밌게 할 수 있는 것을 두 번째에 둡니다." }, { n: "3", text: "빨리 끝나는 것을 마지막에 둡니다." }],
         adult: "계획을 대신 세워주기보다, 세 칸 틀만 건네 주세요." },
-      { title: "아이들이 이해를 못해요", tag: "기억", length: "40초", src: "https://drive.google.com/file/d/1pTbduyj0lJ33Y_zGh-O0-ewtAn4iE16K/preview",
+      { title: "아이들이 이해를 못해요", tag: "기억", length: "40초", src: "https://drive.google.com/file/d/14OgcW-D0PqcCK4vrmWTtTZZu2VeU7XXi/preview",
         body: "기억은 붙잡는 게 아니라 옮겨 두는 것입니다. 세 단어로 적고 한 번 되읽으면 충분합니다.",
         steps: [{ n: "1", text: "설명을 들으며 핵심 세 단어를 적습니다." }, { n: "2", text: "적은 것을 소리 내어 한 번 읽습니다." }, { n: "3", text: "막히면 메모부터 다시 봅니다." }],
         adult: "\"방금 뭐라고 했지?\" 대신 \"적은 거 같이 볼까?\"로 물어봐 주세요." },
-      { title: "행동을 어떻게 해야 할지 몰라요", tag: "계획", length: "40초", src: "https://drive.google.com/file/d/1xrznY_Y8E3GLuBfmdiaHacciFbur4WSm/preview",
+      { title: "행동을 어떻게 해야 할지 몰라요", tag: "계획", length: "40초", src: "https://drive.google.com/file/d/1saw15bjvFppWGaVitNs6wHfG2OwDALhq/preview",
         body: "어려운 과제는 통째로 풀리지 않습니다. 두 조각으로 나누고 오늘은 앞 조각만 합니다.",
         steps: [{ n: "1", text: "문제를 두 부분으로 나눕니다." }, { n: "2", text: "앞 조각만 끝까지 해봅니다." }, { n: "3", text: "남은 조각은 표시해 두고 나중에 물어봅니다." }],
         adult: "정답을 알려주기 전에, 어디까지 됐는지 먼저 확인해 주세요." },
-      { title: "가만히 앉아있지 못해요", tag: "움직임", length: "40초", src: "https://drive.google.com/file/d/1N74FFNiLAfGk3A10WxoIIoOKc7rO6YTM/preview",
+      { title: "가만히 앉아있지 못해요", tag: "움직임", length: "40초", src: "https://drive.google.com/file/d/1yrGy8cXZQl-VAHB9Dkk8uHQ_yp_ZPYzn/preview",
         body: "움직이고 싶은 마음을 참는 대신, 자리에서 할 수 있는 30초 동작으로 흘려보냅니다.",
         steps: [{ n: "1", text: "의자에 앉아 어깨를 세 번 올렸다 내립니다." }, { n: "2", text: "손을 꽉 쥐었다 천천히 폅니다." }, { n: "3", text: "숨을 길게 내쉬고 다시 앉습니다." }],
         adult: "\"가만히 있어\" 대신 조용히 움직일 방법을 정해 주세요." },
-      { title: "아이들이 짜증을 내고 화를 내요", tag: "감정 조절", length: "40초", src: "https://drive.google.com/file/d/1EVCz8obOsN7s4pogAUrwHco4BGF4qA4l/preview",
+      { title: "아이들이 짜증을 내고 화를 내요", tag: "감정 조절", length: "40초", src: "https://drive.google.com/file/d/1Wj5JUfKjOZ--MH4XnqrISrdH78ILRhyM/preview",
         body: "화는 없애야 할 감정이 아닙니다. 멈추고 이름을 붙이면 다음 행동을 고를 여유가 생깁니다.",
         steps: [{ n: "1", text: "잠깐 멈추고 숨을 세 번 쉽니다." }, { n: "2", text: "지금 기분에 이름을 붙입니다." }, { n: "3", text: "다음에 할 행동을 하나 고릅니다." }],
         adult: "감정을 진정시키기 전에 먼저 이름을 붙일 시간을 주세요." },
-      { title: "도움 요청을 못해요", tag: "도움 요청", length: "40초", src: "https://drive.google.com/file/d/1X_0kBRTi3F_LMsWC6UWULi8_6G5SF4mh/preview",
+      { title: "도움 요청을 못해요", tag: "도움 요청", length: "40초", src: "https://drive.google.com/file/d/1oMndFfzeVW6SMPuJeqg63BbrK4wazUkY/preview",
         body: "도움을 요청하는 것도 연습이 필요합니다. 세 문장만 있으면 충분합니다.",
         steps: [{ n: "1", text: "\"여기까지 했어요\"라고 말합니다." }, { n: "2", text: "\"이 부분이 막혔어요\"라고 짚습니다." }, { n: "3", text: "\"이거 하나만 알려 주세요\"라고 부탁합니다." }],
         adult: "손을 들지 못한 이유를 묻기보다, 세 문장을 함께 연습해 주세요." }
@@ -5591,10 +5624,13 @@ __P.p8 = (function () { const location = __hash.p8; return class extends SubLogi
         const stretchCard = () => ({ title: "스트레칭으로 풀기", bgImage: this.cssUrl("assets/wt-stretch.webp"), dur: "02:00", meta: "조회수 128회", href: "#video/w1" });
         const breatheCard = () => ({ title: "호흡으로 진정하기", bgImage: this.cssUrl("assets/wt-breathe.webp"), dur: "01:30", meta: "조회수 96회", href: "#video/w1" });
         const groups = [
-          { title: "에너지가 필요할 때", all: [vcard(1), vcard(5), gcard(0), pcard(), gcard(2), gcard(3), mcard(2), mcard(3), scard()] },
-          { title: "가라앉혀야 할 때", all: [vcard(6), mcard(1), stretchCard(), breatheCard()] },
-          { title: "도움이 더 필요할 때", all: [vcard(0), vcard(2), vcard(4), vcard(3), vcard(7), gcard(1), mcard(0)] }
+          { title: "집중하기 어려워해요", all: [vcard(1), vcard(5)] },
+          { title: "분위기가 처져 있어요", all: [gcard(0), pcard(), gcard(2), gcard(3)] },
+          { title: "마음을 가라앉히지 못해요", all: [vcard(6), breatheCard(), gcard(1), mcard(2)] },
+          { title: "수업을 따라오지 못해요", all: [vcard(0), vcard(2), vcard(4), vcard(3), vcard(7)] }
         ];
+        const views = (t) => { let h = 7; for (const ch of String(t)) h = (h * 31 + ch.charCodeAt(0)) % 100003; return 40 + (h % 460); };
+        groups.forEach(g => g.all.forEach(it => { if (!it.meta) it.meta = "조회수 " + views(it.title) + "회"; }));
         const open = this.state.railOpen || {};
         return groups.map((g, gi) => ({
           title: g.title,
@@ -7757,6 +7793,8 @@ const __EN = {
   "아이들이 수업에 집중할 수 있도록 만들기!": "Get your students to pay attention in Class!",
   "에너지가 필요할 때": "When your students need more energy",
   "가라앉혀야 할 때": "When your students need to settle down",
+  "집중하기 어려워해요": "When focus is slipping", "분위기가 처져 있어요": "When the room feels flat",
+  "마음을 가라앉히지 못해요": "When feelings run high", "수업을 따라오지 못해요": "When students fall behind",
   "스트레칭으로 풀기": "Stretch and refresh", "호흡으로 진정하기": "Breathe and reset",
   "도움이 더 필요할 때": "When your students need extra support",
   "수업 집중 되돌리기": "Refocus the class",
@@ -8517,8 +8555,9 @@ class Component extends DCLogic {
     vals.krWeight = lang === "kr" ? 600 : 400;
     vals.enWeight = lang === "en" ? 600 : 400;
     vals.logoSrc = lang === "en" ? "assets/logo-toolkit-en.png" : "assets/logo-toolkit-black.png";
-    vals.vwOpen = false;
-    vals.vwMini = false;
+    const isPC = true;
+    vals.vwOpen = isPC && !this.state.chatOpen && this.state.vwOpen === true;
+    vals.vwMini = isPC && !this.state.chatOpen && this.state.vwOpen !== true;
     vals.chatClosedOld = false;
     vals.vwClose = () => {
       const a = document.getElementById("promo-video");

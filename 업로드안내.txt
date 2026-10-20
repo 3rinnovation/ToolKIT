@@ -1,0 +1,37 @@
+업로드 안내 (최신 버전)
+================================
+
+배포 주소 : https://kimyebin726.github.io/ToolKIT/
+저장소    : https://github.com/kimyebin726/ToolKIT
+
+
+[올릴 파일]
+1. index.html                  -> 저장소 루트에 덮어쓰기
+2. assets 폴더 (아래 파일들)   -> 저장소의 assets 폴더에 그대로
+   - hero-loop-mute.mp4    (히어로 배경 영상)
+   - promo-pangi.mp4       (챗봇 옆 홍보 영상 · 한국어)
+   - en-chat-video.mp4     (챗봇 옆 홍보 영상 · 영어 등)
+   - emo-motion.gif        (모션 이모티콘 · 한국어)
+   - en-emo-motion.gif     (모션 이모티콘 · 영어 등)
+   - song-pangpang.mp3     (팡팡송 KR)
+   - song-shine.mp3        (팡팡송 EN)
+   - pangi-turnaround.gif  (캐릭터 턴어라운드)
+
+* 영상·음원·GIF는 용량 때문에 HTML에 넣지 않고 저장소에서 불러옵니다.
+  assets 폴더가 함께 올라가야 재생됩니다.
+
+
+[방법]
+1. https://github.com/kimyebin726/ToolKIT 접속
+2. Add file -> Upload files
+3. index.html 과 assets 폴더를 함께 드래그 (폴더 구조 유지)
+4. Commit changes
+5. 2~3분 뒤 배포 주소에서 확인 (Cmd+Shift+R 강력 새로고침)
+
+
+[이번 업데이트]
+- 영상 자료 8편: 언제/시간(30초)/결과/기대효과 정리, 중복 기대효과 수정
+- 영어 문구 다수 교정 (헤더, 버튼 8종, 각 영상 설명)
+- 한국어 외 언어: 게임 썸네일·링크(미소배틀 EN, 인상업 mood-up),
+  이모티콘 모션 GIF 영문판 자동 교체
+- 이미지 용량 최적화
