@@ -2388,8 +2388,6 @@
         <h1 style="position: relative; z-index: 3; margin: 0; font-family: Pretendard, sans-serif; font-size: 42px; line-height: 1.28; font-weight: 800; letter-spacing: 0.01em; color: #FFFFFF;">오늘 우리 반은 어때?</h1>
         <p style="position: relative; z-index: 3; margin: 2px 0 0; font-family: Pretendard, sans-serif; font-size: 20px; line-height: 26px; font-weight: 500; letter-spacing: 0.01em; color: rgba(255,255,255,0.92); white-space: nowrap;">아이들이 수업에 집중할 수 있도록 만들기!</p>
 
-
-
       </div>
 
       <div style="position: absolute; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none;" aria-hidden="true">
@@ -4747,10 +4745,10 @@ __P.p1 = (function () { const location = __hash.p1; return class extends SubLogi
         const stretchCard = () => ({ title: "스트레칭으로 풀기", bgImage: this.cssUrl("assets/wt-stretch.webp"), dur: "02:00", meta: "조회수 128회", href: "#video/w1" });
         const breatheCard = () => ({ title: "호흡으로 진정하기", bgImage: this.cssUrl("assets/wt-breathe.webp"), dur: "01:30", meta: "조회수 96회", href: "#video/w1" });
         const groups = [
-          { title: "집중하기 어려워해요", all: [vcard(1), vcard(5)] },
-          { title: "분위기가 처져 있어요", all: [gcard(0), pcard(), gcard(2), gcard(3)] },
+          { title: "수업을 따라오지 못해요", all: [vcard(0), vcard(2), vcard(4), vcard(3), vcard(7)] },
           { title: "마음을 가라앉히지 못해요", all: [vcard(6), breatheCard(), gcard(1), mcard(2)] },
-          { title: "수업을 따라오지 못해요", all: [vcard(0), vcard(2), vcard(4), vcard(3), vcard(7)] }
+          { title: "분위기가 처져 있어요", all: [gcard(0), pcard(), gcard(2), gcard(3)] },
+          { title: "집중하기 어려워해요", all: [vcard(1), vcard(5)] }
         ];
         const views = (t) => { let h = 7; for (const ch of String(t)) h = (h * 31 + ch.charCodeAt(0)) % 100003; return 40 + (h % 460); };
         groups.forEach(g => g.all.forEach(it => { if (!it.meta) it.meta = "조회수 " + views(it.title) + "회"; }));
@@ -5624,10 +5622,10 @@ __P.p8 = (function () { const location = __hash.p8; return class extends SubLogi
         const stretchCard = () => ({ title: "스트레칭으로 풀기", bgImage: this.cssUrl("assets/wt-stretch.webp"), dur: "02:00", meta: "조회수 128회", href: "#video/w1" });
         const breatheCard = () => ({ title: "호흡으로 진정하기", bgImage: this.cssUrl("assets/wt-breathe.webp"), dur: "01:30", meta: "조회수 96회", href: "#video/w1" });
         const groups = [
-          { title: "집중하기 어려워해요", all: [vcard(1), vcard(5)] },
-          { title: "분위기가 처져 있어요", all: [gcard(0), pcard(), gcard(2), gcard(3)] },
+          { title: "수업을 따라오지 못해요", all: [vcard(0), vcard(2), vcard(4), vcard(3), vcard(7)] },
           { title: "마음을 가라앉히지 못해요", all: [vcard(6), breatheCard(), gcard(1), mcard(2)] },
-          { title: "수업을 따라오지 못해요", all: [vcard(0), vcard(2), vcard(4), vcard(3), vcard(7)] }
+          { title: "분위기가 처져 있어요", all: [gcard(0), pcard(), gcard(2), gcard(3)] },
+          { title: "집중하기 어려워해요", all: [vcard(1), vcard(5)] }
         ];
         const views = (t) => { let h = 7; for (const ch of String(t)) h = (h * 31 + ch.charCodeAt(0)) % 100003; return 40 + (h % 460); };
         groups.forEach(g => g.all.forEach(it => { if (!it.meta) it.meta = "조회수 " + views(it.title) + "회"; }));
@@ -8460,7 +8458,7 @@ class Component extends DCLogic {
         return n.nodeValue && n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
       }
     });
-    document.querySelectorAll('img[src*="logo-toolkit"]').forEach((img) => {
+    document.querySelectorAll('img[src*="logo-toolkit"], img[src*="logo-pangz"]').forEach((img) => {
       const want = lg === "th" ? "assets/logo-toolkit-th.webp" : lg === "kr" ? "assets/logo-toolkit-black.png" : "assets/logo-toolkit-en.png";
       if (!img.src.endsWith(want)) img.setAttribute("src", want);
     });
