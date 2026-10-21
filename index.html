@@ -4306,7 +4306,7 @@
 
       <div style="flex: 0 0 auto; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-top: 1px solid #EFF1F0; background: #FFFFFF;">
         <input id="pangchat-input" type="text" autoComplete="off" onKeyDown="{{ chatKey }}" placeholder="{{ chatPlaceholder }}" style="flex: 1 1 auto; min-width: 0; padding: 11px 14px; border-radius: 999px; border: 1px solid #E4E6E5; background: #F7F9F8; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 20px; color: #131C29; outline: none;">
-        <span onClick="{{ chatSend }}" style="width: 42px; height: 42px; flex: 0 0 auto; border-radius: 999px; background: #30A967; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer;" style-hover="background: #26824F;">↑</span>
+        <span onClick="{{ chatSend }}" role="button" aria-label="보내기" style="width: 42px; height: 42px; flex: 0 0 auto; border-radius: 999px; background-image: url('assets/chat-send.png'); background-size: 146% auto; background-position: 49.7% 58%; background-repeat: no-repeat; cursor: pointer; transition: transform 0.15s ease, filter 0.15s ease;" style-hover="filter: brightness(0.94); transform: scale(1.05);"></span>
       </div>
     </div>
   </sc-if>
