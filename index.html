@@ -2819,31 +2819,7 @@
     </sc-if>
   </section>
 
-  <sc-if value="{{ p2.wideOpen }}" hint-placeholder-val="{{ false }}">
-  <section id="wide-videos" style="background: #F3F8F5; border-top: 1px solid #E2EDE7;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 56px 80px 72px; display: flex; flex-direction: column; gap: 20px;">
-    <h2 style="margin: 0; font-size: 24px; line-height: 36px; font-weight: 700; letter-spacing: -0.01em;">명상</h2>
-    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;">
-      <sc-for list="{{ p2.wideVideos }}" as="w" hint-placeholder-count="4">
-        <div onClick="{{ w.select }}" style="min-width: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 18px 14px; border-radius: 12px; background: {{ w.bg }}; border: 1px solid {{ w.border }}; color: {{ w.fg }}; font-size: 18px; line-height: 28px; font-weight: 600; word-break: keep-all; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-3px);">{{ w.title }}</div>
-      </sc-for>
-    </div>
-    </div>
-  </section>
-  </sc-if>
 
-  <sc-if value="{{ p2.wideClosed }}" hint-placeholder-val="{{ true }}">
-  <section id="wide-videos" style="background: #F3F8F5; border-top: 1px solid #E2EDE7;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 56px 80px 72px; display: flex; flex-direction: column; gap: 20px;">
-    <h2 style="margin: 0; font-size: 24px; line-height: 36px; font-weight: 700; letter-spacing: -0.01em;">명상</h2>
-    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;">
-      <sc-for list="{{ p2.wideVideos }}" as="w" hint-placeholder-count="4">
-        <div onClick="{{ w.select }}" style="min-width: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 18px 14px; border-radius: 12px; background: {{ w.bg }}; border: 1px solid {{ w.border }}; color: {{ w.fg }}; font-size: 18px; line-height: 28px; font-weight: 600; word-break: keep-all; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-3px);">{{ w.title }}</div>
-      </sc-for>
-    </div>
-    </div>
-  </section>
-  </sc-if>
 
 
   <footer style="background: #1B4A33; color: #FFFFFF;">
