@@ -62,6 +62,10 @@
   audio::-webkit-media-controls-panel { background: transparent; }
   audio::-webkit-media-controls-play-button { background-color: #EDF0EE; border: 1px solid #E4E6E5; border-radius: 999px; padding: 8px; margin-right: 8px; transform: scale(1.15); }
   .m-burger { display: none; }
+  /* PC: 로고·우측 버튼 영역 폭을 같게 해서 메뉴를 화면 정가운데에 */
+  @media (min-width: 1100px) {
+    header > div[style*="grid-template-columns"] { grid-template-columns: 1fr auto 1fr !important; }
+  }
   @media (max-width: 1024px) {
     [style*="grid-template-columns: repeat(5"] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
     [style*="grid-template-columns: 2fr 1.1fr 1fr 1.2fr"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
