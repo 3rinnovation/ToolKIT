@@ -66,10 +66,6 @@
   @media (min-width: 1100px) {
     header > div[style*="grid-template-columns"] { grid-template-columns: 1fr auto 1fr !important; }
   }
-  /* 홈 카테고리: 영상이 5개인 줄은 PC에서 한 줄에 5개 */
-  @media (min-width: 1025px) {
-    [data-rail-cols="5"] { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; }
-  }
   @media (max-width: 1024px) {
     [style*="grid-template-columns: repeat(5"] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
     [style*="grid-template-columns: 2fr 1.1fr 1fr 1.2fr"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
@@ -738,7 +734,7 @@
   <img data-k="eg-smilebattle-n" src="assets/eg-smilebattle-n.webp" alt="">
   <img data-k="eg-smile-n" src="assets/eg-smile-n.webp" alt="">
   <img data-k="game-smilebattle-2" src="assets/min-game-smilebattle-2.jpg" alt="">
-  <img data-k="game-anxiety-2" src="assets/min-game-anxiety-2.jpg" alt="">
+  <img data-k="game-anxiety-2" src="assets/min-game-anxiety-2-v2.png" alt="">
   <img data-k="game-smile-2" src="assets/min-game-smile-2.jpg" alt="">
   <img data-k="game-impression-2" src="assets/min-game-impression-2.jpg" alt="">
   <img data-k="char-popang" src="assets/char-popang.webp" alt="">
@@ -832,7 +828,7 @@
               <h3 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; color: #131C29;">{{ r.title }}</h3>
               <a href="#svideo" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #8B948F;">전체보기 →</a>
             </div>
-            <div data-rail-cols="{{ r.cols }}" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px;">
+            <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px;">
               <sc-for list="{{ r.items }}" as="v" hint-placeholder-count="4">
                 <a href="{{ v.href }}" style="min-width: 0; margin: -10px; padding: 10px 10px 14px; display: flex; flex-direction: column; gap: 10px; border-radius: 16px; transition: transform 0.16s ease, box-shadow 0.16s ease;" style-hover="transform: translateY(-4px);">
                   <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background-color: #EDF3EF; background-image: {{ v.bgImage }}; background-size: cover; background-position: center; --m-bg: {{ v.mBg }};">
@@ -2418,7 +2414,7 @@
                 <span onClick="{{ r.toggle }}" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #8B948F; cursor: pointer;" style-hover="color: #1F6B45;">{{ r.moreLabel }}</span>
               </sc-if>
             </div>
-            <div data-rail-cols="{{ r.cols }}" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px;">
+            <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px;">
               <sc-for list="{{ r.items }}" as="v" hint-placeholder-count="4">
                 <a href="{{ v.href }}" style="min-width: 0; margin: -10px; padding: 10px 10px 14px; display: flex; flex-direction: column; gap: 10px; border-radius: 16px; transition: transform 0.16s ease, box-shadow 0.16s ease;" style-hover="transform: translateY(-4px);">
                   <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background-color: #EDF3EF; background-image: {{ v.bgImage }}; background-size: cover; background-position: center; --m-bg: {{ v.mBg }};">
@@ -4765,7 +4761,6 @@ __P.p1 = (function () { const location = __hash.p1; return class extends SubLogi
           title: g.title,
           items: g.all,
           hasMore: false,
-          cols: g.all.length,
           moreLabel: open[gi] ? "접기" : "전체보기 →",
           toggle: () => this.setState({ railOpen: { ...(this.state.railOpen || {}), [gi]: !open[gi] } })
         }));
@@ -5643,7 +5638,6 @@ __P.p8 = (function () { const location = __hash.p8; return class extends SubLogi
           title: g.title,
           items: g.all,
           hasMore: false,
-          cols: g.all.length,
           moreLabel: open[gi] ? "접기" : "전체보기 →",
           toggle: () => this.setState({ railOpen: { ...(this.state.railOpen || {}), [gi]: !open[gi] } })
         }));
@@ -6073,7 +6067,7 @@ __P.p13 = (function () { const location = __hash.p13; return class extends SubLo
 
 const __G = [
   { t: "미소배틀", sub: "누가누가 더 밝게 웃나 시합!", how: "두 명이서 하는 게임입니다. 카메라가 필요하고, 두 명의 웃는 모습으로 겨루기를 할 수 있습니다.", wide: "assets/min-game-smilebattle-wide.jpg", tint: "#FDF0F5", dur: "약 3분", desc: "표정을 바꿔가며 겨루는 짧은 배틀.", kidDesc: "웃는 표정으로 한 판 붙어 보자!", file: "https://kimyebin726.github.io/SMILE-BATTING/", tone: "#F58BB0", moment: 6, thumb: "assets/kg-smilebattle-n.webp", mthumb: "assets/mg-smilebattle.png", kleft: "assets/kg-left-smilebattle-v2.png", thumb2: "assets/min-game-smilebattle-2.jpg" },
-  { t: "불안몬잡기", sub: "걱정을 하나씩 잡아 없애기!", how: "머릿속을 맴도는 걱정을 몬스터로 만나 하나씩 잡아 봅니다. 걱정에 이름을 붙이고 정리하는 연습이 됩니다.", wide: "assets/min-game-anxiety-wide.jpg", tint: "#F1F3FE", dur: "약 1분", desc: "머릿속 걱정을 하나씩 잡아 정리합니다.", kidDesc: "걱정 몬스터를 하나씩 잡아 봐!", file: "https://kimyebin726.github.io/anxiety/", tone: "#7C8BF5", moment: 4, thumb: "assets/kg-anxiety-n.webp", mthumb: "assets/mg-anxiety.png", kleft: "assets/kg-left-anxiety-v2.png", thumb2: "assets/min-game-anxiety-2.jpg" },
+  { t: "불안몬잡기", sub: "걱정을 하나씩 잡아 없애기!", how: "머릿속을 맴도는 걱정을 몬스터로 만나 하나씩 잡아 봅니다. 걱정에 이름을 붙이고 정리하는 연습이 됩니다.", wide: "assets/min-game-anxiety-wide.jpg", tint: "#F1F3FE", dur: "약 1분", desc: "머릿속 걱정을 하나씩 잡아 정리합니다.", kidDesc: "걱정 몬스터를 하나씩 잡아 봐!", file: "https://kimyebin726.github.io/anxiety/", tone: "#7C8BF5", moment: 4, thumb: "assets/kg-anxiety-n.webp", mthumb: "assets/mg-anxiety.png", kleft: "assets/kg-left-anxiety-v2.png", thumb2: "assets/min-game-anxiety-2-v2.png" },
   { t: "스마일리프팅", sub: "7초면 얼굴이 풀려요!", how: "화면이 알려주는 대로 얼굴 근육을 따라 움직입니다. 한 번에 7초, 짧게 반복하며 긴장을 내려놓습니다.", wide: "assets/min-game-smile-wide.jpg", tint: "#FEF8EA", dur: "1회 7초", desc: "얼굴 근육을 풀며 긴장을 내려놓습니다.", kidDesc: "얼굴을 쭉 늘려서 힘을 풀어 보자.", file: "https://kimyebin726.github.io/-Smile-Lifting/", tone: "#F5B01B", moment: 5, thumb: "assets/kg-smile-n.webp", mthumb: "assets/mg-smile-meadow.png", kleft: "assets/kg-left-smile-v2.png", thumb2: "assets/min-game-smile-2.jpg" },
   { t: "인상업", sub: "표정 하나로 기분이 올라가요!", how: "카메라가 표정을 알아봅니다. 웃는 표정을 만들면 점수가 올라가고, 매일 1분씩 습관으로 이어집니다.", wide: "assets/min-game-impression-wide.jpg", tint: "#EFF9F3", dur: "매일 1분", desc: "표정을 인식해 기분을 올리는 미니 게임.", kidDesc: "표정을 바꾸면 점수가 올라가!", file: "https://kimyebin726.github.io/Impression-up/", tone: "#50BE82", moment: 1, thumb: "assets/kg-impression-n.webp", mthumb: "assets/mg-impression.png", kleft: "assets/kg-left-impression-v2.png", thumb2: "assets/min-game-impression-2.jpg" }
 ];
@@ -8277,7 +8271,7 @@ class Component extends DCLogic {
         ["assets/min-game-smile-2.jpg", "assets/eg-sm-2-c.webp"],
         ["assets/kg-smile-n.webp", "assets/eg-smile-n.webp"],
         ["assets/min-game-anxiety-wide.jpg", "assets/eg-an-1-c.webp"],
-        ["assets/min-game-anxiety-2.jpg", "assets/eg-an-2-c.webp"],
+        ["assets/min-game-anxiety-2-v2.png", "assets/eg-an-2-c.webp"],
         ["assets/kg-anxiety-n.webp", "assets/eg-anxiety-n.webp"],
         ["assets/min-game-impression-wide.jpg", "assets/eg-im-1-c.webp"],
         ["assets/min-game-impression-2.jpg", "assets/eg-im-2-c.webp"],
