@@ -66,6 +66,10 @@
   @media (min-width: 1100px) {
     header > div[style*="grid-template-columns"] { grid-template-columns: 1fr auto 1fr !important; }
   }
+  /* 홈 카테고리: 영상이 5개인 줄은 PC에서 한 줄에 5개 */
+  @media (min-width: 1025px) {
+    [data-rail-cols="5"] { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; }
+  }
   @media (max-width: 1024px) {
     [style*="grid-template-columns: repeat(5"] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
     [style*="grid-template-columns: 2fr 1.1fr 1fr 1.2fr"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
@@ -828,7 +832,7 @@
               <h3 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; color: #131C29;">{{ r.title }}</h3>
               <a href="#svideo" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #8B948F;">전체보기 →</a>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px;">
+            <div data-rail-cols="{{ r.cols }}" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px;">
               <sc-for list="{{ r.items }}" as="v" hint-placeholder-count="4">
                 <a href="{{ v.href }}" style="min-width: 0; margin: -10px; padding: 10px 10px 14px; display: flex; flex-direction: column; gap: 10px; border-radius: 16px; transition: transform 0.16s ease, box-shadow 0.16s ease;" style-hover="transform: translateY(-4px);">
                   <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background-color: #EDF3EF; background-image: {{ v.bgImage }}; background-size: cover; background-position: center; --m-bg: {{ v.mBg }};">
@@ -2414,7 +2418,7 @@
                 <span onClick="{{ r.toggle }}" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #8B948F; cursor: pointer;" style-hover="color: #1F6B45;">{{ r.moreLabel }}</span>
               </sc-if>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px;">
+            <div data-rail-cols="{{ r.cols }}" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px;">
               <sc-for list="{{ r.items }}" as="v" hint-placeholder-count="4">
                 <a href="{{ v.href }}" style="min-width: 0; margin: -10px; padding: 10px 10px 14px; display: flex; flex-direction: column; gap: 10px; border-radius: 16px; transition: transform 0.16s ease, box-shadow 0.16s ease;" style-hover="transform: translateY(-4px);">
                   <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background-color: #EDF3EF; background-image: {{ v.bgImage }}; background-size: cover; background-position: center; --m-bg: {{ v.mBg }};">
@@ -4759,8 +4763,9 @@ __P.p1 = (function () { const location = __hash.p1; return class extends SubLogi
         const open = this.state.railOpen || {};
         return groups.map((g, gi) => ({
           title: g.title,
-          items: open[gi] ? g.all : g.all.slice(0, 4),
-          hasMore: g.all.length > 4,
+          items: g.all,
+          hasMore: false,
+          cols: g.all.length,
           moreLabel: open[gi] ? "접기" : "전체보기 →",
           toggle: () => this.setState({ railOpen: { ...(this.state.railOpen || {}), [gi]: !open[gi] } })
         }));
@@ -5636,8 +5641,9 @@ __P.p8 = (function () { const location = __hash.p8; return class extends SubLogi
         const open = this.state.railOpen || {};
         return groups.map((g, gi) => ({
           title: g.title,
-          items: open[gi] ? g.all : g.all.slice(0, 4),
-          hasMore: g.all.length > 4,
+          items: g.all,
+          hasMore: false,
+          cols: g.all.length,
           moreLabel: open[gi] ? "접기" : "전체보기 →",
           toggle: () => this.setState({ railOpen: { ...(this.state.railOpen || {}), [gi]: !open[gi] } })
         }));
