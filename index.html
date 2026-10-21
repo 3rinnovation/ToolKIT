@@ -4255,11 +4255,8 @@
   </sc-if>
 
   <sc-if value="{{ vwMini }}" hint-placeholder-val="{{ false }}">
-    <div style="position: fixed; right: 44px; bottom: 32px; z-index: 92; display: flex; align-items: center; gap: 12px;">
-      <span onClick="{{ vwOpenFn }}" onMouseEnter="{{ vwPlay }}" onMouseLeave="{{ vwPause }}" style="flex: 0 0 auto; width: 74px; height: 74px; border-radius: 16px; overflow: hidden; background: #0B1410; box-shadow: 0 14px 28px -18px rgba(7,9,8,0.5); cursor: pointer; display: block;">
-        <video id="promo-video-mini" data-remote="promo-pangi.mp4" loop="{{ true }}" muted="{{ true }}" defaultMuted="{{ true }}" playsInline="{{ true }}" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
-      </span>
-      <span onClick="{{ vwChat }}" style="flex: 0 0 auto; padding: 14px 26px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E4E6E5; color: #131C29; font-family: Pretendard, sans-serif; font-size: 16px; line-height: 24px; font-weight: 700; cursor: pointer; box-shadow: 0 14px 28px -22px rgba(7,9,8,0.4);" style-hover="background: #EAF6EF; color: #1F6B45;">채팅하기</span>
+    <div style="position: fixed; right: 64px; bottom: 56px; z-index: 92; display: flex; align-items: center; gap: 12px;">
+      <span onClick="{{ vwChat }}" role="button" aria-label="채팅하기" style="flex: 0 0 auto; width: 64px; height: 64px; border-radius: 999px; display: block; background-image: url('assets/chat-icon2.png'), url('assets/chat-popang-s.webp'); background-size: 167% auto; background-position: 49.7% 54.5%; background-repeat: no-repeat; cursor: pointer; transition: transform 0.18s ease;" style-hover="transform: translateY(-2px) scale(1.02);"></span>
     </div>
   </sc-if>
 
@@ -4297,9 +4294,9 @@
       </div>
 
       <sc-if value="{{ chatShowQuick }}" hint-placeholder-val="{{ true }}">
-      <div style="flex: 0 0 auto; padding: 0 16px 14px; display: flex; flex-wrap: wrap; gap: 8px; background: #FFFFFF;">
+      <div data-chat-quick="1" style="flex: 0 0 auto; padding: 0 16px 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; background: #FFFFFF;">
         <sc-for list="{{ chatQuick }}" as="q" hint-placeholder-count="0">
-          <span onClick="{{ q.pick }}" style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 6px; border-radius: 999px; border: 1px solid #EDEFEE; background: #FBFCFB; color: #2F3A36; font-family: Pretendard, sans-serif; font-size: 13px; line-height: 18px; font-weight: 600; cursor: pointer; white-space: nowrap;" style-hover="border-color: #30A967; background: #F2F8F4; color: #1F6B45;">
+          <span onClick="{{ q.pick }}" style="min-width: 0; display: flex; align-items: center; gap: 6px; padding: 6px 8px 6px 6px; border-radius: 999px; border: 1px solid #EDEFEE; background: #FBFCFB; color: #2F3A36; font-family: Pretendard, sans-serif; font-size: 12.5px; letter-spacing: -0.02em; line-height: 18px; font-weight: 600; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" style-hover="border-color: #30A967; background: #F2F8F4; color: #1F6B45;">
             <span style="width: 26px; height: 26px; flex: 0 0 auto; display: block; border-radius: 999px; background-image: {{ q.iconBg }}; background-size: cover; background-position: center; background-repeat: no-repeat;"></span>
             {{ q.label }}
           </span>
@@ -7127,8 +7124,10 @@ const __EN = {
   "집중이 흐트러졌어요": "Focus has scattered",
   "너무 들떠 있어요": "They're distracted",
   "안녕하세요, 포팡이입니다.\n오늘 반 분위기는 어떤가요?": "Hello, I'm Popang.\nHow is the class feeling today?",
+  "안녕하세요, 포팡이에요.\n오늘은 우리반 분위기가 어떤가요?": "Hello, I'm Popang.\nHow is the class feeling today?",
   "안녕! 나는 포팡이야.\n지금 기분이 어때?": "Hi, I'm Popang!\nHow are you feeling right now?",
   "오늘 반 분위기는 어떤가요?": "How is the class feeling today?",
+  "포팡이에게 지금의 고민을 털어놓아 보세요.": "Tell Popang what's on your mind.",
   "지금 기분이 어때?": "How are you feeling right now?",
   "예: 아이들이 들떠 있어요": "e.g. They're too restless",
   "예: 집중이 안 돼": "e.g. I can't focus",
@@ -8019,7 +8018,7 @@ class Component extends DCLogic {
       if (__ROUTES[raw]) return raw;
     } catch (e) {}
     return "home";
-  })(), vwSound: true, vwOpen: true };
+  })(), vwSound: true };
   get __unusedChatIcon() { return null; }
   chatKB(stu) {
     const s = stu;
@@ -8087,7 +8086,7 @@ class Component extends DCLogic {
     const st = this.state;
     const stu = !!__STUDENT[st.route];
     const open = !!st.chatOpen;
-    const msgs = st.chatMsgs || [{ me: false, t: stu ? "안녕! 나는 포팡이야.\n지금 기분이 어때?" : "안녕하세요, 포팡이입니다.\n오늘 반 분위기는 어떤가요?" , l: [] }];
+    const msgs = st.chatMsgs || [{ me: false, t: stu ? "안녕! 나는 포팡이야.\n지금 기분이 어때?" : "안녕하세요, 포팡이에요.\n오늘은 우리반 분위기가 어떤가요?" , l: [] }];
     const send = (raw, key) => {
       const el = document.getElementById("pangchat-input");
       const text = (raw !== undefined ? raw : (el ? el.value : "")).trim();
@@ -8116,7 +8115,7 @@ class Component extends DCLogic {
       },
       chatCanReset: msgs.length > 1,
       chatTitle: stu ? "포팡이에게 물어보기" : "포팡이 도움말",
-      chatSub: stu ? "지금 기분이 어때?" : "오늘 반 분위기는 어떤가요?",
+      chatSub: stu ? "지금 기분이 어때?" : "포팡이에게 지금의 고민을 털어놓아 보세요.",
       chatPlaceholder: __T(stu ? "예: 집중이 안 돼" : "예: 아이들이 들떠 있어요"),
       chatShowQuick: msgs.length <= 1,
       chatKey: (e) => { if (e.key === "Enter" && !e.nativeEvent.isComposing) send(); },
@@ -8620,8 +8619,8 @@ class Component extends DCLogic {
     vals.enWeight = lang === "en" ? 600 : 400;
     vals.logoSrc = lang === "en" ? "assets/logo-toolkit-en.png" : "assets/logo-selfreg-toolkit.png";
     const isPC = true;
-    vals.vwOpen = isPC && !this.state.chatOpen && this.state.vwOpen === true;
-    vals.vwMini = isPC && !this.state.chatOpen && this.state.vwOpen !== true;
+    vals.vwOpen = false;
+    vals.vwMini = isPC && !this.state.chatOpen;
     vals.chatClosedOld = false;
     vals.vwClose = () => {
       const a = document.getElementById("promo-video");
@@ -8646,8 +8645,7 @@ class Component extends DCLogic {
       this._vwDone = 1;
       const v = document.getElementById("promo-video");
       if (v) { v.muted = true; v.volume = 0; try { v.pause(); } catch (e) {} }
-      // 첫 재생이 끝나면 채팅창 자동으로 열기
-      this.setState({ vwSound: false, vwOpen: false, chatOpen: true });
+      this.setState({ vwSound: false });
     };
     if (typeof document !== "undefined" && !this._vwLoopHook) {
       this._vwLoopHook = 1;
