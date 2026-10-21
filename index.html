@@ -301,6 +301,11 @@
   }
   html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   img.img-missing { display: none !important; }
+  /* 홈 히어로: 메뉴 아래 보이는 영역을 모든 화면에서 가로:세로 = 3:1로 고정 (데스크톱은 메뉴 밑으로 83px 겹침) */
+  :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) { aspect-ratio: auto !important; min-height: 0 !important; height: calc(100vw / 3 + 83px) !important; }
+  @media (max-width: 768px) {
+    :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) { height: calc(100vw / 3) !important; }
+  }
 </style>
 <script>
 (function () {
