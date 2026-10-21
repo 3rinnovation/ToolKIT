@@ -63,7 +63,7 @@
   audio::-webkit-media-controls-play-button { background-color: #EDF0EE; border: 1px solid #E4E6E5; border-radius: 999px; padding: 8px; margin-right: 8px; transform: scale(1.15); }
   .m-burger { display: none; }
   /* PC: 로고·우측 버튼 영역 폭을 같게 해서 메뉴를 화면 정가운데에 */
-  @media (min-width: 1100px) {
+  @media (min-width: 769px) {
     header > div[style*="grid-template-columns"] { grid-template-columns: 1fr auto 1fr !important; }
   }
   @media (max-width: 1024px) {
@@ -306,8 +306,8 @@
   @media (max-width: 768px) {
     :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) { height: calc(100vw / 3) !important; }
   }
-  /* PC(1100px 이상): 상단 메뉴 바·홈 히어로를 1600px 화면 기준 비율 그대로 화면 폭에 맞춰 확대·축소 (1px = 0.0625vw) */
-  @media (min-width: 1100px) {
+  /* PC(769px 이상): 상단 메뉴 바·홈 히어로를 1600px 화면 기준 비율 그대로 화면 폭에 맞춰 확대·축소 (1px = 0.0625vw) */
+  @media (min-width: 769px) {
     header > div[style*="grid-template-columns"] { max-width: 75vw !important; padding: 0.5vw 1.25vw !important; gap: 1vw !important; }
     header > div > a:first-child { margin-left: 1vw !important; }
     header > div > a:first-child img { height: 3.5vw !important; }
