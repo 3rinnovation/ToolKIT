@@ -339,6 +339,9 @@
     :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) > p { font-size: 1.25vw !important; line-height: 1.625vw !important; margin-top: 0.125vw !important; }
     :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) > span[style*="right: 28px"] { right: 1.75vw !important; bottom: 1.25vw !important; gap: 1.75vw !important; font-size: 0.875vw !important; }
     :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) > span[style*="right: 28px"] span[style*="font-size: 15px"] { font-size: 0.9375vw !important; }
+    /* 홈: 히어로 아래 모든 콘텐츠의 시작 위치를 히어로 제목 시작(17.5vw)에 맞춤, 오른쪽도 같은 여백 */
+    div:has(> div > video[id$="hero-video"]) { max-width: none !important; padding-left: 17.5vw !important; padding-right: 17.5vw !important; }
+    div:has(video[id$="hero-video"]) :is(section[style*="max-width: 1200px"], [data-research-band] > div[style*="max-width: 1200px"]) { max-width: none !important; padding-left: 17.5vw !important; padding-right: 17.5vw !important; }
   }
 </style>
 <script>
