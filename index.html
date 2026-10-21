@@ -20,16 +20,33 @@
 <meta name="ext-resource-dependency" content="assets/hero-angry.jpg">
 <meta name="ext-resource-dependency" content="assets/hero-help.jpg">
 <style>
-  html, body { overflow-x: hidden; max-width: 100%; }
+  html, body { overflow-x: clip; max-width: 100%; }
   html { scroll-behavior: smooth; }
   @keyframes omFadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
   @keyframes omFadeIn { from { opacity: 0; } to { opacity: 1; } }
-  header { position: relative; z-index: 40; }
+  header { position: sticky !important; top: 0 !important; z-index: 60 !important; }
   header { animation: omFadeIn 0.5s ease both; }
   a, button, input { transition: color 0.22s cubic-bezier(0.22,1,0.36,1), background 0.22s cubic-bezier(0.22,1,0.36,1), border-color 0.22s cubic-bezier(0.22,1,0.36,1), transform 0.28s cubic-bezier(0.22,1,0.36,1), box-shadow 0.28s cubic-bezier(0.22,1,0.36,1), opacity 0.22s ease; }
   a img { transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease; }
   a:hover img { transform: scale(1.035); }
   a:active { transform: scale(0.985); }
+  @media (min-width: 1101px) {
+    header > div { grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr) !important; }
+    header > div > :nth-child(3) { justify-self: end; }
+  }
+  @media (max-width: 1000px) {
+    [data-tool-wrap] { grid-template-columns: minmax(0, 1fr) !important; padding: 20px 16px 40px !important; }
+  }
+  @media (max-width: 768px) {
+    [data-tool-left] { padding: 20px 14px !important; }
+    [data-tool-left] h1, [data-tool-left] h2 { font-size: 20px !important; line-height: 28px !important; }
+    [data-tool-cats] > div { gap: 10px !important; padding: 12px 8px 12px 10px !important; }
+    [data-tool-cats] > div > span:first-child { font-size: 15px !important; line-height: 22px !important; }
+    [data-tool-items] > div > span:nth-child(2) { font-size: 14px !important; }
+    [data-tool-right] { padding: 12px !important; }
+    [data-tool-info] h1 { font-size: 22px !important; line-height: 30px !important; }
+    [data-tool-meta] { font-size: 15px !important; line-height: 24px !important; }
+  }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     section, header { animation: none; }
@@ -62,10 +79,6 @@
   audio::-webkit-media-controls-panel { background: transparent; }
   audio::-webkit-media-controls-play-button { background-color: #EDF0EE; border: 1px solid #E4E6E5; border-radius: 999px; padding: 8px; margin-right: 8px; transform: scale(1.15); }
   .m-burger { display: none; }
-  /* PC: 로고·우측 버튼 영역 폭을 같게 해서 메뉴를 화면 정가운데에 */
-  @media (min-width: 769px) {
-    header > div[style*="grid-template-columns"] { grid-template-columns: 1fr auto 1fr !important; }
-  }
   @media (max-width: 1024px) {
     [style*="grid-template-columns: repeat(5"] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
     [style*="grid-template-columns: 2fr 1.1fr 1fr 1.2fr"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
@@ -301,7 +314,7 @@
   }
   html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   img.img-missing { display: none !important; }
-  /* 홈 히어로: 메뉴 아래 보이는 영역을 모든 화면에서 가로:세로 = 3:1로 고정 (데스크톱은 메뉴 밑으로 83px 겹침) */
+  /* 홈 히어로: 메뉴 아래 보이는 영역을 모든 화면에서 가로:세로 = 3:1로 고정 */
   :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) { aspect-ratio: auto !important; min-height: 0 !important; height: calc(100vw / 3 + 83px) !important; }
   @media (max-width: 768px) {
     :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) { height: calc(100vw / 3) !important; }
@@ -314,14 +327,14 @@
     header nav { gap: 0.25vw 1.125vw !important; }
     header nav a[style*="font-size: 16px"] { font-size: 1vw !important; line-height: 1.625vw !important; padding: 0.5vw 0.125vw !important; border-bottom-width: 0.1875vw !important; }
     header nav + div { margin-left: 1.25vw !important; padding-left: 0.75vw !important; gap: 0.75vw !important; }
-    header nav + div > div[style*="padding: 4px"] { padding: 0.25vw !important; }
-    header nav + div > div > a, header nav + div > div > span { padding: 0.5vw 0.875vw !important; font-size: 0.9375vw !important; }
+    header nav + div > div[style*="border-radius: 999px"] { padding: 0.1875vw !important; }
+    header nav + div > div > a, header nav + div > div > span { min-width: 4vw !important; padding: 0.4375vw 1vw !important; font-size: 0.9375vw !important; }
     header nav + div > span[style*="width: 1px"] { height: 1.375vw !important; }
     header nav + div span[style*="width: 40px; height: 40px"] { width: 2.5vw !important; height: 2.5vw !important; }
     header nav + div span[style*="width: 40px; height: 40px"] svg { width: 1.5625vw !important; height: 1.5625vw !important; }
     header nav + div > span[style*="width: 34px"] { width: 2.125vw !important; height: 2.125vw !important; }
     header nav + div > span[style*="width: 34px"] svg { width: 1.125vw !important; height: 1.125vw !important; }
-    :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) { height: calc(100vw / 3 + 5.1875vw) !important; margin-top: calc(-28px - 5.1875vw) !important; padding: 6.9375vw 7.5vw 3vw !important; }
+    :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) { height: calc(100vw / 3 + 5.1875vw) !important; margin-top: calc(-28px - 5.1875vw) !important; padding: 6.9375vw 17.5vw 3vw !important; }
     :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) > h1 { font-size: 2.625vw !important; }
     :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) > p { font-size: 1.25vw !important; line-height: 1.625vw !important; margin-top: 0.125vw !important; }
     :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) > span[style*="right: 28px"] { right: 1.75vw !important; bottom: 1.25vw !important; gap: 1.75vw !important; font-size: 0.875vw !important; }
@@ -781,13 +794,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#shome" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#shome" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#shome" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#sshorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#svideo" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#svideo" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#scardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#sgames" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#semoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -799,14 +811,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <a href="#home" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">선생님용</a>
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">학생용</span>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <a href="#home" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">선생님용</a>
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">학생용</span>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -1106,13 +1118,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#shome" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#shome" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#shome" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#sshorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#svideo" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#svideo" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#scardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#sgames" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#semoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -1124,14 +1135,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <a href="#home" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">선생님용</a>
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">학생용</span>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <a href="#home" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">선생님용</a>
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">학생용</span>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -1362,13 +1373,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#home" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#shorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#cardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#games" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#emoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -1380,14 +1390,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">선생님용</span>
-            <a href="#shome" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">학생용</a>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">선생님용</span>
+            <a href="#shome" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">학생용</a>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -1619,13 +1629,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#shome" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#shome" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#shome" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#sshorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#svideo" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#svideo" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#scardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#sgames" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#semoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -1637,14 +1646,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <a href="#home" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">선생님용</a>
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">학생용</span>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <a href="#home" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">선생님용</a>
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">학생용</span>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -1858,13 +1867,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#shome" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#shome" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#shome" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#sshorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#svideo" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#svideo" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#scardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#sgames" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#semoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -1876,14 +1884,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <a href="#home" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">선생님용</a>
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">학생용</span>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <a href="#home" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">선생님용</a>
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">학생용</span>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -2036,13 +2044,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#shome" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#shome" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#shome" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#sshorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#svideo" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#svideo" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#scardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#sgames" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#semoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -2054,14 +2061,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <a href="#home" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">선생님용</a>
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">학생용</span>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <a href="#home" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">선생님용</a>
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">학생용</span>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -2214,13 +2221,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#shome" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#shome" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#shome" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#sshorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#svideo" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#svideo" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#scardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#sgames" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#semoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -2232,14 +2238,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <a href="#home" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">선생님용</a>
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">학생용</span>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <a href="#home" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">선생님용</a>
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">학생용</span>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -2266,8 +2272,7 @@
 
 
       <div style="max-width: 1200px; margin: 0 auto; padding: 24px 80px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px;">
-        <h1 style="margin: 0; font-size: 32px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em; color: #070908;">쇼츠</h1>
-        <div style="height: calc(100vh - 190px); min-height: 420px; overflow-y: auto; scroll-snap-type: y mandatory; scrollbar-width: none; -ms-overflow-style: none; display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 4px;">
+        <div data-shorts-list="1" style="scrollbar-width: none; -ms-overflow-style: none; display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 4px;">
           <sc-for list="{{ p12.items }}" as="v" hint-placeholder-count="5">
             <div style="flex: 0 0 auto; width: 300px; scroll-snap-align: center; min-width: 0; display: flex; flex-direction: column; align-items: stretch; gap: 10px;">
               <div onMouseEnter="{{ v.hoverIn }}" onMouseLeave="{{ v.hoverOut }}" style="position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background-color: #070908; background-image: {{ v.bgImage }}; background-size: cover; background-position: center; --m-bg: {{ v.mBg }};">
@@ -2355,13 +2360,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#home" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#shorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#cardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#games" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#emoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -2373,14 +2377,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">선생님용</span>
-            <a href="#shome" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">학생용</a>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">선생님용</span>
+            <a href="#shome" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">학생용</a>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -2407,7 +2411,7 @@
 
     <div style="position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 28px 80px 44px; display: flex; flex-direction: column;">
 
-      <div style="position: relative; min-height: 460px; aspect-ratio: 1605 / 620; margin: -111px calc(50% - 50vw) 8px; padding: 111px max(28px, calc(50vw - 680px)) 48px; box-sizing: border-box; overflow: hidden; background-color: #0B1410; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;">
+      <div style="position: relative; min-height: 460px; aspect-ratio: 1605 / 620; margin: -111px calc(50% - 50vw) 8px; padding: 111px max(80px, calc(50vw - 520px)) 48px; box-sizing: border-box; overflow: hidden; background-color: #0B1410; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;">
         <video id="thero-video" data-remote="hero-loop-mute.mp4" autoPlay="{{ true }}" loop="{{ true }}" muted="{{ true }}" defaultMuted="{{ true }}" volume="{{ 0 }}" playsInline="{{ true }}" ref="{{ heroVideoRef }}" style="position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
 
         <span style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(7,9,8,0) 45%, rgba(7,9,8,0.45) 100%);"></span>
@@ -2619,10 +2623,10 @@
 
   <section id="adults" style="margin: 0;">
     
-  <div style="position: relative; padding: 140px 40px 110px; color: #FFFFFF; background-color: #14201A; background-image: linear-gradient(180deg, rgba(7,9,8,0.42) 0%, rgba(7,9,8,0.38) 100%), url('assets/cta-classroom2.jpg'); background-size: cover, cover; background-position: center, center; background-repeat: no-repeat, no-repeat; overflow: hidden; display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center;">
-      <h2 style="margin: 0; position: relative; z-index: 2; font-size: 38px; line-height: 54px; font-weight: 700; letter-spacing: -0.02em; color: #FFFFFF; word-break: keep-all; white-space: pre-line;">{{ p1.closingHeadline }}</h2>
-      <p style="margin: 0; position: relative; z-index: 2; font-size: 18px; line-height: 28px; font-weight: 500; color: #FFFFFF;">더 건강해진 우리 반을 경험해 보세요.</p>
-      <span style="position: relative; z-index: 2; padding: 20px 40px; border-radius: 12px; background: #50BE82; color: #FFFFFF; font-size: 20px; font-weight: 700;">우리 반에서 시작하기 →</span>
+  <div data-cta-light="1" style="position: relative; aspect-ratio: 3 / 1; min-height: 420px; padding: 40px; box-sizing: border-box; background-color: #EAF3EE; background-image: url('assets/cta-classroom.png'); background-size: cover; background-position: center; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; text-align: center;">
+      <h2 style="margin: 0; position: relative; z-index: 2; font-size: clamp(30px, 3vw, 46px); line-height: 1.4; font-weight: 800; letter-spacing: -0.02em; color: #131C29; word-break: keep-all; text-shadow: 0 1px 12px rgba(255,255,255,0.6);">아이들이 막힌 순간,<br><span style="position: relative; display: inline-block; color: #1FA35B;">다시 해볼 방법<span style="position: absolute; left: -2%; right: -2%; bottom: 0.08em; height: 0.32em; border-radius: 999px; background: rgba(140,230,180,0.55); z-index: -1;"></span></span>을 건네요.</h2>
+      <p style="margin: 0; position: relative; z-index: 2; font-size: 18px; line-height: 28px; font-weight: 500; color: #3C4540;">더 건강해진 우리 반을 경험해 보세요.</p>
+      <span style="position: relative; z-index: 2; margin-top: 4px; padding: 18px 44px; border-radius: 999px; background: #1FA35B; color: #FFFFFF; font-size: 19px; font-weight: 700; box-shadow: 0 6px 18px rgba(31,163,91,0.28);">우리 반에서 시작하기 →</span>
     </div></section>
 
   <footer style="background: #1B4A33; color: #FFFFFF;">
@@ -2688,13 +2692,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#home" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#shorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#cardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#games" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#emoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -2706,14 +2709,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">선생님용</span>
-            <a href="#shome" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">학생용</a>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">선생님용</span>
+            <a href="#shome" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">학생용</a>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -2733,25 +2736,45 @@
     </div>
   </header>
 
-  <section style="background: #EEF6F1; border-bottom: 1px solid #E2EDE7;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 22px 80px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px;">
-      <div style="flex: 0 0 auto; display: flex; align-items: baseline; gap: 12px;">
-        <span style="font-size: 14px; line-height: 22px; font-weight: 700; color: #30A967;">영상 선택</span>
-        <h1 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 800; letter-spacing: -0.02em; color: #131C29; white-space: nowrap;">오늘 우리 반 아이들은?</h1>
+  <section style="background: linear-gradient(180deg, #EEF6F1 0%, #F6FAF7 100%);">
+  <div data-tool-wrap="1" style="max-width: 1320px; margin: 0 auto; padding: 32px 40px 64px; display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 20px; align-items: stretch;">
+    <div data-tool-left="1" style="min-width: 0; padding: 28px 24px; border-radius: 28px; background: rgba(255,255,255,0.6); border: 1px solid #FFFFFF; display: flex; flex-direction: column; gap: 18px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span style="flex: 0 0 auto; padding: 6px 16px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 17px; line-height: 24px; font-weight: 800; letter-spacing: 0.02em;">STEP 1</span>
+          <h1 style="margin: 0; font-size: 26px; line-height: 36px; font-weight: 800; letter-spacing: -0.02em; color: #131C29; word-break: keep-all;">상황을 선택하세요!</h1>
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 24px; color: #5E6762; word-break: keep-all;">지금 어떤 상황인가요? 상황을 선택하면, 도움이 되는 도구들이 나타나요.</p>
       </div>
-      <div style="flex: 1 1 600px; min-width: 280px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
-        <sc-for list="{{ p2.moments }}" as="m" hint-placeholder-count="8">
-          <div onClick="{{ m.select }}" style="min-width: 0; display: flex; align-items: center; gap: 9px; padding: 7px 12px 7px 7px; border-radius: 999px; background: {{ m.bg }}; border: 1px solid {{ m.border }}; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
-            <span style="width: 36px; height: 36px; flex: 0 0 auto; border-radius: 999px; background-image: {{ m.icon }}; background-size: contain; background-repeat: no-repeat; background-position: center;"></span>
-            <span style="min-width: 0; color: {{ m.fg }}; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 21px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ m.title }}</span>
+      <div data-tool-cats="1" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;">
+        <sc-for list="{{ p2.toolCats }}" as="c" hint-placeholder-count="4">
+          <div onClick="{{ c.select }}" style="min-width: 0; display: flex; align-items: center; gap: 14px; padding: 20px 14px 20px 20px; border-radius: 18px; background: {{ c.cardBg }}; border: 2px solid {{ c.cardBorder }}; box-shadow: 0 2px 12px rgba(31,74,51,0.05); cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
+            <span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; font-size: 17px; line-height: 25px; font-weight: 700; color: #131C29; word-break: keep-all;"><span>{{ c.l1 }}</span><span>{{ c.l2 }}</span></span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto;"><path d="M9 6l6 6-6 6"></path></svg>
+          </div>
+        </sc-for>
+      </div>
+      <span style="display: block; height: 1px; margin: 10px 0 6px; background: #DCE7E1;"></span>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span style="flex: 0 0 auto; padding: 6px 16px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 17px; line-height: 24px; font-weight: 800; letter-spacing: 0.02em;">STEP 2</span>
+          <h2 style="margin: 0; font-size: 26px; line-height: 36px; font-weight: 800; letter-spacing: -0.02em; color: #131C29; word-break: keep-all;">도구를 선택하세요!</h2>
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 24px; color: #5E6762; word-break: keep-all;">선택한 상황에 맞는 도구를 골라보세요.</p>
+      </div>
+      <div data-tool-items="1" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 64px; align-content: start; gap: 12px; min-height: 216px;">
+        <sc-for list="{{ p2.toolItems }}" as="m" hint-placeholder-count="5">
+          <div onClick="{{ m.select }}" style="min-width: 0; display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 12px; border-radius: 16px; background: {{ m.bg }}; border: 2px solid {{ m.border }}; box-shadow: 0 2px 10px rgba(31,74,51,0.04); cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
+            <span style="width: 40px; height: 40px; flex: 0 0 auto; border-radius: 999px; background-image: {{ m.icon }}; background-size: {{ m.iconSize }}; background-repeat: no-repeat; background-position: center;"></span>
+            <span style="flex: 1 1 auto; min-width: 0; color: {{ m.fg }}; font-family: Pretendard, sans-serif; font-size: 16px; line-height: 24px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ m.title }}</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto;"><path d="M9 6l6 6-6 6"></path></svg>
           </div>
         </sc-for>
       </div>
     </div>
-  </section>
 
-  <section style="max-width: 1200px; margin: 0 auto; padding: 28px 80px 48px; display: flex; flex-wrap: wrap; gap: 32px; align-items: stretch;">
-    <div style="flex: 1 1 480px; min-width: 320px; max-width: {{ p2.leftMax }}; display: flex; flex-direction: column; gap: 16px;">
+    <div data-tool-right="1" style="min-width: 0; padding: 18px; border-radius: 28px; background: #FFFFFF; box-shadow: 0 8px 30px rgba(31,74,51,0.06); display: flex; flex-direction: column; gap: 20px;">
+    <div style="min-width: 0; display: flex; flex-direction: column; gap: 16px;">
       <sc-if value="{{ p2.wideOpen }}" hint-placeholder-val="{{ false }}">
         <div style="width: 100%; display: flex; flex-wrap: wrap; align-items: stretch; gap: 32px;">
           <div style="flex: 1 1 460px; min-width: 300px; position: relative; align-self: flex-start; width: 100%; aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden; background: #070908;">
@@ -2773,7 +2796,8 @@
         </div>
       </sc-if>
       <sc-if value="{{ p2.wideClosed }}" hint-placeholder-val="{{ true }}">
-      <div style="position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 20px; overflow: hidden; background: #070908;">
+      <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden; background: #070908;">
+        <span onClick="{{ p2.goFull }}" title="전체 화면" style="position: absolute; z-index: 6; right: 14px; top: 14px; width: 42px; height: 42px; border-radius: 10px; background: rgba(7,9,8,0.6); display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: rgba(7,9,8,0.82);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"></path></svg></span>
         <sc-if value="{{ p2.hasVideo }}" hint-placeholder-val="{{ false }}">
           <iframe id="tvideo-frame" src="{{ p2.videoSrc }}" allow="autoplay" allowfullscreen="true" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block;"></iframe>
         </sc-if>
@@ -2800,37 +2824,15 @@
     </div>
 
     <sc-if value="{{ p2.wideClosed }}" hint-placeholder-val="{{ true }}">
-    <div style="flex: 1 1 340px; min-width: 300px; display: flex; flex-direction: column; gap: 18px;">
-      <h1 style="margin: 0; font-size: 34px; line-height: 48px; font-weight: 800; letter-spacing: -0.02em; color: #1F2A25; word-break: keep-all;">{{ p2.current.title }}</h1>
-      <div style="display: flex; flex-direction: column; gap: 18px; padding: 26px 28px; border-radius: 18px; background: #F3F8F5;">
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px 24px; padding: 20px 22px; border-radius: 14px; background: #FFFFFF;">
-          <div style="flex: 1 1 260px; min-width: 200px; display: flex; flex-direction: column; gap: 6px;">
-            <span style="display: flex; align-items: center; gap: 8px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E9E62" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
-              <span style="font-family: Pretendard, sans-serif; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0.04em; color: #2E9E62;">언제</span>
-            </span>
-            <span style="font-family: Pretendard, sans-serif; font-size: 22px; line-height: 32px; font-weight: 800; letter-spacing: -0.01em; color: #1F2A25; word-break: keep-all;">{{ p2.useWhen }}</span>
-          </div>
-          <span style="flex: 0 0 auto; align-self: stretch; width: 1px; background: #E6EEE9;"></span>
-          <div style="flex: 0 0 auto; display: flex; flex-direction: column; gap: 6px;">
-            <span style="display: flex; align-items: center; gap: 8px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E9E62" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
-              <span style="font-family: Pretendard, sans-serif; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0.04em; color: #2E9E62;">시간</span>
-            </span>
-            <span style="font-family: Pretendard, sans-serif; font-size: 24px; line-height: 32px; font-weight: 800; letter-spacing: -0.01em; color: #1F2A25; white-space: nowrap;">{{ p2.useTime }}</span>
-          </div>
-        </div>
-        <sc-for list="{{ p2.useRows }}" as="u" hint-placeholder-count="2">
-          <div style="display: flex; align-items: baseline; gap: 20px; padding-left: 22px;">
-            <span style="flex: 0 0 76px; font-family: Pretendard, sans-serif; font-size: 15px; line-height: 24px; font-weight: 700; color: #2E9E62;">{{ u.k }}</span>
-            <span style="flex: 0 0 auto; align-self: stretch; width: 1px; background: #D9E5DE;"></span>
-            <span style="flex: 1 1 auto; min-width: 0; font-family: Pretendard, sans-serif; font-size: 15px; line-height: 24px; font-weight: 400; color: #1F2A25; word-break: keep-all;">{{ u.v }}</span>
-          </div>
-        </sc-for>
+    <div data-tool-info="1" style="min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 0 2px;">
+        <h1 style="margin: 0; min-width: 0; font-size: 24px; line-height: 38px; font-weight: 700; letter-spacing: -0.01em; color: #070908; word-break: keep-all;">{{ p2.current.title }}</h1>
+        <span style="flex: 0 0 auto; display: flex; align-items: center; gap: 6px; font-size: 18px; line-height: 26px; font-weight: 700; color: #1F2A25; white-space: nowrap;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F2A25" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>{{ p2.useTime }}</span>
       </div>
+      <p data-tool-meta="1" style="margin: -8px 0 0; padding: 0 2px; font-size: 18px; line-height: 30px; color: #4C4B45; word-break: keep-all; text-wrap: pretty;">{{ p2.useWhen }}, {{ p2.useEffect }}</p>
 
-      <div style="display: flex; flex-direction: column; gap: 12px; margin-top: auto; padding-top: 12px;">
-          <span style="font-size: 20px; line-height: 30px; font-weight: 700; color: #070908;">도움이 되었나요?</span>
+      <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 8px 2px 0;">
+          <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #070908;">도움이 되었나요?</span>
           <div style="display: flex; flex-wrap: wrap; gap: 10px;">
             <div onClick="{{ p2.voteYes }}" style="padding: 12px 20px; border-radius: 999px; background: {{ p2.yesBg }}; border: 1px solid {{ p2.yesBorder }}; color: {{ p2.yesFg }}; font-size: 15px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; flex: 0 0 auto;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" style="flex: 0 0 auto;"><path d="M7 10v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3z"></path><path d="M7 10l4.5-7a2 2 0 0 1 3.4 2l-1.3 5h5.2a2 2 0 0 1 2 2.5l-1.6 6A2 2 0 0 1 17.3 20H7"></path></svg>네, 도움이 됐어요</div>
             <div onClick="{{ p2.voteNo }}" style="padding: 12px 20px; border-radius: 999px; background: {{ p2.noBg }}; border: 1px solid {{ p2.noBorder }}; color: {{ p2.noFg }}; font-size: 15px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; flex: 0 0 auto;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" style="flex: 0 0 auto;"><path d="M17 14V4h3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-3z"></path><path d="M17 14l-4.5 7a2 2 0 0 1-3.4-2l1.3-5H5.2a2 2 0 0 1-2-2.5l1.6-6A2 2 0 0 1 6.7 4H17"></path></svg>잘 모르겠어요</div>
@@ -2838,8 +2840,9 @@
       </div>
     </div>
     </sc-if>
+    </div>
+  </div>
   </section>
-
 
 
 
@@ -2906,13 +2909,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#home" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#shorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#cardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#games" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#emoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -2924,14 +2926,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">선생님용</span>
-            <a href="#shome" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">학생용</a>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">선생님용</span>
+            <a href="#shome" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">학생용</a>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -3076,13 +3078,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#home" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#shorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#cardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#games" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#emoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -3094,14 +3095,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">선생님용</span>
-            <a href="#shome" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">학생용</a>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">선생님용</span>
+            <a href="#shome" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">학생용</a>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -3250,13 +3251,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#home" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#shorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#cardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#games" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#emoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -3268,14 +3268,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">선생님용</span>
-            <a href="#shome" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">학생용</a>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">선생님용</span>
+            <a href="#shome" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">학생용</a>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -3398,13 +3398,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#home" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#shorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#cardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#games" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#emoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -3416,14 +3415,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">선생님용</span>
-            <a href="#shome" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">학생용</a>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">선생님용</span>
+            <a href="#shome" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">학생용</a>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -3576,13 +3575,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#home" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#shorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#cardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#games" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#emoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -3594,14 +3592,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">선생님용</span>
-            <a href="#shome" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">학생용</a>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">선생님용</span>
+            <a href="#shome" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">학생용</a>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -3770,13 +3768,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#home" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#shorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#cardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#games" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#emoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -3788,14 +3785,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">선생님용</span>
-            <a href="#shome" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">학생용</a>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">선생님용</span>
+            <a href="#shome" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">학생용</a>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -3822,8 +3819,7 @@
 
 
       <div style="max-width: 1200px; margin: 0 auto; padding: 24px 80px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px;">
-        <h1 style="margin: 0; font-size: 32px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em; color: #070908;">쇼츠</h1>
-        <div style="height: calc(100vh - 190px); min-height: 420px; overflow-y: auto; scroll-snap-type: y mandatory; scrollbar-width: none; -ms-overflow-style: none; display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 4px;">
+        <div data-shorts-list="1" style="scrollbar-width: none; -ms-overflow-style: none; display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 4px;">
           <sc-for list="{{ p13.items }}" as="v" hint-placeholder-count="5">
             <div style="flex: 0 0 auto; width: 300px; scroll-snap-align: center; min-width: 0; display: flex; flex-direction: column; align-items: stretch; gap: 10px;">
               <div onMouseEnter="{{ v.hoverIn }}" onMouseLeave="{{ v.hoverOut }}" style="position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background-color: #070908; background-image: {{ v.bgImage }}; background-size: cover; background-position: center; --m-bg: {{ v.mBg }};">
@@ -3911,13 +3907,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#home" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#home" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#shorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#video" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#cardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#games" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#emoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -3929,14 +3924,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">선생님용</span>
-            <a href="#shome" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">학생용</a>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">선생님용</span>
+            <a href="#shome" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">학생용</a>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -4078,13 +4073,12 @@
 
   <header style="background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%); backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%); position: sticky; top: 0; z-index: 20;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 8px 20px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px;">
-      <a href="#shome" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-toolkit-black.png" alt="응원 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
+      <a href="#shome" style="justify-self: start; margin-left: 16px; display: block;"><img src="assets/logo-selfreg-toolkit.png" alt="자기조절 툴킷" style="height: 56px; width: auto; display: block; object-fit: contain;"></a>
       <nav style="justify-self: center; min-width: 0; max-width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 18px; overflow: visible; scrollbar-width: none; -ms-overflow-style: none;">
           <a href="#shome" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">홈</a>
           <a href="#sshorts" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">쇼츠</a>
-          <a href="#svideo" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">영상 자료</a>
+          <a href="#svideo" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">상황별 툴킷</a>
           <a href="#scardnews" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">네컷 만화</a>
-          <a href="#sgames" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #070908; font-size: 16px; line-height: 26px; font-weight: 700; white-space: nowrap;" style-hover="color: #1F6B45;">게임</a>
           <a href="#articles" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">아티클</a>
           <a href="#semoji" style="flex: 0 0 auto; display: flex; align-items: center; padding: 8px 2px; border-bottom: 3px solid transparent; color: #4C4B45; font-size: 16px; line-height: 26px; font-weight: 500; white-space: nowrap;" style-hover="color: #1F6B45;">이모티콘</a>
           <div class="nav-dd" style="flex: 0 0 auto; display: flex; align-items: center;">
@@ -4096,14 +4090,14 @@
           </div>
       </nav>
       <div style="justify-self: end; flex: 0 0 auto; min-width: 0; margin-left: 20px; padding-left: 12px; display: flex; align-items: center; gap: 12px; background: inherit;">
-        <div style="display: flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-            <a href="#home" style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #8B908E; white-space: nowrap;" style-hover="color: #4C4B45;">선생님용</a>
-            <span style="display: flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 6px -1px rgba(48,169,103,0.5);">학생용</span>
+        <div style="display: flex; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E6E5;">
+            <a href="#home" style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; color: #6B7177; white-space: nowrap;" style-hover="color: #131C29;">선생님용</a>
+            <span style="display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 7px 16px; border-radius: 999px; background: #131C29; color: #FFFFFF; font-size: 15px; font-weight: 700; white-space: nowrap;">학생용</span>
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
           <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#30A967" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
@@ -4761,6 +4755,9 @@ __P.p1 = (function () { const location = __hash.p1; return class extends SubLogi
         const open = this.state.railOpen || {};
         return groups.map((g, gi) => ({
           title: g.title,
+          desc: ({ "수업을 따라오지 못해요": "시작이 막히거나 설명을 놓친 순간, 다시 수업으로 돌아오게 돕는 도구예요.", "마음을 가라앉히지 못해요": "화나거나 불안한 마음을 잠시 내려놓고 차분해지도록 돕는 도구예요.", "분위기가 처져 있어요": "가라앉은 교실에 웃음과 에너지를 다시 채워주는 도구예요.", "집중하기 어려워해요": "흩어진 시선과 몸을 다시 수업으로 모아주는 도구예요." })[g.title] || "",
+          prev: (e) => { const t = e.currentTarget.closest("[data-rail]").querySelector("[data-rail-track]"); t.scrollBy({ left: -t.clientWidth * 0.8, behavior: "smooth" }); },
+          next: (e) => { const t = e.currentTarget.closest("[data-rail]").querySelector("[data-rail-track]"); t.scrollBy({ left: t.clientWidth * 0.8, behavior: "smooth" }); },
           items: g.all,
           hasMore: false,
           moreLabel: open[gi] ? "접기" : "전체보기 →",
@@ -5135,10 +5132,61 @@ __P.p2 = (function () { const location = __hash.p2; return class extends SubLogi
         { k: "결과", v: use.result },
         { k: "기대효과", v: __BENEFIT[sel] || __BENEFIT[0] }
       ],
+      useEffect: __BENEFIT[sel] || __BENEFIT[0],
+      goFull: (e) => {
+        const box = e.currentTarget.parentElement;
+        if (document.fullscreenElement) { document.exitFullscreen(); return; }
+        const fn = box.requestFullscreen || box.webkitRequestFullscreen;
+        if (fn) fn.call(box);
+      },
       ...this.wideVals(),
       videoSrc: cur.src ? (cur.src.indexOf("drive.google.com") !== -1 ? __PICKSRC(cur.src) : cur.src + "?rk=" + this.state.nonce) : "about:blank",
       hasVideo: !!cur.src,
       noVideo: !cur.src,
+      ...(() => {
+        const RT = ["시작 도와주기", "수업 집중 되돌리기", "뭘 할지 모름", "다시 따라가기", "어려워함", "몸으로 쉬어가기", "진정 못함", "도움 요청 못함"];
+        const V = (i) => ({ t: RT[i], v: i, img: __MI[i + 1], size: "contain" });
+        const G = (i) => ({ t: ["미소배틀 게임", "불안몬잡기 게임", "스마일리프팅 게임", "인상업 게임"][i], href: __G[i].file || "#games", img: __G[i].mthumb || __G[i].thumb, size: "cover" });
+        const TC = [
+          { t: "수업을 따라오지 못해요", items: [V(0), V(2), V(4), V(3), V(7)] },
+          { t: "마음을 가라앉히지 못해요", items: [V(6), { t: "호흡으로 진정하기", w: 1, img: "assets/wt-breathe.webp", size: "cover" }, G(1), { t: "행복해지는 선택", w: 2, img: __W[2].thumb, size: "cover" }] },
+          { t: "분위기가 처져 있어요", items: [G(0), { t: "팡팡 플레이리스트", w: 3, img: "assets/pl-run.webp", size: "cover" }, G(2), G(3)] },
+          { t: "집중하기 어려워해요", items: [V(1), V(5)] }
+        ];
+        const found = TC.findIndex(c => c.items.some(it => it.v === sel));
+        const tc = this.state.tcat ?? (found >= 0 ? found : 0);
+        return {
+          toolCats: TC.map((c, ci) => ({
+            label: c.t,
+            l1: ["수업을", "마음을", "분위기가", "집중하기"][ci],
+            l2: ["따라오지 못해요", "가라앉히지 못해요", "처져 있어요", "어려워해요"][ci],
+            face: this.cssUrl(["assets/char-popang.webp", "assets/char-chaekpang.webp", "assets/char-tampang.webp", "assets/char-butpang.webp"][ci]),
+            faceBg: ["#F3EEFF", "#FFEFF4", "#EAF4FF", "#FFF6E3"][ci],
+            cardBg: ci === tc ? "#F3FBF6" : "#FFFFFF",
+            cardBorder: ci === tc ? "#30A967" : "#FFFFFF",
+            select: () => this.setState({ tcat: ci }),
+            fg: ci === tc ? "#131C29" : "#8B948F",
+            line: ci === tc ? "#30A967" : "transparent"
+          })),
+          toolItems: TC[tc].items.map(it => {
+            const on = it.v !== undefined ? (it.v === sel && !wideOn) : (it.w !== undefined && wideOn && this.state.wsel === it.w);
+            return {
+              title: it.t,
+              icon: this.cssUrl(it.img),
+              iconSize: it.size,
+              select: () => {
+                if (it.v !== undefined) { clearTimeout(this._t); this.setState({ sel: it.v, vote: null, playing: false, ended: false, wsel: null }); }
+                else if (it.w !== undefined) this.pickWide(it.w);
+                else if (/^https?:/.test(it.href)) window.open(it.href, "_blank");
+                else window.location.hash = it.href;
+              },
+              bg: on ? "#EAF6EF" : "#FFFFFF",
+              fg: on ? "#14472C" : "#20211E",
+              border: on ? "#30A967" : "#EFF1F0"
+            };
+          })
+        };
+      })(),
       moments: data.map((d, i) => ({
         title: ["시작 못함", "집중 안 됨", "뭘 할지 모름", "이해를 못함", "어려워함", "산만함", "진정 못함", "도움 요청 못함"][i] ?? d.title,
         icon: this.cssUrl(__MI[i + 1]),
@@ -5638,6 +5686,9 @@ __P.p8 = (function () { const location = __hash.p8; return class extends SubLogi
         const open = this.state.railOpen || {};
         return groups.map((g, gi) => ({
           title: g.title,
+          desc: ({ "수업을 따라오지 못해요": "시작이 막히거나 설명을 놓친 순간, 다시 수업으로 돌아오게 돕는 도구예요.", "마음을 가라앉히지 못해요": "화나거나 불안한 마음을 잠시 내려놓고 차분해지도록 돕는 도구예요.", "분위기가 처져 있어요": "가라앉은 교실에 웃음과 에너지를 다시 채워주는 도구예요.", "집중하기 어려워해요": "흩어진 시선과 몸을 다시 수업으로 모아주는 도구예요." })[g.title] || "",
+          prev: (e) => { const t = e.currentTarget.closest("[data-rail]").querySelector("[data-rail-track]"); t.scrollBy({ left: -t.clientWidth * 0.8, behavior: "smooth" }); },
+          next: (e) => { const t = e.currentTarget.closest("[data-rail]").querySelector("[data-rail-track]"); t.scrollBy({ left: t.clientWidth * 0.8, behavior: "smooth" }); },
           items: g.all,
           hasMore: false,
           moreLabel: open[gi] ? "접기" : "전체보기 →",
@@ -7127,7 +7178,7 @@ const __EN = {
   "호기심 가득": "Full of curiosity", "마음이 따뜻해": "Warm-hearted", "언제나 밝아": "Always cheerful",
   "차분하고 깊이 있어": "Calm and thoughtful", "도전이 좋아": "Loves a challenge",
   "친구들 보러 가기 →": "Go meet the friends →",
-  "홈": "Home", "쇼츠": "Shorts", "영상 자료": "Videos", "네컷 만화": "Cartoon", "게임": "Games",
+  "홈": "Home", "쇼츠": "Shorts", "영상 자료": "Videos", "도구": "Tools", "상황별 툴킷": "Toolkit by moment", "네컷 만화": "Cartoon", "게임": "Games",
   "아티클": "Articles", "이모티콘": "Stickers", "소개": "About", "서비스 소개": "About the service",
   "캐릭터 소개": "Meet the characters", "선생님용": "Teacher", "학생용": "Student",
   "쓰리알이노베이션 (주)": "3R Innovation Inc.", "대표자: 조광수": "CEO: Kwangsu Cho",
@@ -8465,8 +8516,8 @@ class Component extends DCLogic {
         return n.nodeValue && n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
       }
     });
-    document.querySelectorAll('img[src*="logo-toolkit"], img[src*="logo-pangz"]').forEach((img) => {
-      const want = lg === "th" ? "assets/logo-toolkit-th.webp" : lg === "kr" ? "assets/logo-toolkit-black.png" : "assets/logo-toolkit-en.png";
+    document.querySelectorAll('img[src*="logo-toolkit"], img[src*="logo-pangz"], img[src*="logo-selfreg"]').forEach((img) => {
+      const want = lg === "th" ? "assets/logo-toolkit-th.webp" : lg === "kr" ? "assets/logo-selfreg-toolkit.png" : "assets/logo-toolkit-en.png";
       if (!img.src.endsWith(want)) img.setAttribute("src", want);
     });
     const nodes = [];
@@ -8559,7 +8610,7 @@ class Component extends DCLogic {
     vals.enColor = lang === "en" ? "#1F6B45" : "#4C5A54";
     vals.krWeight = lang === "kr" ? 600 : 400;
     vals.enWeight = lang === "en" ? 600 : 400;
-    vals.logoSrc = lang === "en" ? "assets/logo-toolkit-en.png" : "assets/logo-toolkit-black.png";
+    vals.logoSrc = lang === "en" ? "assets/logo-toolkit-en.png" : "assets/logo-selfreg-toolkit.png";
     const isPC = true;
     vals.vwOpen = isPC && !this.state.chatOpen && this.state.vwOpen === true;
     vals.vwMini = isPC && !this.state.chatOpen && this.state.vwOpen !== true;
