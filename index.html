@@ -8015,7 +8015,7 @@ class Component extends DCLogic {
       if (__ROUTES[raw]) return raw;
     } catch (e) {}
     return "home";
-  })(), vwSound: true };
+  })(), vwSound: true, vwOpen: true };
   get __unusedChatIcon() { return null; }
   chatKB(stu) {
     const s = stu;
@@ -8638,7 +8638,8 @@ class Component extends DCLogic {
       this._vwDone = 1;
       const v = document.getElementById("promo-video");
       if (v) { v.muted = true; v.volume = 0; try { v.pause(); } catch (e) {} }
-      this.setState({ vwSound: false });
+      // 첫 재생이 끝나면 채팅창 자동으로 열기
+      this.setState({ vwSound: false, vwOpen: false, chatOpen: true });
     };
     if (typeof document !== "undefined" && !this._vwLoopHook) {
       this._vwLoopHook = 1;
