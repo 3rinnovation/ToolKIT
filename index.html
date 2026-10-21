@@ -306,6 +306,27 @@
   @media (max-width: 768px) {
     :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) { height: calc(100vw / 3) !important; }
   }
+  /* PC(1100px 이상): 상단 메뉴 바·홈 히어로를 1600px 화면 기준 비율 그대로 화면 폭에 맞춰 확대·축소 (1px = 0.0625vw) */
+  @media (min-width: 1100px) {
+    header > div[style*="grid-template-columns"] { max-width: 75vw !important; padding: 0.5vw 1.25vw !important; gap: 1vw !important; }
+    header > div > a:first-child { margin-left: 1vw !important; }
+    header > div > a:first-child img { height: 3.5vw !important; }
+    header nav { gap: 0.25vw 1.125vw !important; }
+    header nav a[style*="font-size: 16px"] { font-size: 1vw !important; line-height: 1.625vw !important; padding: 0.5vw 0.125vw !important; border-bottom-width: 0.1875vw !important; }
+    header nav + div { margin-left: 1.25vw !important; padding-left: 0.75vw !important; gap: 0.75vw !important; }
+    header nav + div > div[style*="padding: 4px"] { padding: 0.25vw !important; }
+    header nav + div > div > a, header nav + div > div > span { padding: 0.5vw 0.875vw !important; font-size: 0.9375vw !important; }
+    header nav + div > span[style*="width: 1px"] { height: 1.375vw !important; }
+    header nav + div span[style*="width: 40px; height: 40px"] { width: 2.5vw !important; height: 2.5vw !important; }
+    header nav + div span[style*="width: 40px; height: 40px"] svg { width: 1.5625vw !important; height: 1.5625vw !important; }
+    header nav + div > span[style*="width: 34px"] { width: 2.125vw !important; height: 2.125vw !important; }
+    header nav + div > span[style*="width: 34px"] svg { width: 1.125vw !important; height: 1.125vw !important; }
+    :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) { height: calc(100vw / 3 + 5.1875vw) !important; margin-top: calc(-28px - 5.1875vw) !important; padding: 6.9375vw 7.5vw 3vw !important; }
+    :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) > h1 { font-size: 2.625vw !important; }
+    :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) > p { font-size: 1.25vw !important; line-height: 1.625vw !important; margin-top: 0.125vw !important; }
+    :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) > span[style*="right: 28px"] { right: 1.75vw !important; bottom: 1.25vw !important; gap: 1.75vw !important; font-size: 0.875vw !important; }
+    :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) > span[style*="right: 28px"] span[style*="font-size: 15px"] { font-size: 0.9375vw !important; }
+  }
 </style>
 <script>
 (function () {
