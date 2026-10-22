@@ -30,9 +30,33 @@
   a img { transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease; }
   a:hover img { transform: scale(1.035); }
   a:active { transform: scale(0.985); }
+  @media (max-width: 768px) {
+    [data-cta-wrap] { padding: 0 0 28px !important; }
+    [data-cta-light] { border-radius: 0 !important; aspect-ratio: 2 / 1 !important; min-height: 0 !important; padding: 24px !important; gap: 10px !important; }
+    [data-cta-light] h2 { font-size: clamp(18px, 5.2vw, 26px) !important; }
+    [data-cta-light] p { font-size: clamp(12px, 3.5vw, 15px) !important; line-height: 1.4 !important; }
+    [data-cta-light] > span { padding: 9px 20px !important; font-size: 14px !important; }
+    [data-hero-meta] { display: none !important; }
+  }
+  @media (min-width: 1101px) {
+    header > div { padding-left: 80px !important; padding-right: 80px !important; }
+    header > div > a:first-child { margin-left: 0 !important; }
+  }
+  @media (min-width: 1600px) {
+    header nav { gap: 4px 16px !important; }
+    header nav a, header nav .nav-dd > a { font-size: 15px !important; }
+    header > div > a:first-child img { height: 48px !important; }
+    header nav + div > div > a, header nav + div > div > span { font-size: 14px !important; padding: 6px 14px !important; }
+  }
   @media (min-width: 1101px) {
     header > div { grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr) !important; }
     header > div > :nth-child(3) { justify-self: end; }
+  }
+  @media (max-width: 1020px) {
+    img[src*="about-arrow"] { display: none !important; }
+  }
+  @media (max-width: 860px) {
+    [data-cta-grid] { grid-template-columns: minmax(0, 1fr) !important; padding: 56px 22px 64px !important; gap: 36px !important; }
   }
   @media (max-width: 1000px) {
     [data-tool-wrap] { grid-template-columns: minmax(0, 1fr) !important; padding: 20px 16px 40px !important; }
@@ -234,11 +258,13 @@
     [data-about-hero][data-about-hero] { position: relative; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: flex-start !important; gap: 0 !important; aspect-ratio: 1605 / 620; padding: 14px 22px !important; overflow: hidden; border-bottom: 0 !important; }
     [data-about-hero] > div:last-child { position: absolute !important; inset: 0; min-width: 0 !important; z-index: 0; }
     [data-about-hero] > div:last-child > span { display: none !important; }
-    [data-about-hero] > div:last-child > div { width: 100% !important; height: 100% !important; aspect-ratio: auto !important; border-radius: 0 !important; box-shadow: none !important; background-position: right center !important; }
+    [data-about-hero] > div:last-child > div { width: 100% !important; height: 100% !important; aspect-ratio: auto !important; border-radius: 0 !important; box-shadow: none !important; border: 0 !important; transform: none !important; background-position: right center !important; }
     [data-about-hero] > div:last-child::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(90deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.9) 30%, rgba(255,255,255,0.5) 48%, rgba(255,255,255,0) 66%); }
     [data-about-hero] > div:first-child { position: relative; z-index: 3; flex: none !important; min-width: 0 !important; max-width: 60%; gap: 4px !important; }
     [data-about-hero] > div:first-child > span { font-size: clamp(11px, 3vw, 14px) !important; line-height: 1.4 !important; white-space: normal !important; }
     [data-about-hero] > div:first-child > h1 { font-size: clamp(20px, 5.8vw, 34px) !important; line-height: 1.3 !important; white-space: normal !important; }
+    [data-about-title-img] { width: 100% !important; margin: 0 !important; }
+    [data-about-chick] { display: none !important; }
     [data-about-hero] > div:first-child > p, [data-about-hero] > div:first-child > a { display: none !important; }
     [data-emo-page] > section { text-align: left !important; }
     [data-emo-page] > section:first-of-type > div { padding: 40px 22px 36px !important; gap: 0 !important; }
@@ -301,47 +327,6 @@
     [style*="width: 232px; height: 232px"] { width: 160px !important; height: 160px !important; }
     [style*="max-height: 88vh"] { max-height: 92vh !important; }
     [style*="width: 216px; border-radius: 18px"] { width: 120px !important; right: 12px !important; bottom: 12px !important; }
-
-    /* 좁은 폰(360px 등)에서 가로 넘침 방지 */
-    [style*="min-width: 320px"], [style*="min-width: 340px"], [style*="min-width: 360px"] { min-width: 0 !important; }
-    /* 게임 상세: 폰 목업 두 개를 화면 폭 안에 맞춤 */
-    [style*="flex: 1 1 520px"][style*="aspect-ratio: 1 / 1"] { aspect-ratio: auto !important; justify-content: center !important; gap: 10px !important; }
-    [style*="aspect-ratio: 853 / 1844"] { height: auto !important; width: calc(50% - 17px) !important; border-radius: 28px !important; border-width: 5px !important; }
-    /* 아티클·이모티콘 본문의 80px 좌우 여백을 모바일 여백으로 */
-    [style*="padding: 0px 80px"] { padding-left: 22px !important; padding-right: 22px !important; }
-    article p[style*="font-size: 21px"] { font-size: 18px !important; line-height: 1.65 !important; }
-    article [style*="padding: 28px 32px"] { padding: 18px 20px !important; font-size: 17px !important; line-height: 1.6 !important; display: block !important; -webkit-line-clamp: unset !important; white-space: normal !important; overflow: visible !important; }
-  }
-  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-  img.img-missing { display: none !important; }
-  /* 홈 히어로: 메뉴 아래 보이는 영역을 모든 화면에서 가로:세로 = 3:1로 고정 */
-  :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) { aspect-ratio: auto !important; min-height: 0 !important; height: calc(100vw / 3 + 83px) !important; }
-  @media (max-width: 768px) {
-    :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) { height: calc(100vw / 3) !important; }
-  }
-  /* PC(769px 이상): 상단 메뉴 바·홈 히어로를 1600px 화면 기준 비율 그대로 화면 폭에 맞춰 확대·축소 (1px = 0.0625vw) */
-  @media (min-width: 769px) {
-    header > div[style*="grid-template-columns"] { max-width: 75vw !important; padding: 0.5vw 1.25vw !important; gap: 1vw !important; }
-    header > div > a:first-child { margin-left: 1vw !important; }
-    header > div > a:first-child img { height: 3.5vw !important; }
-    header nav { gap: 0.25vw 1.125vw !important; }
-    header nav a[style*="font-size: 16px"] { font-size: 1vw !important; line-height: 1.625vw !important; padding: 0.5vw 0.125vw !important; border-bottom-width: 0.1875vw !important; }
-    header nav + div { margin-left: 1.25vw !important; padding-left: 0.75vw !important; gap: 0.75vw !important; }
-    header nav + div > div[style*="border-radius: 999px"] { padding: 0.1875vw !important; }
-    header nav + div > div > a, header nav + div > div > span { min-width: 4vw !important; padding: 0.4375vw 1vw !important; font-size: 0.9375vw !important; }
-    header nav + div > span[style*="width: 1px"] { height: 1.375vw !important; }
-    header nav + div span[style*="width: 40px; height: 40px"] { width: 2.5vw !important; height: 2.5vw !important; }
-    header nav + div span[style*="width: 40px; height: 40px"] svg { width: 1.5625vw !important; height: 1.5625vw !important; }
-    header nav + div > span[style*="width: 34px"] { width: 2.125vw !important; height: 2.125vw !important; }
-    header nav + div > span[style*="width: 34px"] svg { width: 1.125vw !important; height: 1.125vw !important; }
-    :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) { height: calc(100vw / 3 + 5.1875vw) !important; margin-top: calc(-28px - 5.1875vw) !important; padding: 6.9375vw 17.5vw 3vw !important; }
-    :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) > h1 { font-size: 2.625vw !important; }
-    :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) > p { font-size: 1.25vw !important; line-height: 1.625vw !important; margin-top: 0.125vw !important; }
-    :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) > span[style*="right: 28px"] { right: 1.75vw !important; bottom: 1.25vw !important; gap: 1.75vw !important; font-size: 0.875vw !important; }
-    :is([style*="aspect-ratio: 1605 / 620"], [style*="aspect-ratio: 1605/620"]):has(> video[id$="hero-video"]) > span[style*="right: 28px"] span[style*="font-size: 15px"] { font-size: 0.9375vw !important; }
-    /* 홈: 히어로 아래 모든 콘텐츠의 시작 위치를 히어로 제목 시작(17.5vw)에 맞춤, 오른쪽도 같은 여백 */
-    div:has(> div > video[id$="hero-video"]) { max-width: none !important; padding-left: 17.5vw !important; padding-right: 17.5vw !important; }
-    div:has(video[id$="hero-video"]) :is(section[style*="max-width: 1200px"], [data-research-band] > div[style*="max-width: 1200px"]) { max-width: none !important; padding-left: 17.5vw !important; padding-right: 17.5vw !important; }
   }
 </style>
 <script>
@@ -363,36 +348,6 @@
   window.addEventListener('hashchange', function () { document.querySelectorAll('header.m-open').forEach(close); });
   if (document.readyState !== 'loading') setup(); else document.addEventListener('DOMContentLoaded', setup);
   setInterval(setup, 800);
-})();
-</script>
-<script>
-(function () {
-  // 모바일 전용 썸네일(--m-bg)이 없으면 PC 썸네일로 대체
-  var state = Object.create(null);
-  function urlOf(v) { var m = /url\(\s*['"]?([^'")]+)['"]?\s*\)/.exec(v || ''); return m ? m[1] : null; }
-  function apply(el, u) {
-    if (state[u] !== false) return;
-    var bg = el.style.getPropertyValue('background-image');
-    if (bg && bg !== 'none' && urlOf(bg) !== u) el.style.setProperty('--m-bg', bg);
-    else el.style.removeProperty('--m-bg');
-  }
-  function scan() {
-    document.querySelectorAll('[style*="--m-bg"]').forEach(function (el) {
-      var u = urlOf(el.style.getPropertyValue('--m-bg'));
-      if (!u) return;
-      if (u in state) { apply(el, u); return; }
-      state[u] = null;
-      var img = new Image();
-      img.onload = function () { state[u] = true; };
-      img.onerror = function () { state[u] = false; scan(); };
-      img.src = u;
-    });
-  }
-  if (document.readyState !== 'loading') scan(); else document.addEventListener('DOMContentLoaded', scan);
-  setInterval(scan, 800);
-  // 파일이 없는 이미지는 깨진 아이콘·대체 글자 대신 숨김 (나중에 로드되면 다시 표시)
-  document.addEventListener('error', function (e) { if (e.target.tagName === 'IMG') e.target.classList.add('img-missing'); }, true);
-  document.addEventListener('load', function (e) { if (e.target.tagName === 'IMG') e.target.classList.remove('img-missing'); }, true);
 })();
 </script>
 <script src="./image-slot.js"></script>
@@ -776,7 +731,7 @@
   <img data-k="eg-smilebattle-n" src="assets/eg-smilebattle-n.webp" alt="">
   <img data-k="eg-smile-n" src="assets/eg-smile-n.webp" alt="">
   <img data-k="game-smilebattle-2" src="assets/min-game-smilebattle-2.jpg" alt="">
-  <img data-k="game-anxiety-2" src="assets/min-game-anxiety-2-v2.png" alt="">
+  <img data-k="game-anxiety-2" src="assets/min-game-anxiety-2.jpg" alt="">
   <img data-k="game-smile-2" src="assets/min-game-smile-2.jpg" alt="">
   <img data-k="game-impression-2" src="assets/min-game-impression-2.jpg" alt="">
   <img data-k="char-popang" src="assets/char-popang.webp" alt="">
@@ -854,7 +809,7 @@
       <div style="position: relative; min-height: 460px; aspect-ratio: 1605 / 620; margin: -111px calc(50% - 50vw) 8px; padding: 111px max(28px, calc(50vw - 680px)) 48px; box-sizing: border-box; overflow: hidden; background-color: #0B1410; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;">
         <video id="shero-video" data-remote="hero-loop-mute.mp4" autoPlay="{{ true }}" loop="{{ true }}" muted="{{ true }}" defaultMuted="{{ true }}" volume="{{ 0 }}" playsInline="{{ true }}" ref="{{ heroVideoRef }}" style="position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
         <span style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(7,9,8,0) 45%, rgba(7,9,8,0.45) 100%);"></span>
-        <span style="position: absolute; z-index: 4; right: 28px; bottom: 20px; display: flex; align-items: center; gap: 28px; color: rgba(255,255,255,0.88); font-family: Pretendard, sans-serif; font-size: 14px; line-height: 1; font-weight: 700; letter-spacing: 0.04em;">
+        <span data-hero-meta="1" style="position: absolute; z-index: 4; right: max(80px, calc(50vw - 520px)); bottom: 52px; display: flex; align-items: center; gap: 28px; color: rgba(255,255,255,0.88); font-family: Pretendard, sans-serif; font-size: 14px; line-height: 1; font-weight: 700; letter-spacing: 0.04em;">
           <span>@3R INNOVATION STUDIO</span>
           <span style="display: flex; align-items: center; gap: 9px;">Scroll Down <span style="font-size: 15px;">↓</span></span>
         </span>
@@ -2418,12 +2373,12 @@
         <video id="thero-video" data-remote="hero-loop-mute.mp4" autoPlay="{{ true }}" loop="{{ true }}" muted="{{ true }}" defaultMuted="{{ true }}" volume="{{ 0 }}" playsInline="{{ true }}" ref="{{ heroVideoRef }}" style="position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
 
         <span style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(7,9,8,0) 45%, rgba(7,9,8,0.45) 100%);"></span>
-        <span style="position: absolute; z-index: 4; right: 28px; bottom: 20px; display: flex; align-items: center; gap: 28px; color: rgba(255,255,255,0.88); font-family: Pretendard, sans-serif; font-size: 14px; line-height: 1; font-weight: 700; letter-spacing: 0.04em;">
+        <span data-hero-meta="1" style="position: absolute; z-index: 4; right: max(80px, calc(50vw - 520px)); bottom: 52px; display: flex; align-items: center; gap: 28px; color: rgba(255,255,255,0.88); font-family: Pretendard, sans-serif; font-size: 14px; line-height: 1; font-weight: 700; letter-spacing: 0.04em;">
           <span>@3R INNOVATION STUDIO</span>
           <span style="display: flex; align-items: center; gap: 9px;">Scroll Down <span style="font-size: 15px;">↓</span></span>
         </span>
         <h1 style="position: relative; z-index: 3; margin: 0; font-family: Pretendard, sans-serif; font-size: 42px; line-height: 1.28; font-weight: 800; letter-spacing: 0.01em; color: #FFFFFF;">오늘 우리 반은 어때?</h1>
-        <p style="position: relative; z-index: 3; margin: 2px 0 0; font-family: Pretendard, sans-serif; font-size: 20px; line-height: 26px; font-weight: 500; letter-spacing: 0.01em; color: rgba(255,255,255,0.92); white-space: nowrap;">아이들이 수업에 집중할 수 있도록 만들기!</p>
+        <p style="position: relative; z-index: 3; margin: 8px 0 0; font-family: Pretendard, sans-serif; font-size: 19px; line-height: 26px; font-weight: 400; letter-spacing: 0.01em; color: rgba(255,255,255,0.72); white-space: nowrap;">아이들이 수업에 집중할 수 있도록 만들기!</p>
 
       </div>
 
@@ -2595,7 +2550,7 @@
     </div>
   </sc-if>
 
-  <section data-research-band="1" style="margin-top: 88px; background: #F3F8F5; border-top: 1px solid #E2EDE7; border-bottom: 1px solid #E2EDE7;">
+  <section data-research-band="1" style="margin-top: 88px; background: #FFFFFF; border-top: 1px solid #ECF1EE;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 40px 80px 56px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center;">
       <div style="flex: 1 1 340px; min-width: 300px; display: flex; flex-direction: column; gap: 14px;">
         <span style="font-family: Pretendard, sans-serif; font-size: 13px; line-height: 20px; font-weight: 700; letter-spacing: 0.18em; color: #2E9E62;">RESEARCH BACKGROUND</span>
@@ -2624,10 +2579,10 @@
     </div>
   </section>
 
-  <section id="adults" style="margin: 0;">
+  <section id="adults" data-cta-wrap="1" style="margin: 0; padding: 8px 40px 96px; background: #FFFFFF;">
     
-  <div data-cta-light="1" style="position: relative; aspect-ratio: 3 / 1; min-height: 420px; padding: 40px; box-sizing: border-box; background-color: #EAF3EE; background-image: url('assets/cta-classroom.png'); background-size: cover; background-position: center; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; text-align: center;">
-      <h2 style="margin: 0; position: relative; z-index: 2; font-size: clamp(30px, 3vw, 46px); line-height: 1.4; font-weight: 800; letter-spacing: -0.02em; color: #131C29; word-break: keep-all; text-shadow: 0 1px 12px rgba(255,255,255,0.6);">아이들이 막힌 순간,<br><span style="position: relative; display: inline-block; color: #FFFFFF; text-shadow: 0 2px 10px rgba(20,90,50,0.45), 0 1px 2px rgba(20,90,50,0.35);">다시 해볼 방법<span style="position: absolute; left: -2%; right: -2%; bottom: 0.08em; height: 0.32em; border-radius: 999px; background: rgba(140,230,180,0.55); z-index: -1;"></span></span>을 건네요.</h2>
+  <div data-cta-light="1" style="position: relative; max-width: 1200px; margin: 0 auto; border-radius: 28px; aspect-ratio: 3.4 / 1; min-height: 320px; padding: 40px; box-sizing: border-box; background-color: #EAF3EE; background-image: url('assets/cta-classroom.png'); background-size: cover; background-position: center; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; text-align: center;">
+      <h2 style="margin: 0; position: relative; z-index: 2; font-size: clamp(30px, 3vw, 46px); line-height: 1.4; font-weight: 800; letter-spacing: -0.02em; color: #131C29; word-break: keep-all; text-shadow: 0 1px 12px rgba(255,255,255,0.6);">아이들이 막힌 순간,<br><span style="position: relative; display: inline-block; color: #131C29;">다시 해볼 방법<span style="position: absolute; left: -2%; right: -2%; bottom: 0.08em; height: 0.32em; border-radius: 999px; background: rgba(140,230,180,0.55); z-index: -1;"></span></span>을 건네요.</h2>
       <p style="margin: 0; position: relative; z-index: 2; font-size: 18px; line-height: 28px; font-weight: 500; color: #3C4540;">더 건강해진 우리 반을 경험해 보세요.</p>
       <span style="position: relative; z-index: 2; margin-top: 4px; padding: 18px 44px; border-radius: 999px; background: #1FA35B; color: #FFFFFF; font-size: 19px; font-weight: 700; box-shadow: 0 6px 18px rgba(31,163,91,0.28);">우리 반에서 시작하기 →</span>
     </div></section>
@@ -2800,7 +2755,7 @@
       </sc-if>
       <sc-if value="{{ p2.wideClosed }}" hint-placeholder-val="{{ true }}">
       <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden; background: #070908;">
-        <span onClick="{{ p2.goFull }}" title="전체 화면" style="position: absolute; z-index: 6; right: 12px; bottom: 16px; width: 32px; height: 32px; border-radius: 8px; background: rgba(7,9,8,0.35); opacity: 0.7; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity 0.15s ease, background 0.15s ease;" style-hover="opacity: 1; background: rgba(7,9,8,0.7);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"></path></svg></span>
+        <span onClick="{{ p2.goFull }}" title="전체 화면" style="position: absolute; z-index: 6; right: 14px; top: 14px; width: 42px; height: 42px; border-radius: 10px; background: rgba(7,9,8,0.6); display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: rgba(7,9,8,0.82);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"></path></svg></span>
         <sc-if value="{{ p2.hasVideo }}" hint-placeholder-val="{{ false }}">
           <iframe id="tvideo-frame" src="{{ p2.videoSrc }}" allow="autoplay" allowfullscreen="true" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block;"></iframe>
         </sc-if>
@@ -3624,16 +3579,19 @@
 
   <section style="background: #FAFBF9;">
     <div data-about-hero="1" style="max-width: 1200px; margin: 0 auto; padding: 72px 80px 64px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px; border-bottom: 1px solid #E8EDEA;">
-      <div style="flex: 1 1 420px; min-width: 300px; display: flex; flex-direction: column; align-items: flex-start; gap: 18px;">
-        <span style="font-family: Pretendard, sans-serif; font-size: 16px; line-height: 24px; font-weight: 700; color: #30A967;">학교와 가정에서 사용하는 아이 맞춤 툴킷</span>
-        <h1 style="margin: 0; font-family: Pretendard, sans-serif; font-size: 42px; line-height: 1.35; font-weight: 800; letter-spacing: -0.03em; color: #131C29; word-break: keep-all; white-space: pre-line;">아이가 막힌 순간,
-스스로 다시 시작하도록 돕습니다</h1>
+      <div style="flex: 1 1 420px; min-width: 300px; display: flex; flex-direction: column; align-items: flex-start; gap: 20px;">
+        <h1 data-about-title-img="1" style="margin: 0 0 0 -4%; width: min(108%, 560px); display: flex; flex-direction: column; gap: 20px;">
+          <span role="img" aria-label="학교와 가정에서 사용하는 아이 맞춤 툴킷" style="display: block; width: 72%; margin-left: 7%; aspect-ratio: 1845 / 260; background-image: url('assets/about-tag.png'); background-size: 117% auto; background-position: 70% 48.8%; background-repeat: no-repeat;"></span>
+          <span role="img" aria-label="아이가 막힌 순간, 스스로 다시 시작하도록 돕습니다" style="display: block; width: 100%; aspect-ratio: 1719 / 598; background-image: url('assets/about-title.png'); background-size: 100% auto; background-position: 0 100%; background-repeat: no-repeat;"></span>
+        </h1>
         <p style="margin: 0; font-family: Pretendard, sans-serif; font-size: 17px; line-height: 30px; font-weight: 400; color: #6E7873; word-break: keep-all; text-wrap: pretty;">진단이나 치료를 제공하지 않습니다. 지금 겪는 어려움을 묻고,<br>위험 신호는 보호자·교사와 전문 지원으로 연결합니다.</p>
-        <a href="#video" style="margin-top: 14px; display: inline-flex; align-items: center; gap: 12px; padding: 16px 30px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-family: Pretendard, sans-serif; font-size: 17px; font-weight: 700;" style-hover="background: #26824F; color: #FFFFFF;">툴킷 살펴보기 <span style="font-size: 15px;">→</span></a>
+        <a href="#video" style="margin-top: 10px; display: inline-flex; align-items: center; gap: 18px; padding: 14px 14px 14px 32px; border-radius: 999px; background: #2EAA62; color: #FFFFFF; font-family: Pretendard, sans-serif; font-size: 19px; line-height: 28px; font-weight: 700; box-shadow: 0 10px 24px -8px rgba(46,170,98,0.5);" style-hover="background: #258F52; color: #FFFFFF;">툴킷 살펴보기<span style="width: 40px; height: 40px; border-radius: 999px; background: #FFFFFF; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2EAA62" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
       </div>
       <div style="flex: 1 1 480px; min-width: 320px; position: relative;">
-        <span style="position: absolute; left: -6%; top: 6%; width: 88%; height: 92%; border-radius: 999px 40% 45% 999px; background: #E4F3E9; z-index: 0;"></span>
-        <div style="position: relative; z-index: 1; width: 100%; aspect-ratio: 16 / 11; border-radius: 18px; overflow: hidden; background-color: #EDF3EF; background-image: url('assets/hq-about-s.webp'); background-size: cover; background-position: center; box-shadow: 0 24px 44px -30px rgba(7,9,8,0.35);"></div>
+        <span style="position: absolute; inset: -16% -12% -16% -14%; background-image: url('assets/about-blob.png'); background-size: 100% 100%; background-repeat: no-repeat; opacity: 0.9; z-index: 0;"></span>
+        <div style="position: relative; z-index: 1; width: 100%; aspect-ratio: 16 / 11; border-radius: 28px; overflow: hidden; border: 8px solid #FFFFFF; box-sizing: border-box; transform: rotate(-2deg); background-color: #EDF3EF; background-image: url('assets/hq-about-s.webp'); background-size: cover; background-position: center; box-shadow: 0 20px 44px -22px rgba(31,74,51,0.35);"></div>
+        <img data-about-chick="1" src="assets/about-arrow.png" alt="" style="position: absolute; z-index: 2; left: -29%; bottom: 9%; width: 26%; height: auto; pointer-events: none;">
+        <img data-about-chick="1" src="assets/about-chick.png" alt="" style="position: absolute; z-index: 2; right: -4%; bottom: -10%; width: 30%; height: auto; pointer-events: none;">
       </div>
     </div>
   </section>
@@ -4272,8 +4230,8 @@
   <sc-if value="{{ chatOpen }}" hint-placeholder-val="{{ false }}">
     <div style="position: fixed; right: 24px; bottom: 24px; z-index: 91; width: 396px; max-width: calc(100vw - 32px); max-height: 76vh; display: flex; flex-direction: column; border-radius: 20px; overflow: hidden; background: #FFFFFF; box-shadow: 0 28px 60px -24px rgba(7,9,8,0.5); border: 1px solid #E4E6E5;">
       <div style="flex: 0 0 auto; display: flex; align-items: center; gap: 12px; padding: 14px 14px 14px 18px; background: #EAF6EF; border-bottom: 1px solid #DCEAE1;">
-        <span style="width: 54px; height: 54px; flex: 0 0 auto; display: flex; align-items: center; justify-content: center;">
-          <img src="assets/chat-popang-face.png" alt="포팡이" style="width: 54px; height: 54px; object-fit: contain; display: block;">
+        <span style="width: 54px; height: 54px; flex: 0 0 auto; border-radius: 999px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+          <img src="assets/chat-popang-s.webp" alt="포팡이" style="width: 54px; height: 54px; object-fit: cover; display: block; border-radius: 999px;">
         </span>
         <span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
           <span style="font-family: Pretendard, sans-serif; font-size: 17px; line-height: 24px; font-weight: 800; color: #131C29;">{{ chatTitle }}</span>
@@ -4309,7 +4267,7 @@
 
       <div style="flex: 0 0 auto; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-top: 1px solid #EFF1F0; background: #FFFFFF;">
         <input id="pangchat-input" type="text" autoComplete="off" onKeyDown="{{ chatKey }}" placeholder="{{ chatPlaceholder }}" style="flex: 1 1 auto; min-width: 0; padding: 11px 14px; border-radius: 999px; border: 1px solid #E4E6E5; background: #F7F9F8; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 20px; color: #131C29; outline: none;">
-        <span onClick="{{ chatSend }}" role="button" aria-label="보내기" style="width: 42px; height: 42px; flex: 0 0 auto; border-radius: 999px; background-image: url('assets/chat-send.png'); background-size: 146% auto; background-position: 49.7% 58%; background-repeat: no-repeat; cursor: pointer; transition: transform 0.15s ease, filter 0.15s ease;" style-hover="filter: brightness(0.94); transform: scale(1.05);"></span>
+        <span onClick="{{ chatSend }}" style="width: 42px; height: 42px; flex: 0 0 auto; border-radius: 999px; background: #30A967; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer;" style-hover="background: #26824F;">↑</span>
       </div>
     </div>
   </sc-if>
@@ -4449,10 +4407,6 @@ const __V = [
 const __P = {};
 
 const __CHATICON = {
-  "수업을 따라오지 못해요": "assets/ic-start.webp",
-  "마음을 가라앉히지 못해요": "assets/ic-angry.webp",
-  "분위기가 처져 있어요": "assets/ic-game.webp",
-  "집중하기 어려워해요": "assets/ic-focus.webp",
   "집중": "assets/ic-focus.webp",
   "화": "assets/ic-angry.webp",
   "시작": "assets/ic-start.webp",
@@ -4727,7 +4681,7 @@ __P.p1 = (function () { const location = __hash.p1; return class extends SubLogi
         });
         const RT = ["시작 도와주기", "수업 집중 되돌리기", "뭘 할지 모름", "다시 따라가기", "어려워함", "몸으로 쉬어가기", "진정 못함", "도움 요청 못함"];
         const WT = ["기분 올리기", "아침 진정 활동", "행복해지는 선택", "팡팡 플레이리스트"];
-        const GT = ["미소배틀 게임", "불안몬잡기 게임", "스마일리프팅 게임", "인상업 게임"];
+        const GT = ["미소배틀 게임", "불안몬잡기 게임", "스마일리프팅 게임", "인상업"];
         const vcard = (i) => ({ ...card(i), title: RT[i] });
         const mcard = (i) => ({ ...wcard(i), title: WT[i] });
         const gcard = (i) => ({
@@ -4762,10 +4716,10 @@ __P.p1 = (function () { const location = __hash.p1; return class extends SubLogi
           desc: ({ "수업을 따라오지 못해요": "시작이 막히거나 설명을 놓친 순간, 다시 수업으로 돌아오게 돕는 도구예요.", "마음을 가라앉히지 못해요": "화나거나 불안한 마음을 잠시 내려놓고 차분해지도록 돕는 도구예요.", "분위기가 처져 있어요": "가라앉은 교실에 웃음과 에너지를 다시 채워주는 도구예요.", "집중하기 어려워해요": "흩어진 시선과 몸을 다시 수업으로 모아주는 도구예요." })[g.title] || "",
           prev: (e) => { const t = e.currentTarget.closest("[data-rail]").querySelector("[data-rail-track]"); t.scrollBy({ left: -t.clientWidth * 0.8, behavior: "smooth" }); },
           next: (e) => { const t = e.currentTarget.closest("[data-rail]").querySelector("[data-rail-track]"); t.scrollBy({ left: t.clientWidth * 0.8, behavior: "smooth" }); },
-          items: g.all,
-          hasMore: false,
-          moreLabel: open[gi] ? "접기" : "전체보기 →",
-          toggle: () => this.setState({ railOpen: { ...(this.state.railOpen || {}), [gi]: !open[gi] } })
+          items: g.all.slice(0, 4),
+          hasMore: g.all.length > 4,
+          moreLabel: "전체보기 →",
+          toggle: () => { this.setState({ tcat: gi }); location.hash = "#video"; }
         }));
       })(),
       heroMeditations: [
@@ -5150,7 +5104,7 @@ __P.p2 = (function () { const location = __hash.p2; return class extends SubLogi
       ...(() => {
         const RT = ["시작 도와주기", "수업 집중 되돌리기", "뭘 할지 모름", "다시 따라가기", "어려워함", "몸으로 쉬어가기", "진정 못함", "도움 요청 못함"];
         const V = (i) => ({ t: RT[i], v: i, img: __MI[i + 1], size: "contain" });
-        const G = (i) => ({ t: ["미소배틀 게임", "불안몬잡기 게임", "스마일리프팅 게임", "인상업 게임"][i], href: __G[i].file || "#games", img: __G[i].mthumb || __G[i].thumb, size: "cover" });
+        const G = (i) => ({ t: ["미소배틀 게임", "불안몬잡기 게임", "스마일리프팅 게임", "인상업"][i], href: __G[i].file || "#games", img: __G[i].mthumb || __G[i].thumb, size: "cover" });
         const TC = [
           { t: "수업을 따라오지 못해요", items: [V(0), V(2), V(4), V(3), V(7)] },
           { t: "마음을 가라앉히지 못해요", items: [V(6), { t: "호흡으로 진정하기", w: 1, img: "assets/wt-breathe.webp", size: "cover" }, G(1), { t: "행복해지는 선택", w: 2, img: __W[2].thumb, size: "cover" }] },
@@ -5658,7 +5612,7 @@ __P.p8 = (function () { const location = __hash.p8; return class extends SubLogi
         });
         const RT = ["시작 도와주기", "수업 집중 되돌리기", "뭘 할지 모름", "다시 따라가기", "어려워함", "몸으로 쉬어가기", "진정 못함", "도움 요청 못함"];
         const WT = ["기분 올리기", "아침 진정 활동", "행복해지는 선택", "팡팡 플레이리스트"];
-        const GT = ["미소배틀 게임", "불안몬잡기 게임", "스마일리프팅 게임", "인상업 게임"];
+        const GT = ["미소배틀 게임", "불안몬잡기 게임", "스마일리프팅 게임", "인상업"];
         const vcard = (i) => ({ ...card(i), title: RT[i] });
         const mcard = (i) => ({ ...wcard(i), title: WT[i] });
         const gcard = (i) => ({
@@ -5693,10 +5647,10 @@ __P.p8 = (function () { const location = __hash.p8; return class extends SubLogi
           desc: ({ "수업을 따라오지 못해요": "시작이 막히거나 설명을 놓친 순간, 다시 수업으로 돌아오게 돕는 도구예요.", "마음을 가라앉히지 못해요": "화나거나 불안한 마음을 잠시 내려놓고 차분해지도록 돕는 도구예요.", "분위기가 처져 있어요": "가라앉은 교실에 웃음과 에너지를 다시 채워주는 도구예요.", "집중하기 어려워해요": "흩어진 시선과 몸을 다시 수업으로 모아주는 도구예요." })[g.title] || "",
           prev: (e) => { const t = e.currentTarget.closest("[data-rail]").querySelector("[data-rail-track]"); t.scrollBy({ left: -t.clientWidth * 0.8, behavior: "smooth" }); },
           next: (e) => { const t = e.currentTarget.closest("[data-rail]").querySelector("[data-rail-track]"); t.scrollBy({ left: t.clientWidth * 0.8, behavior: "smooth" }); },
-          items: g.all,
-          hasMore: false,
-          moreLabel: open[gi] ? "접기" : "전체보기 →",
-          toggle: () => this.setState({ railOpen: { ...(this.state.railOpen || {}), [gi]: !open[gi] } })
+          items: g.all.slice(0, 4),
+          hasMore: g.all.length > 4,
+          moreLabel: "전체보기 →",
+          toggle: () => { this.setState({ tcat: gi }); location.hash = "#video"; }
         }));
       })(),
       picked: sel >= 0,
@@ -6123,10 +6077,10 @@ __P.p13 = (function () { const location = __hash.p13; return class extends SubLo
 }; })();
 
 const __G = [
-  { t: "미소배틀", sub: "누가누가 더 밝게 웃나 시합!", how: "두 명이서 하는 게임입니다. 카메라가 필요하고, 두 명의 웃는 모습으로 겨루기를 할 수 있습니다.", wide: "assets/min-game-smilebattle-wide.jpg", tint: "#FDF0F5", dur: "약 3분", desc: "표정을 바꿔가며 겨루는 짧은 배틀.", kidDesc: "웃는 표정으로 한 판 붙어 보자!", file: "https://kimyebin726.github.io/SMILE-BATTING/", tone: "#F58BB0", moment: 6, thumb: "assets/kg-smilebattle-n.webp", mthumb: "assets/mg-smilebattle.png", kleft: "assets/kg-left-smilebattle-v2.png", thumb2: "assets/min-game-smilebattle-2.jpg" },
-  { t: "불안몬잡기", sub: "걱정을 하나씩 잡아 없애기!", how: "머릿속을 맴도는 걱정을 몬스터로 만나 하나씩 잡아 봅니다. 걱정에 이름을 붙이고 정리하는 연습이 됩니다.", wide: "assets/min-game-anxiety-wide.jpg", tint: "#F1F3FE", dur: "약 1분", desc: "머릿속 걱정을 하나씩 잡아 정리합니다.", kidDesc: "걱정 몬스터를 하나씩 잡아 봐!", file: "https://kimyebin726.github.io/anxiety/", tone: "#7C8BF5", moment: 4, thumb: "assets/kg-anxiety-n.webp", mthumb: "assets/mg-anxiety.png", kleft: "assets/kg-left-anxiety-v2.png", thumb2: "assets/min-game-anxiety-2-v2.png" },
-  { t: "스마일리프팅", sub: "7초면 얼굴이 풀려요!", how: "화면이 알려주는 대로 얼굴 근육을 따라 움직입니다. 한 번에 7초, 짧게 반복하며 긴장을 내려놓습니다.", wide: "assets/min-game-smile-wide.jpg", tint: "#FEF8EA", dur: "1회 7초", desc: "얼굴 근육을 풀며 긴장을 내려놓습니다.", kidDesc: "얼굴을 쭉 늘려서 힘을 풀어 보자.", file: "https://kimyebin726.github.io/-Smile-Lifting/", tone: "#F5B01B", moment: 5, thumb: "assets/kg-smile-n.webp", mthumb: "assets/mg-smile-meadow.png", kleft: "assets/kg-left-smile-v2.png", thumb2: "assets/min-game-smile-2.jpg" },
-  { t: "인상업", sub: "표정 하나로 기분이 올라가요!", how: "카메라가 표정을 알아봅니다. 웃는 표정을 만들면 점수가 올라가고, 매일 1분씩 습관으로 이어집니다.", wide: "assets/min-game-impression-wide.jpg", tint: "#EFF9F3", dur: "매일 1분", desc: "표정을 인식해 기분을 올리는 미니 게임.", kidDesc: "표정을 바꾸면 점수가 올라가!", file: "https://kimyebin726.github.io/Impression-up/", tone: "#50BE82", moment: 1, thumb: "assets/kg-impression-n.webp", mthumb: "assets/mg-impression.png", kleft: "assets/kg-left-impression-v2.png", thumb2: "assets/min-game-impression-2.jpg" }
+  { t: "미소배틀", sub: "누가누가 더 밝게 웃나 시합!", how: "두 명이서 하는 게임입니다. 카메라가 필요하고, 두 명의 웃는 모습으로 겨루기를 할 수 있습니다.", wide: "assets/min-game-smilebattle-wide.jpg", tint: "#FDF0F5", dur: "약 3분", desc: "표정을 바꿔가며 겨루는 짧은 배틀.", kidDesc: "웃는 표정으로 한 판 붙어 보자!", file: "https://kimyebin726.github.io/SMILE-BATTING/", tone: "#F58BB0", moment: 6, thumb: "assets/kg-smilebattle-n.webp", mthumb: "assets/mg-smilebattle.png", kleft: "assets/kg-left-smilebattle.png", thumb2: "assets/min-game-smilebattle-2.jpg" },
+  { t: "불안몬잡기", sub: "걱정을 하나씩 잡아 없애기!", how: "머릿속을 맴도는 걱정을 몬스터로 만나 하나씩 잡아 봅니다. 걱정에 이름을 붙이고 정리하는 연습이 됩니다.", wide: "assets/min-game-anxiety-wide.jpg", tint: "#F1F3FE", dur: "약 1분", desc: "머릿속 걱정을 하나씩 잡아 정리합니다.", kidDesc: "걱정 몬스터를 하나씩 잡아 봐!", file: "https://kimyebin726.github.io/anxiety/", tone: "#7C8BF5", moment: 4, thumb: "assets/kg-anxiety-n.webp", mthumb: "assets/mg-anxiety.png", kleft: "assets/kg-left-anxiety.png", thumb2: "assets/min-game-anxiety-2.jpg" },
+  { t: "스마일리프팅", sub: "7초면 얼굴이 풀려요!", how: "화면이 알려주는 대로 얼굴 근육을 따라 움직입니다. 한 번에 7초, 짧게 반복하며 긴장을 내려놓습니다.", wide: "assets/min-game-smile-wide.jpg", tint: "#FEF8EA", dur: "1회 7초", desc: "얼굴 근육을 풀며 긴장을 내려놓습니다.", kidDesc: "얼굴을 쭉 늘려서 힘을 풀어 보자.", file: "https://kimyebin726.github.io/-Smile-Lifting/", tone: "#F5B01B", moment: 5, thumb: "assets/kg-smile-n.webp", mthumb: "assets/mg-smile-meadow.png", kleft: "assets/kg-left-smile.png", thumb2: "assets/min-game-smile-2.jpg" },
+  { t: "인상업", sub: "표정 하나로 기분이 올라가요!", how: "카메라가 표정을 알아봅니다. 웃는 표정을 만들면 점수가 올라가고, 매일 1분씩 습관으로 이어집니다.", wide: "assets/min-game-impression-wide.jpg", tint: "#EFF9F3", dur: "매일 1분", desc: "표정을 인식해 기분을 올리는 미니 게임.", kidDesc: "표정을 바꾸면 점수가 올라가!", file: "https://kimyebin726.github.io/Impression-up/", tone: "#50BE82", moment: 1, thumb: "assets/kg-impression-n.webp", mthumb: "assets/mg-impression.png", kleft: "assets/kg-left-impression.png", thumb2: "assets/min-game-impression-2.jpg" }
 ];
 
 __P.p14 = (function () { const location = __hash.p14; return class extends SubLogic {
@@ -7866,7 +7820,6 @@ const __EN = {
   "아침 진정 활동": "Morning calming activity",
   "미소배틀 게임": "Smile Battle Game",
   "스마일리프팅 게임": "Smile lifting Game",
-  "인상업 게임": "Impression Up Game",
   "불안몬잡기 게임": "Catch the Worry Monster Game",
   "접기": "Show less", "팡팡 플레이리스트": "Pang Pang Playlist",
   "오늘도 팡": "Pang Today", "팡팡 빛이야": "Pangpang Shine",
@@ -8026,10 +7979,6 @@ class Component extends DCLogic {
   chatKB(stu) {
     const s = stu;
     return [
-      { k: ["수업을 따라오지 못해요"], t: "시작이 막히거나 설명을 놓친 순간이에요. 시작 도와주기 · 뭘 할지 모름 · 어려워함 · 다시 따라가기 · 도움 요청 못함 중 지금 상황에 맞는 영상을 하나 골라 함께 따라 해 보세요.", l: [["시작 도와주기", "#video/m0"], ["뭘 할지 모름", "#video/m2"], ["다시 따라가기", "#video/m3"]] },
-      { k: ["마음을 가라앉히지 못해요"], t: "화나거나 불안한 마음이 올라온 순간이에요. 설명보다 안심이 먼저예요. 함께 숨을 고르고, 걱정은 불안몬잡기 게임으로 털어내 보세요.", l: [["진정 못함", "#video/m6"], ["호흡으로 진정하기", "#video/w1"], ["불안몬잡기 게임", "https://kimyebin726.github.io/anxiety/"]] },
-      { k: ["분위기가 처져 있어요"], t: "가라앉은 교실엔 웃음이 먼저예요. 짧은 표정 게임이나 노래 한 곡으로 에너지를 채워 보세요.", l: [["미소배틀 게임", "https://kimyebin726.github.io/SMILE-BATTING/"], ["스마일리프팅 게임", "https://kimyebin726.github.io/-Smile-Lifting/"], ["팡팡 플레이리스트", "#video/w3"]] },
-      { k: ["집중하기 어려워해요"], t: "흩어진 시선과 몸을 다시 모아야 할 때예요. 야단 대신 짧은 영상을 함께 따라 하며 수업으로 돌아와 보세요.", l: [["수업 집중 되돌리기", "#video/m1"], ["몸으로 쉬어가기", "#video/m5"]] },
       { k: ["시작", "start", "막막", "미루", "손이", "첫 문제", "손이 안"], c: 1, t: s ? "시작이 어려울 때는 딱 한 칸만 해보면 돼. 제일 쉬운 것 하나만 골라볼까?" : "시작이 안 되는 건 양이 많아 보여서입니다. 지금 풀 문제 하나만 손가락으로 짚어 주세요.", l: [["따라 하기 영상", s ? "#svideo" : "#video"], ["네컷 만화", s ? "#scardnews" : "#cardnews"]] },
       { k: ["집중", "딴 데", "딴데", "산만", "주의", "focus", "distract"], c: 2, t: s ? "딴 데를 보는 건 잘못이 아니야. \"지금 무슨 시간이지?\" 하고 스스로 물어보면 돌아오기 쉬워." : "야단 대신 질문 두 개를 써 보세요. \"지금 뭐 보고 있어?\", \"지금 무슨 시간이지?\"", l: s ? [["쇼츠 보기", "#sshorts"], ["네컷 만화", "#scardnews"]] : [["쇼츠 보기", "#shorts"], ["아티클", "#articles"]] },
       { k: ["화", "짜증", "속상", "틀려", "angry", "화나"], c: 7, t: s ? "틀려서 화날 때는 숨을 세 번만 천천히 쉬어보자. 누구나 틀릴 수 있어." : "설명보다 안심이 먼저입니다. \"누구나 틀릴 수 있어\"로 받아 주고 함께 세 번 숨을 고르세요.", l: [["마음 가라앉히는 명상", s ? "#svideo" : "#video"], ["네컷 만화", s ? "#scardnews" : "#cardnews"]] },
@@ -8133,7 +8082,7 @@ class Component extends DCLogic {
       })),
       chatQuick: (stu
         ? [["집중이 안 돼", "집중"], ["짜증이 나", "화"], ["시작이 안 돼", "시작"], ["몸이 움직여", "몸"], ["너무 어려워", "어려"], ["설명을 잊었어", "기억"], ["도와달라고 하고 싶어", "도움"], ["게임 하고 싶어", "게임"]]
-        : [["수업을 따라오지 못해요", "수업을 따라오지 못해요"], ["마음을 가라앉히지 못해요", "마음을 가라앉히지 못해요"], ["분위기가 처져 있어요", "분위기가 처져 있어요"], ["집중하기 어려워해요", "집중하기 어려워해요"]]
+        : [["수업을 따라오지 못해요", "시작"], ["마음을 가라앉히지 못해요", "화"], ["분위기가 처져 있어요", "게임"], ["집중하기 어려워해요", "집중"]]
       ).map((x) => ({ label: x[0], pick: () => send(x[0], x[1]), iconBg: "url('" + (__CHATICON[x[1]] || __CHATICON["시작"]) + "')" }))
     };
   }
@@ -8326,15 +8275,15 @@ class Component extends DCLogic {
         ["assets/min-game-smilebattle-wide.jpg", "assets/eg-sb-portrait-c.webp"],
         ["assets/min-game-smilebattle-2.jpg", "assets/eg-sb-2-c.webp"],
         ["assets/kg-smilebattle-n.webp", "assets/eg-smilebattle-n.webp"],
-        ["assets/kg-left-smilebattle-v2.png", "assets/eg-smilebattle-n.webp"],
-        ["assets/kg-left-smile-v2.png", "assets/eg-smile-n.webp"],
-        ["assets/kg-left-anxiety-v2.png", "assets/eg-anxiety-n.webp"],
-        ["assets/kg-left-impression-v2.png", "assets/eg-impression-n.webp"],
+        ["assets/kg-left-smilebattle.png", "assets/eg-smilebattle-n.webp"],
+        ["assets/kg-left-smile.png", "assets/eg-smile-n.webp"],
+        ["assets/kg-left-anxiety.png", "assets/eg-anxiety-n.webp"],
+        ["assets/kg-left-impression.png", "assets/eg-impression-n.webp"],
         ["assets/min-game-smile-wide.jpg", "assets/eg-sm-1-c.webp"],
         ["assets/min-game-smile-2.jpg", "assets/eg-sm-2-c.webp"],
         ["assets/kg-smile-n.webp", "assets/eg-smile-n.webp"],
         ["assets/min-game-anxiety-wide.jpg", "assets/eg-an-1-c.webp"],
-        ["assets/min-game-anxiety-2-v2.png", "assets/eg-an-2-c.webp"],
+        ["assets/min-game-anxiety-2.jpg", "assets/eg-an-2-c.webp"],
         ["assets/kg-anxiety-n.webp", "assets/eg-anxiety-n.webp"],
         ["assets/min-game-impression-wide.jpg", "assets/eg-im-1-c.webp"],
         ["assets/min-game-impression-2.jpg", "assets/eg-im-2-c.webp"],
