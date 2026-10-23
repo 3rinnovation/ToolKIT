@@ -27,12 +27,12 @@ a:hover { color: rgb(20,126,82); }
 </helmet>
 <div style="width: 100%; min-height: 100vh; background: rgb(251,249,241); font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; color: rgb(46,46,46); box-sizing: border-box;">
 
-  <div onMouseEnter="{{ openLang }}" onMouseLeave="{{ closeLang }}" style="position: fixed; right: min(40px, 2.08vw); top: min(32px, 1.67vw); z-index: 50; display: flex; flex-direction: column; align-items: flex-end;">
-    <button type="button" onClick="{{ toggleLang }}" aria-label="언어 선택" style="width: 34px; height: 34px; border: none; border-radius: 50%; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;">
+  <div onMouseEnter="{{ openLang }}" onMouseLeave="{{ closeLang }}" onTouchStart="{{ langTouch }}" style="position: fixed; right: min(40px, 2.08vw); top: min(32px, 1.67vw); z-index: 50; display: flex; flex-direction: column; align-items: flex-end;">
+    <button type="button" onClick="{{ toggleLang }}" aria-label="언어 선택" style="width: 44px; height: 44px; border: none; border-radius: 50%; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{ globeColor }}" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"></circle><path d="M2.9 12 H21.1"></path><path d="M12 2.8 C15.2 5.6 15.2 18.4 12 21.2"></path><path d="M12 2.8 C8.8 5.6 8.8 18.4 12 21.2"></path><path d="M4.6 6.6 C7 8.2 17 8.2 19.4 6.6"></path><path d="M4.6 17.4 C7 15.8 17 15.8 19.4 17.4"></path></svg>
     </button>
     <sc-if value="{{ langOpen }}">
-      <div style="margin-top: 8px; width: 186px; max-height: 70vh; overflow-y: auto; border-radius: 14px; background: rgb(255,255,255); box-shadow: 0 6px 20px rgba(0,0,0,0.14); padding: 8px 7px; box-sizing: border-box; display: flex; flex-direction: column; gap: 1px; font-family: Pretendard, sans-serif;">
+      <div data-lang-menu="1" style="margin-top: 8px; width: 186px; max-height: 70vh; overflow-y: auto; border-radius: 14px; background: rgb(255,255,255); box-shadow: 0 6px 20px rgba(0,0,0,0.14); padding: 8px 7px; box-sizing: border-box; display: flex; flex-direction: column; gap: 1px; font-family: Pretendard, sans-serif;">
         <sc-for list="{{ langs }}" as="lang" hint-placeholder-count="6">
           <button type="button" onClick="{{ lang.pick }}" style="display: grid; grid-template-columns: 30px 1fr 13px; align-items: center; gap: 7px; width: 100%; min-height: 32px; padding: 0 9px; border: none; border-radius: 8px; background: {{ lang.bg }}; color: {{ lang.color }}; font-family: inherit; font-size: 12.5px; font-weight: {{ lang.weight }}; text-align: left; cursor: pointer;" style-hover="background: rgb(245,245,242);">
             <span style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.02em;">{{ lang.code }}</span>
@@ -51,6 +51,7 @@ a:hover { color: rgb(20,126,82); }
       <img src="assets/bg-landing-kr.jpg" alt="자기조절 툴킷 — 내 마음을 알아가고, 스스로 조절하는 힘!" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{ bgKrOpacity }};">
       <img src="assets/bg-landing-en.jpg" alt="Self-Care Toolkit — Understand your mind and be stronger, on your own!" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{ bgEnOpacity }};">
       <video ref="{{ videoRef }}" src="{{ videoSrc }}" poster="{{ videoPoster }}" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" preload="auto" disablepictureinpicture="disablepictureinpicture" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: {{ videoDisplay }};"></video>
+      <sc-if value="{{ desk }}" hint-placeholder-val="{{ true }}">
       <div style="position: absolute; left: 50%; top: 82%; transform: translate(-50%, -50%); display: flex; flex-wrap: nowrap; gap: min(35px, 1.82vw); justify-content: center;">
         <button type="button" onClick="{{ goTeacher }}" style="width: auto; min-width: clamp(230px, 16.8vw, 322px); max-width: min(92vw, 460px); height: clamp(66px, 4.43vw, 85px); border: none; border-radius: 66px; background: rgb(255,255,255); display: flex; align-items: center; justify-content: center; padding: 0 min(34px, 1.77vw); cursor: pointer; font: inherit; transition: transform .15s ease;" style-hover="transform: translateY(-2px);">
           <span style="font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; font-weight: 400; font-size: {{ fsRole }}; color: rgb(20,132,85); white-space: nowrap;">{{ tTeacher }}</span>
@@ -59,42 +60,53 @@ a:hover { color: rgb(20,126,82); }
           <span style="font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; font-weight: 400; font-size: {{ fsRole }}; color: rgb(255,255,255); white-space: nowrap;">{{ tStudent }}</span>
         </button>
       </div>
+      </sc-if>
       </div>
+      <sc-if value="{{ mob }}">
+        <div style="position: absolute; left: 50%; bottom: calc(9vh + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; width: min(84vw, 340px);">
+          <button type="button" onClick="{{ goTeacher }}" style="width: 100%; height: 60px; border: none; border-radius: 60px; background: rgb(255,255,255); display: flex; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; cursor: pointer; font: inherit;">
+            <span style="font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; font-size: 22px; color: rgb(20,132,85); white-space: nowrap;">{{ tTeacher }}</span>
+          </button>
+          <button type="button" onClick="{{ goStudent }}" style="width: 100%; height: 60px; border: none; border-radius: 60px; background: rgb(20,132,85); display: flex; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; cursor: pointer; font: inherit;">
+            <span style="font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; font-size: 22px; color: rgb(255,255,255); white-space: nowrap;">{{ tStudent }}</span>
+          </button>
+        </div>
+      </sc-if>
     </section>
   </div>
 
   <div style="display: {{ d2 }}; animation: {{ a2 }};">
     <section data-screen-label="02 기분 선택" style="position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
       <sc-if value="{{ isStudent }}" hint-placeholder-val="{{ true }}">
-        <div style="position: absolute; left: 50%; bottom: 67.87vh; transform: translateX(-50%); width: min(clamp(300px, 27.24vw, 523px), 52vh); aspect-ratio: 523 / 290; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble1.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
+        <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubS }}; aspect-ratio: 523 / 290; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble1.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
           <p style="margin: 0 0 7.6% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t2n }}</p>
         </div>
       </sc-if>
       <sc-if value="{{ isTeacher }}">
-        <div style="position: absolute; left: 50%; bottom: 67.87vh; transform: translateX(-50%); width: min(clamp(340px, 30.63vw, 588px), 48vh); aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
+        <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubT }}; aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
           <p style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t2n }}</p>
         </div>
       </sc-if>
-      <div style="position: absolute; left: 50%; bottom: 45.56vh; transform: translateX(-50%); width: min(clamp(230px, 22.08vw, 424px), 31vh); aspect-ratio: 424 / 286;">
+      <div style="position: absolute; left: 50%; bottom: {{ bChar }}; transform: translateX(-50%); width: {{ wChar2 }}; aspect-ratio: 424 / 286;">
         <div style="position: absolute; left: 23.58%; top: 84.6%; width: 53.54%; height: 18.53%; border-radius: 50%; background: rgb(237,231,209);"></div>
         <img loading="eager" decoding="sync" fetchpriority="high" src="assets/char-wave.png" alt="포팡이 캐릭터" style="position: absolute; inset: 0; width: 100%; height: 100%;">
       </div>
-      <div style="position: absolute; left: 50%; bottom: 24.07vh; transform: translateX(-50%); display: flex; justify-content: center; gap: min(20px, 1.04vw); width: max-content; max-width: 96vw;">
+      <div style="position: absolute; left: 50%; bottom: {{ bCards }}; transform: translateX(-50%); display: flex; flex-wrap: wrap; justify-content: center; gap: {{ cardsGap }}; width: {{ cardsW }}; max-width: 96vw;">
         <sc-for list="{{ moods }}" as="m" hint-placeholder-count="4">
           <sc-if value="{{ m.off }}" hint-placeholder-val="{{ true }}">
-            <button type="button" onClick="{{ m.pick }}" style="width: clamp(150px, 13.23vw, 254px); aspect-ratio: 254 / 170; border-radius: clamp(24px, 2.08vw, 40px); background: rgb(255,255,255); border: 3px solid rgb(196,196,196); box-sizing: border-box; padding: 0 2%; display: flex; align-items: center; justify-content: center; font: inherit; font-size: {{ fsMood }}; line-height: 1.64; text-align: center; white-space: pre; word-break: keep-all; color: rgb(46,46,46); cursor: pointer;" style-hover="border-color: rgb(160,160,160);">{{ m.label }}</button>
+            <button type="button" onClick="{{ m.pick }}" style="width: {{ cardW }}; aspect-ratio: 254 / 170; border-radius: clamp(24px, 2.08vw, 40px); background: rgb(255,255,255); border: 3px solid rgb(196,196,196); box-sizing: border-box; padding: 0 2%; display: flex; align-items: center; justify-content: center; font: inherit; font-size: {{ fsMood }}; line-height: 1.64; text-align: center; white-space: pre; word-break: keep-all; color: rgb(46,46,46); cursor: pointer;" style-hover="border-color: rgb(160,160,160);">{{ m.label }}</button>
           </sc-if>
           <sc-if value="{{ m.on }}">
-            <button type="button" onClick="{{ m.pick }}" style="width: clamp(150px, 13.23vw, 254px); aspect-ratio: 254 / 170; border-radius: clamp(24px, 2.08vw, 40px); background: rgb(255,255,255); border: 3px solid rgb(26,159,103); box-sizing: border-box; padding: 0 2%; display: flex; align-items: center; justify-content: center; font: inherit; font-size: {{ fsMood }}; line-height: 1.64; text-align: center; white-space: pre; word-break: keep-all; color: rgb(20,132,85); cursor: pointer;">{{ m.label }}</button>
+            <button type="button" onClick="{{ m.pick }}" style="width: {{ cardW }}; aspect-ratio: 254 / 170; border-radius: clamp(24px, 2.08vw, 40px); background: rgb(255,255,255); border: 3px solid rgb(26,159,103); box-sizing: border-box; padding: 0 2%; display: flex; align-items: center; justify-content: center; font: inherit; font-size: {{ fsMood }}; line-height: 1.64; text-align: center; white-space: pre; word-break: keep-all; color: rgb(20,132,85); cursor: pointer;">{{ m.label }}</button>
           </sc-if>
         </sc-for>
       </div>
-      <div style="position: absolute; left: 50%; bottom: 10.19vh; transform: translateX(-50%);">
+      <div style="position: absolute; left: 50%; bottom: {{ bNext }}; transform: translateX(-50%);">
         <sc-if value="{{ moodPicked }}">
-          <button type="button" onClick="{{ next }}" style="width: clamp(160px, 13.04vw, 250px); height: clamp(42px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(20,132,85); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: pointer;" style-hover="background: rgb(16,110,71);">{{ tNext }}</button>
+          <button type="button" onClick="{{ next }}" style="width: clamp(160px, 13.04vw, 250px); height: clamp(46px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(20,132,85); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: pointer;" style-hover="background: rgb(16,110,71);">{{ tNext }}</button>
         </sc-if>
         <sc-if value="{{ moodEmpty }}" hint-placeholder-val="{{ true }}">
-          <button type="button" disabled="disabled" style="width: clamp(160px, 13.04vw, 250px); height: clamp(42px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(205,205,200); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: not-allowed;">{{ tNext }}</button>
+          <button type="button" disabled="disabled" style="width: clamp(160px, 13.04vw, 250px); height: clamp(46px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(205,205,200); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: not-allowed;">{{ tNext }}</button>
         </sc-if>
       </div>
     </section>
@@ -103,41 +115,41 @@ a:hover { color: rgb(20,126,82); }
   <div style="display: {{ d3 }}; animation: {{ a3 }};">
     <section data-screen-label="03 인사" style="position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
       <sc-if value="{{ isStudent }}" hint-placeholder-val="{{ true }}">
-        <div style="position: absolute; left: 50%; bottom: 67.87vh; transform: translateX(-50%); width: min(clamp(300px, 27.24vw, 523px), 52vh); aspect-ratio: 523 / 290; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble1.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
+        <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubS }}; aspect-ratio: 523 / 290; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble1.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
           <p style="margin: 0 0 7.6% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t3n }}</p>
         </div>
       </sc-if>
       <sc-if value="{{ isTeacher }}">
-        <div style="position: absolute; left: 50%; bottom: 67.87vh; transform: translateX(-50%); width: min(clamp(340px, 30.63vw, 588px), 48vh); aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
+        <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubT }}; aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
           <p style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t3n }}</p>
         </div>
       </sc-if>
-      <div style="position: absolute; left: 50%; bottom: 45.56vh; transform: translateX(-50%); width: min(clamp(260px, 24.95vw, 479px), 34vh); aspect-ratio: 479 / 301;">
+      <div style="position: absolute; left: 50%; bottom: {{ bChar }}; transform: translateX(-50%); width: {{ wChar3 }}; aspect-ratio: 479 / 301;">
         <div style="position: absolute; left: 27.14%; top: 83.39%; width: 47.39%; height: 17.61%; border-radius: 50%; background: rgb(237,231,209);"></div>
         <img loading="eager" decoding="sync" fetchpriority="high" src="assets/char-heart.png" alt="포팡이 캐릭터" style="position: absolute; inset: 0; width: 100%; height: 100%;">
       </div>
-      <button type="button" onClick="{{ next }}" style="position: absolute; left: 50%; bottom: 10.19vh; transform: translateX(-50%); width: clamp(160px, 13.04vw, 250px); height: clamp(42px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(20,132,85); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: pointer;" style-hover="background: rgb(16,110,71);">{{ tNext }}</button>
+      <button type="button" onClick="{{ next }}" style="position: absolute; left: 50%; bottom: {{ bNext }}; transform: translateX(-50%); width: clamp(160px, 13.04vw, 250px); height: clamp(46px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(20,132,85); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: pointer;" style-hover="background: rgb(16,110,71);">{{ tNext }}</button>
     </section>
   </div>
 
   <div style="display: {{ d4 }}; animation: {{ a4 }};">
     <section data-screen-label="04 툴킷 소개" style="position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
       <sc-if value="{{ isStudent }}" hint-placeholder-val="{{ true }}">
-        <div style="position: absolute; left: 50%; bottom: 67.87vh; transform: translateX(-50%); width: min(clamp(290px, 26.04vw, 500px), 44vh); aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
+        <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubS4 }}; aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
           <p style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.06; text-align: center; color: rgb(46,46,46); white-space: pre;">{{ t4n }}</p>
         </div>
       </sc-if>
       <sc-if value="{{ isTeacher }}">
-        <div style="position: absolute; left: 50%; bottom: 67.87vh; transform: translateX(-50%); width: min(clamp(340px, 30.63vw, 588px), 48vh); aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
+        <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubT }}; aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
           <p style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.06; text-align: center; color: rgb(46,46,46); white-space: pre;">{{ t4n }}</p>
         </div>
       </sc-if>
-      <div style="position: absolute; left: 50%; bottom: 45.56vh; transform: translateX(-50%); width: min(clamp(220px, 17.76vw, 341px), 21vh); aspect-ratio: 1 / 1;">
+      <div style="position: absolute; left: 50%; bottom: {{ bChar }}; transform: translateX(-50%); width: {{ wChar4 }}; aspect-ratio: 1 / 1;">
         <div style="position: absolute; left: 17.6%; top: 82.7%; width: 66.57%; height: 15.54%; border-radius: 50%; background: rgb(237,231,209);"></div>
         <img loading="eager" decoding="sync" fetchpriority="high" src="assets/char-toolkit.png" alt="응원툴킷을 든 포팡이" style="position: absolute; inset: 0; width: 100%; height: 100%;">
         <img src="assets/obj-small.png" alt="" style="position: absolute; left: 71.85%; top: 22.29%; width: 14.66%; height: 18.48%; transform: scaleX(-1);">
       </div>
-      <button type="button" onClick="{{ finish }}" style="position: absolute; left: 50%; bottom: 10.19vh; transform: translateX(-50%); width: clamp(160px, 13.04vw, 250px); height: clamp(42px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(20,132,85); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: pointer;" style-hover="background: rgb(16,110,71);">{{ tCont }}</button>
+      <button type="button" onClick="{{ finish }}" style="position: absolute; left: 50%; bottom: {{ bNext }}; transform: translateX(-50%); width: clamp(160px, 13.04vw, 250px); height: clamp(46px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(20,132,85); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: pointer;" style-hover="background: rgb(16,110,71);">{{ tCont }}</button>
     </section>
   </div>
 
@@ -157,7 +169,7 @@ a:hover { color: rgb(20,126,82); }
       <sc-if value="{{ happy }}">
         <p style="position: absolute; left: 50%; top: 52.1vh; transform: translateX(-50%); margin: 0; width: min(484px, 25.2vw); font-size: {{ fsStat }}; line-height: 1.08; text-align: center; color: rgb(46,46,46); white-space: pre-line; text-wrap: pretty;">{{ t5 }}</p>
       </sc-if>
-      <button type="button" onClick="{{ next }}" style="position: absolute; left: 50%; bottom: 10.19vh; transform: translateX(-50%); width: clamp(160px, 13.04vw, 250px); height: clamp(42px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(20,132,85); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: pointer;" style-hover="background: rgb(16,110,71);">{{ tNext }}</button>
+      <button type="button" onClick="{{ next }}" style="position: absolute; left: 50%; bottom: {{ bNext }}; transform: translateX(-50%); width: clamp(160px, 13.04vw, 250px); height: clamp(46px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(20,132,85); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: pointer;" style-hover="background: rgb(16,110,71);">{{ tNext }}</button>
     </section>
   </div>
 
@@ -169,9 +181,21 @@ class Component extends DCLogic {
     super(p);
     this.veilRef = React.createRef();
     this.videoRef = React.createRef();
-    this.state = { screen: 1, mood: -1, happy: false, muted: true, videoOk: false, lang: "KR", langOpen: false, role: "student", navCount: 0 };
+    this.state = { screen: 1, mood: -1, happy: false, muted: true, videoOk: false, lang: "KR", langOpen: false, role: "student", navCount: 0,
+      vw: window.innerWidth, vh: window.innerHeight };
   }
   componentDidMount() {
+    this._onResize = () => this.setState({ vw: window.innerWidth, vh: window.innerHeight });
+    window.addEventListener("resize", this._onResize);
+    window.addEventListener("orientationchange", this._onResize);
+    this._outsideLang = (e) => {
+      if (!this.state.langOpen) return;
+      const t = e.target;
+      if (t && t.closest && t.closest('[aria-label="언어 선택"]')) return;
+      if (t && t.closest && t.closest("[data-lang-menu]")) return;
+      this.setState({ langOpen: false });
+    };
+    document.addEventListener("touchstart", this._outsideLang, { passive: true });
     try {
       CSS.registerProperty({ name: "--sweep", syntax: "<angle>", inherits: false, initialValue: "0deg" });
     } catch (e) {}
@@ -282,6 +306,9 @@ class Component extends DCLogic {
 
   }
   componentWillUnmount() {
+    window.removeEventListener("resize", this._onResize);
+    window.removeEventListener("orientationchange", this._onResize);
+    document.removeEventListener("touchstart", this._outsideLang);
     clearInterval(this._soundTimer);
     document.removeEventListener("pointerdown", this._onClickPop, true); clearTimeout(this._swapT); cancelAnimationFrame(this._raf); }
   componentDidUpdate(prevProps, prevState) {
@@ -490,8 +517,34 @@ moodLabels() {
     const T = this.i18n();
     const teacher = this.state.role === "teacher";
     const m = teacher ? T.mt : T.ms;
+    const mob = this.state.vw < 768 || (this.state.vw < 1024 && this.state.vh > this.state.vw);
+    const bubbleTexts = teacher ? [T.s2t, T.s3t, T.s4t] : [T.s2s, T.s3s, T.s4s];
+    const mobFs = () => {
+      const wide = { KR: 0.82, JA: 0.82, ZH: 0.85, TH: 0.56, AR: 0.44 };
+      const em = wide[this.state.lang] || 0.47;
+      const maxLine = Math.max(...bubbleTexts.flatMap((x) => x.split("\n")).map((l) => l.length));
+      const box = teacher ? 76 : 70;
+      const a = Math.round((box / (maxLine * em)) * 100) / 100;
+      const b = Math.round(a * (teacher ? 0.4 : 0.45) * 100) / 100;
+      return "clamp(13px, min(" + a + "vw, " + b + "vh), 26px)";
+    };
+    const L = mob ? {
+      bBub: "70vh", wBubS: "min(82vw, 320px, 38vh)", wBubT: "min(88vw, 360px, 36vh)", wBubS4: "min(88vw, 360px, 36vh)",
+      bChar: "50vh", wChar2: "min(58vw, 26vh)", wChar3: "min(62vw, 28vh)", wChar4: "min(44vw, 20vh)",
+      bCards: "16vh", cardsGap: "10px", cardsW: "min(92vw, 380px)", cardW: "min(41vw, 180px)",
+      bNext: "calc(6vh + env(safe-area-inset-bottom, 0px))",
+    } : {
+      bBub: "67.87vh", wBubS: "min(clamp(300px, 27.24vw, 523px), 52vh)", wBubT: "min(clamp(340px, 30.63vw, 588px), 48vh)",
+      wBubS4: teacher ? "min(clamp(340px, 30.63vw, 588px), 48vh)" : "min(clamp(290px, 26.04vw, 500px), 44vh)",
+      bChar: "45.56vh", wChar2: "min(clamp(230px, 22.08vw, 424px), 31vh)", wChar3: "min(clamp(260px, 24.95vw, 479px), 34vh)",
+      wChar4: "min(clamp(220px, 17.76vw, 341px), 21vh)",
+      bCards: "24.07vh", cardsGap: "min(20px, 1.04vw)", cardsW: "max-content", cardW: "clamp(150px, 13.23vw, 254px)",
+      bNext: "10.19vh",
+    };
     return {
-      fs: this.fitFont(teacher ? [T.s2t, T.s3t, T.s4t] : [T.s2s, T.s3s, T.s4s], teacher ? 25.5 : 23.5, 18, 48),
+      ...L,
+      mob, desk: !mob,
+      fs: mob ? mobFs() : this.fitFont(bubbleTexts, teacher ? 25.5 : 23.5, 18, 48),
       fsMood: this.scaleFont(Math.max(...this.moodLabels().flatMap((x) => x.split("\n")).map((l) => l.length)), 8, 16, 1.46, 28),
       moods: this.moodLabels().map((label, i) => ({
         label, on: this.state.mood === i, off: this.state.mood !== i,
@@ -546,9 +599,21 @@ moodLabels() {
         ? "faceSwap" + (this.state.navCount % 2 === 0 ? "A" : "B") + " " + (this.props.revealDuration ?? 4) + "s steps(1, end) .35s both"
         : "none",
       langOpen: this.state.langOpen,
-      openLang: () => this.setState({ langOpen: true }),
-      closeLang: () => this.setState({ langOpen: false }),
-      toggleLang: () => this.setState({ langOpen: !this.state.langOpen }),
+      openLang: (e) => {
+        if (e && e.nativeEvent && e.nativeEvent.pointerType && e.nativeEvent.pointerType !== "mouse") return;
+        if (this._lastTouch && Date.now() - this._lastTouch < 800) return;
+        this._hoverAt = Date.now();
+        this.setState({ langOpen: true });
+      },
+      closeLang: (e) => {
+        if (this._lastTouch && Date.now() - this._lastTouch < 800) return;
+        this.setState({ langOpen: false });
+      },
+      toggleLang: () => {
+        if (this._hoverAt && Date.now() - this._hoverAt < 400) return;
+        this.setState({ langOpen: !this.state.langOpen });
+      },
+      langTouch: () => { this._lastTouch = Date.now(); },
       langs: [
         ["KR", "한국어"], ["EN", "English"], ["ZH", "中文"], ["VI", "Tiếng Việt"], ["FR", "Français"],
         ["JA", "日本語"], ["ES", "Español"], ["ID", "Bahasa Indonesia"], ["TH", "ไทย"], ["AR", "العربية"]
