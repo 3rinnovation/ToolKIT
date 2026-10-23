@@ -650,6 +650,8 @@ moodLabels() {
       finish: () => {
         try {
           localStorage.setItem("tk3_lang", this.state.lang.toLowerCase());
+          if (this.state.mood >= 0) localStorage.setItem("tk3_mood", String(this.state.mood));
+          else localStorage.removeItem("tk3_mood");
           sessionStorage.setItem("tk3_onboarded", "1");
         } catch (e) {}
         location.href = this.state.role === "teacher" ? "../index.html#home" : "../index.html#shome";
