@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="rgb(20,132,85)"/><circle cx="60" cy="52" r="20" fill="rgb(255,239,175)"/><path d="M44 84 Q60 96 76 84" stroke="rgb(255,255,255)" stroke-width="5" fill="none" stroke-linecap="round"/></svg></template>
+<style>
+@font-face { font-family: "Ownglyph PDH"; src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+html, body { margin: 0; padding: 0; background: rgb(251,249,241); }
+a { color: rgb(26,159,103); text-decoration: none; }
+a:hover { color: rgb(20,126,82); }
+@property --sweep { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes veilSweepA { from { --sweep: 0deg; } to { --sweep: 360deg; } }
+@keyframes veilSweepB { from { --sweep: 0deg; } to { --sweep: 360deg; } }
+@keyframes faceSwapA { 0%, 49.99% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes faceSwapB { 0%, 49.99% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes charIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scEnterA { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scEnterB { from { opacity: 0; } to { opacity: 1; } }
+</style>
+</helmet>
+<div style="width: 100%; min-height: 100vh; background: rgb(251,249,241); font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; color: rgb(46,46,46); box-sizing: border-box;">
+
+  <div onMouseEnter="{{ openLang }}" onMouseLeave="{{ closeLang }}" style="position: fixed; right: min(40px, 2.08vw); top: min(32px, 1.67vw); z-index: 50; display: flex; flex-direction: column; align-items: flex-end;">
+    <button type="button" onClick="{{ toggleLang }}" aria-label="언어 선택" style="width: 34px; height: 34px; border: none; border-radius: 50%; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{ globeColor }}" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"></circle><path d="M2.9 12 H21.1"></path><path d="M12 2.8 C15.2 5.6 15.2 18.4 12 21.2"></path><path d="M12 2.8 C8.8 5.6 8.8 18.4 12 21.2"></path><path d="M4.6 6.6 C7 8.2 17 8.2 19.4 6.6"></path><path d="M4.6 17.4 C7 15.8 17 15.8 19.4 17.4"></path></svg>
+    </button>
+    <sc-if value="{{ langOpen }}">
+      <div style="margin-top: 8px; width: 186px; max-height: 70vh; overflow-y: auto; border-radius: 14px; background: rgb(255,255,255); box-shadow: 0 6px 20px rgba(0,0,0,0.14); padding: 8px 7px; box-sizing: border-box; display: flex; flex-direction: column; gap: 1px; font-family: Pretendard, sans-serif;">
+        <sc-for list="{{ langs }}" as="lang" hint-placeholder-count="6">
+          <button type="button" onClick="{{ lang.pick }}" style="display: grid; grid-template-columns: 30px 1fr 13px; align-items: center; gap: 7px; width: 100%; min-height: 32px; padding: 0 9px; border: none; border-radius: 8px; background: {{ lang.bg }}; color: {{ lang.color }}; font-family: inherit; font-size: 12.5px; font-weight: {{ lang.weight }}; text-align: left; cursor: pointer;" style-hover="background: rgb(245,245,242);">
+            <span style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.02em;">{{ lang.code }}</span>
+            <span>{{ lang.label }}</span>
+            <span style="color: rgb(26,159,103); font-size: 11px;">{{ lang.check }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+
+
+  <div style="display: {{ d1 }}; animation: {{ a1 }};">
+    <section data-screen-label="01 진입" style="position: relative; width: 100%; min-height: 100vh; display: flex; align-items: center; justify-content: center; box-sizing: border-box; overflow: hidden; background: rgb(150,198,130);">
+      <div style="position: relative; flex: none; width: max(100%, 177.65vh); aspect-ratio: 2560 / 1441; background: rgb(150,198,130);">
+      <img src="assets/bg-landing-kr.jpg" alt="자기조절 툴킷 — 내 마음을 알아가고, 스스로 조절하는 힘!" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{ bgKrOpacity }};">
+      <img src="assets/bg-landing-en.jpg" alt="Self-Care Toolkit — Understand your mind and be stronger, on your own!" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{ bgEnOpacity }};">
+      <video ref="{{ videoRef }}" src="{{ videoSrc }}" poster="{{ videoPoster }}" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" preload="auto" disablepictureinpicture="disablepictureinpicture" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: {{ videoDisplay }};"></video>
+      <div style="position: absolute; left: 50%; top: 82%; transform: translate(-50%, -50%); display: flex; flex-wrap: nowrap; gap: min(35px, 1.82vw); justify-content: center;">
+        <button type="button" onClick="{{ goTeacher }}" style="width: auto; min-width: clamp(230px, 16.8vw, 322px); max-width: min(92vw, 460px); height: clamp(66px, 4.43vw, 85px); border: none; border-radius: 66px; background: rgb(255,255,255); display: flex; align-items: center; justify-content: center; padding: 0 min(34px, 1.77vw); cursor: pointer; font: inherit; transition: transform .15s ease;" style-hover="transform: translateY(-2px);">
+          <span style="font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; font-weight: 400; font-size: {{ fsRole }}; color: rgb(20,132,85); white-space: nowrap;">{{ tTeacher }}</span>
+        </button>
+        <button type="button" onClick="{{ goStudent }}" style="width: auto; min-width: clamp(230px, 16.8vw, 322px); max-width: min(92vw, 460px); height: clamp(66px, 4.43vw, 85px); border: none; border-radius: 66px; background: rgb(20,132,85); display: flex; align-items: center; justify-content: center; padding: 0 min(34px, 1.77vw); cursor: pointer; font: inherit; transition: transform .15s ease;" style-hover="transform: translateY(-2px);">
+          <span style="font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; font-weight: 400; font-size: {{ fsRole }}; color: rgb(255,255,255); white-space: nowrap;">{{ tStudent }}</span>
+        </button>
+      </div>
+      </div>
+    </section>
+  </div>
+
+  <div style="display: {{ d2 }}; animation: {{ a2 }};">
+    <section data-screen-label="02 기분 선택" style="position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
+      <sc-if value="{{ isStudent }}" hint-placeholder-val="{{ true }}">
+        <div style="position: absolute; left: 50%; bottom: 67.87vh; transform: translateX(-50%); width: min(clamp(300px, 27.24vw, 523px), 52vh); aspect-ratio: 523 / 290; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble1.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
+          <p style="margin: 0 0 7.6% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t2n }}</p>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isTeacher }}">
+        <div style="position: absolute; left: 50%; bottom: 67.87vh; transform: translateX(-50%); width: min(clamp(340px, 30.63vw, 588px), 48vh); aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
+          <p style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t2n }}</p>
+        </div>
+      </sc-if>
+      <div style="position: absolute; left: 50%; bottom: 45.56vh; transform: translateX(-50%); width: min(clamp(230px, 22.08vw, 424px), 31vh); aspect-ratio: 424 / 286;">
+        <div style="position: absolute; left: 23.58%; top: 84.6%; width: 53.54%; height: 18.53%; border-radius: 50%; background: rgb(237,231,209);"></div>
+        <img loading="eager" decoding="sync" fetchpriority="high" src="assets/char-wave.png" alt="포팡이 캐릭터" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+      </div>
+      <div style="position: absolute; left: 50%; bottom: 24.07vh; transform: translateX(-50%); display: flex; justify-content: center; gap: min(20px, 1.04vw); width: max-content; max-width: 96vw;">
+        <sc-for list="{{ moods }}" as="m" hint-placeholder-count="4">
+          <sc-if value="{{ m.off }}" hint-placeholder-val="{{ true }}">
+            <button type="button" onClick="{{ m.pick }}" style="width: clamp(150px, 13.23vw, 254px); aspect-ratio: 254 / 170; border-radius: clamp(24px, 2.08vw, 40px); background: rgb(255,255,255); border: 3px solid rgb(196,196,196); box-sizing: border-box; padding: 0 2%; display: flex; align-items: center; justify-content: center; font: inherit; font-size: {{ fsMood }}; line-height: 1.64; text-align: center; white-space: pre; word-break: keep-all; color: rgb(46,46,46); cursor: pointer;" style-hover="border-color: rgb(160,160,160);">{{ m.label }}</button>
+          </sc-if>
+          <sc-if value="{{ m.on }}">
+            <button type="button" onClick="{{ m.pick }}" style="width: clamp(150px, 13.23vw, 254px); aspect-ratio: 254 / 170; border-radius: clamp(24px, 2.08vw, 40px); background: rgb(255,255,255); border: 3px solid rgb(26,159,103); box-sizing: border-box; padding: 0 2%; display: flex; align-items: center; justify-content: center; font: inherit; font-size: {{ fsMood }}; line-height: 1.64; text-align: center; white-space: pre; word-break: keep-all; color: rgb(20,132,85); cursor: pointer;">{{ m.label }}</button>
+          </sc-if>
+        </sc-for>
+      </div>
+      <div style="position: absolute; left: 50%; bottom: 10.19vh; transform: translateX(-50%);">
+        <sc-if value="{{ moodPicked }}">
+          <button type="button" onClick="{{ next }}" style="width: clamp(160px, 13.04vw, 250px); height: clamp(42px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(20,132,85); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: pointer;" style-hover="background: rgb(16,110,71);">{{ tNext }}</button>
+        </sc-if>
+        <sc-if value="{{ moodEmpty }}" hint-placeholder-val="{{ true }}">
+          <button type="button" disabled="disabled" style="width: clamp(160px, 13.04vw, 250px); height: clamp(42px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(205,205,200); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: not-allowed;">{{ tNext }}</button>
+        </sc-if>
+      </div>
+    </section>
+  </div>
+
+  <div style="display: {{ d3 }}; animation: {{ a3 }};">
+    <section data-screen-label="03 인사" style="position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
+      <sc-if value="{{ isStudent }}" hint-placeholder-val="{{ true }}">
+        <div style="position: absolute; left: 50%; bottom: 67.87vh; transform: translateX(-50%); width: min(clamp(300px, 27.24vw, 523px), 52vh); aspect-ratio: 523 / 290; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble1.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
+          <p style="margin: 0 0 7.6% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t3n }}</p>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isTeacher }}">
+        <div style="position: absolute; left: 50%; bottom: 67.87vh; transform: translateX(-50%); width: min(clamp(340px, 30.63vw, 588px), 48vh); aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
+          <p style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t3n }}</p>
+        </div>
+      </sc-if>
+      <div style="position: absolute; left: 50%; bottom: 45.56vh; transform: translateX(-50%); width: min(clamp(260px, 24.95vw, 479px), 34vh); aspect-ratio: 479 / 301;">
+        <div style="position: absolute; left: 27.14%; top: 83.39%; width: 47.39%; height: 17.61%; border-radius: 50%; background: rgb(237,231,209);"></div>
+        <img loading="eager" decoding="sync" fetchpriority="high" src="assets/char-heart.png" alt="포팡이 캐릭터" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+      </div>
+      <button type="button" onClick="{{ next }}" style="position: absolute; left: 50%; bottom: 10.19vh; transform: translateX(-50%); width: clamp(160px, 13.04vw, 250px); height: clamp(42px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(20,132,85); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: pointer;" style-hover="background: rgb(16,110,71);">{{ tNext }}</button>
+    </section>
+  </div>
+
+  <div style="display: {{ d4 }}; animation: {{ a4 }};">
+    <section data-screen-label="04 툴킷 소개" style="position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
+      <sc-if value="{{ isStudent }}" hint-placeholder-val="{{ true }}">
+        <div style="position: absolute; left: 50%; bottom: 67.87vh; transform: translateX(-50%); width: min(clamp(290px, 26.04vw, 500px), 44vh); aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
+          <p style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.06; text-align: center; color: rgb(46,46,46); white-space: pre;">{{ t4n }}</p>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isTeacher }}">
+        <div style="position: absolute; left: 50%; bottom: 67.87vh; transform: translateX(-50%); width: min(clamp(340px, 30.63vw, 588px), 48vh); aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
+          <p style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.06; text-align: center; color: rgb(46,46,46); white-space: pre;">{{ t4n }}</p>
+        </div>
+      </sc-if>
+      <div style="position: absolute; left: 50%; bottom: 45.56vh; transform: translateX(-50%); width: min(clamp(220px, 17.76vw, 341px), 21vh); aspect-ratio: 1 / 1;">
+        <div style="position: absolute; left: 17.6%; top: 82.7%; width: 66.57%; height: 15.54%; border-radius: 50%; background: rgb(237,231,209);"></div>
+        <img loading="eager" decoding="sync" fetchpriority="high" src="assets/char-toolkit.png" alt="응원툴킷을 든 포팡이" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+        <img src="assets/obj-small.png" alt="" style="position: absolute; left: 71.85%; top: 22.29%; width: 14.66%; height: 18.48%; transform: scaleX(-1);">
+      </div>
+      <button type="button" onClick="{{ finish }}" style="position: absolute; left: 50%; bottom: 10.19vh; transform: translateX(-50%); width: clamp(160px, 13.04vw, 250px); height: clamp(42px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(20,132,85); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: pointer;" style-hover="background: rgb(16,110,71);">{{ tCont }}</button>
+    </section>
+  </div>
+
+  <div style="display: {{ d5 }}; animation: {{ a5 }};">
+    <section data-screen-label="05 98% 리빌" style="position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
+      <div style="position: absolute; left: 50%; bottom: 52.5vh; transform: translateX(-50%); width: clamp(200px, 16.09vw, 309px); aspect-ratio: 309 / 308; border-radius: 50%; overflow: hidden;">
+        <img loading="eager" decoding="sync" fetchpriority="high" src="assets/circle-happy.png" alt="웃으며 공부하는 포팡이" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+        <div ref="{{ veilRef }}" data-veil="1" style="position: absolute; inset: 0; border-radius: 50%; overflow: hidden; -webkit-mask-image: conic-gradient(from 0deg, transparent 0deg var(--sweep), #000 var(--sweep) 360deg); mask-image: conic-gradient(from 0deg, transparent 0deg var(--sweep), #000 var(--sweep) 360deg); animation: {{ veilAnim }};">
+          <img loading="eager" decoding="sync" fetchpriority="high" src="assets/circle-happy.png" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+          <img loading="eager" decoding="sync" fetchpriority="high" src="assets/circle-sad.png" alt="지친 표정의 포팡이" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: {{ faceAnim }};">
+          <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.31);"></div>
+        </div>
+      </div>
+      <sc-if value="{{ notHappy }}" hint-placeholder-val="{{ true }}">
+        <p style="position: absolute; left: 50%; top: 52.1vh; transform: translateX(-50%); margin: 0; width: min(484px, 25.2vw); font-size: {{ fsStat }}; line-height: 1.08; text-align: center; color: rgb(46,46,46); white-space: pre-line; text-wrap: pretty;">{{ t5 }}</p>
+      </sc-if>
+      <sc-if value="{{ happy }}">
+        <p style="position: absolute; left: 50%; top: 52.1vh; transform: translateX(-50%); margin: 0; width: min(484px, 25.2vw); font-size: {{ fsStat }}; line-height: 1.08; text-align: center; color: rgb(46,46,46); white-space: pre-line; text-wrap: pretty;">{{ t5 }}</p>
+      </sc-if>
+      <button type="button" onClick="{{ next }}" style="position: absolute; left: 50%; bottom: 10.19vh; transform: translateX(-50%); width: clamp(160px, 13.04vw, 250px); height: clamp(42px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(20,132,85); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: pointer;" style-hover="background: rgb(16,110,71);">{{ tNext }}</button>
+    </section>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1,&quot;min&quot;:1,&quot;max&quot;:4,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;프로토타입&quot;}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.veilRef = React.createRef();
+    this.videoRef = React.createRef();
+    this.state = { screen: 1, mood: -1, happy: false, muted: true, videoOk: false, lang: "KR", langOpen: false, role: "student", navCount: 0 };
+  }
+  componentDidMount() {
+    try {
+      CSS.registerProperty({ name: "--sweep", syntax: "<angle>", inherits: false, initialValue: "0deg" });
+    } catch (e) {}
+    ["assets/bg-landing-kr.jpg","assets/bg-landing-en.jpg","assets/bubble1.png","assets/bubble2.png","assets/char-wave.png",
+     "assets/char-heart.png","assets/char-toolkit.png","assets/obj-small.png",
+     "assets/circle-sad.png","assets/circle-happy.png"].forEach((src) => {
+      const i = new Image();
+      i.decoding = "sync";
+      i.src = src;
+    });
+    const s = this.props.startScreen ?? 1;
+    if (s !== 1) this.go(s);
+    const tryPlay = () => {
+      const v = this.videoRef.current;
+      if (!v || this.state.screen !== 1 || this.state.lang !== "KR") return;
+      v.volume = 1;
+      if (!this._unmutedOnce) { v.muted = true; v.setAttribute("muted", ""); }
+      v.play().catch(() => {
+        v.muted = true;
+        v.play().catch(() => {});
+      });
+    };
+    tryPlay();
+    requestAnimationFrame(tryPlay);
+    const v0 = this.videoRef.current || document.querySelector("video");
+    if (v0) { try { v0.muted = true; v0.play().catch(() => {}); } catch (e) {} }
+    if (v0) {
+      ["loadedmetadata", "loadeddata", "canplay", "canplaythrough", "pause", "ended", "stalled"].forEach((ev) =>
+        v0.addEventListener(ev, tryPlay));
+      v0.addEventListener("ended", () => { try { v0.currentTime = 0; } catch (e) {} v0.play().catch(() => {}); });
+    }
+    [60, 150, 400, 900, 1500, 2500].forEach((t) => setTimeout(tryPlay, t));
+    document.addEventListener("visibilitychange", tryPlay);
+    this._pop = () => {
+      if (this.props.popSound === false) return;
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        this._ac = this._ac || new AC();
+        const ac = this._ac;
+        if (ac.state === "suspended") ac.resume();
+        const t = ac.currentTime;
+        const out = ac.createGain();
+        out.gain.value = 0.9;
+        const lp = ac.createBiquadFilter();
+        lp.type = "lowpass";
+        lp.frequency.setValueAtTime(3000, t);
+        lp.frequency.exponentialRampToValueAtTime(1500, t + 0.3);
+        lp.Q.value = 0.4;
+        out.connect(lp).connect(ac.destination);
+        const blip = (type, f0, f1, peak, dur, delay) => {
+          const osc = ac.createOscillator();
+          const g = ac.createGain();
+          const s = t + delay;
+          osc.type = type;
+          osc.frequency.setValueAtTime(f0, s);
+          osc.frequency.exponentialRampToValueAtTime(f1, s + dur * 0.55);
+          g.gain.setValueAtTime(0.0001, s);
+          g.gain.exponentialRampToValueAtTime(peak, s + 0.022);
+          g.gain.exponentialRampToValueAtTime(0.0001, s + dur);
+          osc.connect(g).connect(out);
+          osc.start(s);
+          osc.stop(s + dur + 0.02);
+        };
+        blip("sine", 523.25, 523.25, 0.07, 0.3, 0);
+      } catch (e) {}
+    };
+    this._onClickPop = (e) => {
+      const el = e.target && e.target.closest && e.target.closest("button");
+      if (el) this._pop();
+    };
+
+    document.addEventListener("pointerdown", this._onClickPop, true);
+    this._tryPlay = tryPlay;
+    this._checkSound = () => {
+      const v = this.videoRef.current || document.querySelector("video");
+      const blocked = !!v && v.muted && !this._userMuted && this.state.screen === 1;
+      if (this.state.needSound !== blocked) this.setState({ needSound: blocked });
+    };
+    setTimeout(() => {
+      const v = this.videoRef.current || document.querySelector("video");
+      if (!v || !v.muted || this._userMuted) return;
+      v.muted = false;
+      v.volume = 1;
+      v.play().then(() => this.setState({ muted: false })).catch(() => {
+        v.muted = true;
+        v.play().catch(() => {});
+      });
+    }, 250);
+    this._autoUnmute = () => {
+      if (this._userMuted || this.state.screen !== 1 || this.state.lang !== "KR") return;
+      const v = this.videoRef.current || document.querySelector("video");
+      if (!v || !v.muted) return;
+      v.muted = false;
+      v.volume = 1;
+      v.play().then(() => { this._unmutedOnce = true; this.setState({ muted: false, needSound: false }); }).catch(() => { v.muted = true; v.play().catch(() => {}); });
+    };
+    ["pointerdown", "click", "keydown", "wheel", "touchstart", "pointermove", "mouseover", "scroll"].forEach((ev) => {
+      window.addEventListener(ev, this._autoUnmute, { capture: true, passive: true });
+      document.addEventListener(ev, this._autoUnmute, { capture: true, passive: true });
+    });
+    ["pointerdown", "pointerup", "click", "keydown", "wheel", "touchstart", "touchend", "pointermove", "mouseover", "scroll"].forEach((ev) => {
+      window.addEventListener(ev, tryPlay, { capture: true, passive: true });
+      document.addEventListener(ev, tryPlay, { capture: true, passive: true });
+      if (window.parent && window.parent !== window) {
+        try { window.parent.document.addEventListener(ev, tryPlay, { capture: true, passive: true }); } catch (e) {}
+      }
+    });
+
+  }
+  componentWillUnmount() {
+    clearInterval(this._soundTimer);
+    document.removeEventListener("pointerdown", this._onClickPop, true); clearTimeout(this._swapT); cancelAnimationFrame(this._raf); }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState && prevState.lang !== this.state.lang) {
+      const v = this.videoRef.current || document.querySelector("video");
+      if (!v) return;
+      if (this.state.lang !== "KR") { v.pause(); v.muted = true; }
+      else if (this.state.screen === 1) { v.play().catch(() => {}); }
+    }
+  }
+  go(n) {
+    const v = this.videoRef.current || document.querySelector("video");
+    if (v) {
+      if (n === 1) { v.play().catch(() => {}); }
+      else {
+        v.pause();
+        v.muted = true;
+        [0, 60, 200, 600].forEach((d) => setTimeout(() => {
+          if (this.state.screen !== 1) { v.pause(); v.muted = true; }
+        }, d));
+      }
+    }
+    clearTimeout(this._swapT);
+    this._swapT = null;
+    this.setState({ screen: n, happy: false, navCount: this.state.navCount + 1 });
+    if (n === 5) {
+      const dur = (this.props.revealDuration ?? 4) * 1000;
+      const swapAt = (this.props.faceSwapAt ?? 50) / 100;
+      this._swapT = setTimeout(() => this.setState({ happy: true }), 350 + dur * swapAt);
+    }
+  }
+  startReveal() {
+    const dur = (this.props.revealDuration ?? 4) * 1000;
+    const swapAt = (this.props.faceSwapAt ?? 50) / 100;
+    const t0 = performance.now() + 350;
+    const tick = (now) => {
+      const v = this.veilRef.current || document.querySelector("[data-veil]");
+      const p = Math.min(1, Math.max(0, (now - t0) / dur));
+      const e = 1 - Math.pow(1 - p, 3);
+      const a = (e * 360).toFixed(2);
+      if (v) {
+        const g = "conic-gradient(from 0deg, transparent 0deg " + a + "deg, #000 " + a + "deg 360deg)";
+        v.style.webkitMaskImage = g;
+        v.style.maskImage = g;
+      }
+      if (e >= swapAt && !this.state.happy) this.setState({ happy: true });
+      if (p < 1) this._raf = requestAnimationFrame(tick);
+    };
+    cancelAnimationFrame(this._raf);
+    this._raf = requestAnimationFrame(tick);
+  }
+i18n() {
+    const D = {
+      KR: { teacher: "선생님으로 시작하기", student: "학생으로 시작하기", next: "다음  →", cont: "계속하기",
+        s2s: "안녕! 나는 포팡이야.\n요즘 너는 어떻게 지내?",
+        s2t: "안녕하세요! 저는 포팡이에요.\n요즘 아이들 반에서 어때요?",
+        s3s: "알려줘서 고마워\n너를 만나게 되어 정말 기뻐.",
+        s3t: "알려주셔서 감사해요.\n선생님을 만나게 되어\n정말 반가워요!",
+        s4s: "응원툴킷은 학교에서\n너를 응원해주기 위한거야.\n지금 바로 사용해볼래?",
+        s4t: "응원툴킷은 학교에서\n아이들을 위한 도구예요.\n지금 바로 사용해 볼까요?",
+        stat: "98%의 사용자가 응원툴킷이\n공부에 도움이 된다고 답했어요",
+        ms: ["힘들어", "우울해", "괜찮아"], mt: ["집중을 못해요", "산만해요", "우울해해요"] },
+      EN: { teacher: "Start as a teacher", student: "Start as a student", next: "Next  →", cont: "Get started",
+        s2s: "Hi! I'm Popang.\nHow are you doing?",
+        s2t: "Hello! I'm Popang.\nHow is your class doing?",
+        s3s: "Thanks for sharing.\nSo glad we met.",
+        s3t: "Thanks for sharing.\nSo glad to meet you!",
+        s4s: "The Cheer Toolkit\ncheers you on at school.\nWant to try it?",
+        s4t: "The Cheer Toolkit\nsupports kids at school.\nShall we try it?",
+        stat: "98% of users say the toolkit\nhelps with studying",
+        ms: ["It's hard", "I feel down", "I'm okay"], mt: ["Can't focus", "Restless", "Feeling down"] },
+      ZH: { teacher: "以教师身份开始", student: "以学生身份开始", next: "下一步  →", cont: "立即开始",
+        s2s: "你好！我是泡泡。\n你最近过得怎么样？",
+        s2t: "您好！我是泡泡。\n最近孩子们在班里怎么样？",
+        s3s: "谢谢你告诉我。\n很高兴认识你。",
+        s3t: "谢谢您告诉我。\n很高兴\n认识您！",
+        s4s: "加油工具箱是在学校\n为你加油的工具。\n现在就试试看？",
+        s4t: "加油工具箱是学校里\n为孩子们准备的工具。\n现在就试用一下吗？",
+        stat: "98% 的用户表示加油工具箱\n对学习很有帮助",
+        ms: ["很累", "有点难过", "还不错"], mt: ["无法专注", "容易分心", "情绪低落"] },
+      VI: { teacher: "Bắt đầu với tư cách giáo viên", student: "Bắt đầu với tư cách học sinh", next: "Tiếp  →", cont: "Bắt đầu ngay",
+        s2s: "Xin chào! Mình là Popang.\nDạo này bạn thế nào?",
+        s2t: "Xin chào! Tôi là Popang.\nDạo này các em trong lớp thế nào?",
+        s3s: "Cảm ơn bạn đã chia sẻ.\nMình rất vui được gặp bạn.",
+        s3t: "Cảm ơn thầy cô đã chia sẻ.\nTôi rất vui được\ngặp thầy cô!",
+        s4s: "Bộ công cụ cổ vũ giúp\ncổ vũ bạn ở trường.\nThử ngay nhé?",
+        s4t: "Bộ công cụ cổ vũ là công cụ\ndành cho các em ở trường.\nThử ngay nhé?",
+        stat: "98% người dùng cho biết bộ công cụ\ngiúp ích cho việc học",
+        ms: ["Mệt mỏi", "Buồn", "Ổn thôi"], mt: ["Khó tập trung", "Hiếu động", "Buồn bã"] },
+      FR: { teacher: "Commencer en tant qu'enseignant", student: "Commencer en tant qu'élève", next: "Suivant  →", cont: "Commencer",
+        s2s: "Salut ! Je suis Popang.\nComment vas-tu ces jours-ci ?",
+        s2t: "Bonjour ! Je suis Popang.\nComment vont les élèves en classe ?",
+        s3s: "Merci de me l'avoir dit.\nJe suis ravi de te rencontrer.",
+        s3t: "Merci de m'en avoir parlé.\nJe suis ravi de\nvous rencontrer !",
+        s4s: "La trousse d'encouragement est là\npour te soutenir à l'école.\nOn essaie tout de suite ?",
+        s4t: "La trousse d'encouragement est un\noutil pour les élèves à l'école.\nOn l'essaie maintenant ?",
+        stat: "98 % des utilisateurs disent que la trousse\nles aide dans leurs études",
+        ms: ["C'est dur", "Je suis triste", "Ça va"], mt: ["Manque de concentration", "Agité", "Mélancolique"] },
+      JA: { teacher: "先生としてはじめる", student: "学生としてはじめる", next: "次へ  →", cont: "はじめる",
+        s2s: "こんにちは！ぼくはポパンだよ。\n最近どう過ごしてる？",
+        s2t: "こんにちは！わたしはポパンです。\n最近クラスの子どもたちはどうですか？",
+        s3s: "教えてくれてありがとう。\n出会えてとてもうれしいよ。",
+        s3t: "教えてくださってありがとう。\n先生に出会えて\nとてもうれしいです！",
+        s4s: "応援ツールキットは学校で\n君を応援するためのものだよ。\n今すぐ使ってみる？",
+        s4t: "応援ツールキットは学校で\n子どもたちのための道具です。\n今すぐ使ってみますか？",
+        stat: "98%のユーザーが応援ツールキットは\n勉強に役立つと答えました",
+        ms: ["つらい", "落ちこむ", "だいじょうぶ"], mt: ["集中できない", "落ち着かない", "元気がない"] },
+      ES: { teacher: "Empezar como docente", student: "Empezar como estudiante", next: "Siguiente  →", cont: "Empezar",
+        s2s: "¡Hola! Soy Popang.\n¿Cómo has estado últimamente?",
+        s2t: "¡Hola! Soy Popang.\n¿Cómo van los niños en clase?",
+        s3s: "Gracias por contarme.\nMe alegra mucho conocerte.",
+        s3t: "Gracias por contarme.\nMe alegra mucho\nconocerle.",
+        s4s: "El kit de ánimo está en la escuela\npara apoyarte.\n¿Quieres probarlo ya?",
+        s4t: "El kit de ánimo es una herramienta\npara los niños en la escuela.\n¿Lo probamos ahora?",
+        stat: "El 98 % de los usuarios dice que el kit\nles ayuda a estudiar",
+        ms: ["Es difícil", "Estoy triste", "Estoy bien"], mt: ["No se concentra", "Inquieto", "Desanimado"] },
+      ID: { teacher: "Mulai sebagai guru", student: "Mulai sebagai siswa", next: "Lanjut  →", cont: "Mulai sekarang",
+        s2s: "Hai! Aku Popang.\nBagaimana kabarmu belakangan ini?",
+        s2t: "Halo! Saya Popang.\nBagaimana anak-anak di kelas?",
+        s3s: "Terima kasih sudah bercerita.\nAku senang bertemu denganmu.",
+        s3t: "Terima kasih sudah bercerita.\nSaya senang bisa\nbertemu Anda!",
+        s4s: "Kit Dukungan hadir di sekolah\nuntuk menyemangatimu.\nMau coba sekarang?",
+        s4t: "Kit Dukungan adalah alat\nuntuk anak-anak di sekolah.\nMau coba sekarang?",
+        stat: "98% pengguna mengatakan Kit Dukungan\nmembantu mereka belajar",
+        ms: ["Berat", "Sedih", "Baik saja"], mt: ["Sulit fokus", "Tidak tenang", "Murung"] },
+      TH: { teacher: "เริ่มต้นในฐานะครู", student: "เริ่มต้นในฐานะนักเรียน", next: "ถัดไป  →", cont: "เริ่มเลย",
+        s2s: "สวัสดี! ฉันชื่อโพปัง\nช่วงนี้เธอเป็นอย่างไรบ้าง?",
+        s2t: "สวัสดีค่ะ! ฉันชื่อโพปัง\nช่วงนี้เด็ก ๆ ในห้องเป็นอย่างไรบ้าง?",
+        s3s: "ขอบคุณที่บอกนะ\nดีใจมากที่ได้เจอเธอ",
+        s3t: "ขอบคุณที่บอกนะคะ\nดีใจมากที่ได้\nพบคุณครู!",
+        s4s: "ชุดเครื่องมือให้กำลังใจ\nอยู่ที่โรงเรียนเพื่อเชียร์เธอ\nลองใช้เลยไหม?",
+        s4t: "ชุดเครื่องมือให้กำลังใจเป็น\nเครื่องมือสำหรับเด็ก ๆ ในโรงเรียน\nลองใช้เลยไหม?",
+        stat: "ผู้ใช้ 98% บอกว่าชุดเครื่องมือนี้\nช่วยเรื่องการเรียนได้",
+        ms: ["เหนื่อย", "เศร้า", "สบายดี"], mt: ["ไม่มีสมาธิ", "อยู่ไม่นิ่ง", "ซึมเศร้า"] },
+      AR: { teacher: "ابدأ كمعلم", student: "ابدأ كطالب", next: "التالي  →", cont: "ابدأ الآن",
+        s2s: "مرحبًا! أنا بوبانغ.\nكيف كانت أحوالك مؤخرًا؟",
+        s2t: "مرحبًا! أنا بوبانغ.\nكيف حال الأطفال في الصف؟",
+        s3s: "شكرًا لإخباري.\nسعيد جدًا بلقائك.",
+        s3t: "شكرًا لإخباري.\nسعيد جدًا\nبلقائك!",
+        s4s: "حقيبة التشجيع موجودة في المدرسة\nلتشجيعك.\nهل نجربها الآن؟",
+        s4t: "حقيبة التشجيع أداة\nللأطفال في المدرسة.\nهل نجربها الآن؟",
+        stat: "قال 98% من المستخدمين إن حقيبة التشجيع\nتساعدهم في الدراسة",
+        ms: ["أشعر بالتعب", "أشعر بالحزن", "أنا بخير"], mt: ["لا يركز", "كثير الحركة", "حزين"] },
+    };
+    return D[this.state.lang] || D.KR;
+  }
+fitFont(texts, boxVW, minPx, maxPx) {
+    const wide = { KR: 0.82, JA: 0.82, ZH: 0.85, TH: 0.56, AR: 0.44 };
+    const em = wide[this.state.lang] || 0.47;
+    const maxLine = Math.max(...texts.flatMap((x) => x.split("\n")).map((l) => l.length));
+    const vw = Math.min(maxPx / 19.2, boxVW / (maxLine * em));
+    return "clamp(" + minPx + "px, " + (Math.round(vw * 100) / 100) + "vw, " + maxPx + "px)";
+  }
+  scaleFont(len, base, minPx, vw, maxPx) {
+    const raw = base / Math.max(len, 1);
+    const k = Math.min(1, Math.max(0.7, 1 - (1 - raw) * 0.85));
+    const r = (v) => Math.round(v * k * 100) / 100;
+    return "clamp(" + r(minPx) + "px, " + r(vw) + "vw, " + r(maxPx) + "px)";
+  }
+typeNodes(text, tag) {
+    const step = 0.038, lead = 0.26;
+    let i = 0;
+    const out = [];
+    text.split("\n").forEach((line, li) => {
+      if (li > 0) out.push(React.createElement("br", { key: tag + "-br" + li }));
+      [...line].forEach((ch, ci) => {
+        out.push(React.createElement("span", {
+          key: tag + "-" + li + "-" + ci,
+          style: { animation: "charIn .22s linear both", animationDelay: (lead + step * i++).toFixed(3) + "s" },
+        }, ch));
+      });
+    });
+    return out;
+  }
+moodLabels() {
+    const Q = {
+      KR: ["수업을 따라\n오지 못해요", "마음을 가라\n앉히지 못해요", "분위기가\n처져 있어요", "집중하기\n어려워해요"],
+      EN: ["Can't keep up\nin class", "Can't calm\ndown", "The mood\nfeels low", "Hard to\nfocus"],
+      ZH: ["跟不上\n课堂进度", "无法让心情\n平静下来", "气氛\n比较低落", "难以\n集中注意力"],
+      VI: ["Không theo kịp\nbài học", "Không thể\nbình tĩnh", "Không khí\ntrầm xuống", "Khó\ntập trung"],
+      FR: ["N'arrive pas à\nsuivre le cours", "N'arrive pas\nà se calmer", "L'ambiance\nest morose", "A du mal à\nse concentrer"],
+      JA: ["授業に\nついていけない", "気持ちを\n落ち着けられない", "雰囲気が\n沈んでいる", "集中するのが\n難しい"],
+      ES: ["No puede seguir\nla clase", "No logra\ncalmarse", "El ambiente\nestá apagado", "Le cuesta\nconcentrarse"],
+      ID: ["Tidak bisa\nmengikuti pelajaran", "Tidak bisa\nmenenangkan diri", "Suasananya\nlesu", "Sulit\nberkonsentrasi"],
+      TH: ["ตามบทเรียน\nไม่ทัน", "ทำใจให้สงบ\nไม่ได้", "บรรยากาศ\nดูหดหู่", "มีสมาธิ\nได้ยาก"],
+      AR: ["لا يستطيع\nمتابعة الدرس", "لا يستطيع\nأن يهدأ", "الأجواء\nفاترة", "يصعب عليه\nالتركيز"],
+    };
+    return Q[this.state.lang] || Q.KR;
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState && prevState.lang !== this.state.lang && this.state.screen === 1) {
+      const v = this.videoRef.current || document.querySelector("video");
+      if (v) {
+        const wasMuted = v.muted;
+        setTimeout(() => { v.muted = wasMuted; v.play().catch(() => { v.muted = true; v.play().catch(() => {}); }); }, 0);
+      }
+    }
+  }
+  anim(n, s) {
+    if (n !== s) return "none";
+    const name = this.state.navCount % 2 === 0 ? "scEnterA" : "scEnterB";
+    return name + " .95s ease both";
+  }
+  renderVals() {
+    const s = this.state.screen;
+    const T = this.i18n();
+    const teacher = this.state.role === "teacher";
+    const m = teacher ? T.mt : T.ms;
+    return {
+      fs: this.fitFont(teacher ? [T.s2t, T.s3t, T.s4t] : [T.s2s, T.s3s, T.s4s], teacher ? 25.5 : 23.5, 18, 48),
+      fsMood: this.scaleFont(Math.max(...this.moodLabels().flatMap((x) => x.split("\n")).map((l) => l.length)), 8, 16, 1.46, 28),
+      moods: this.moodLabels().map((label, i) => ({
+        label, on: this.state.mood === i, off: this.state.mood !== i,
+        pick: () => this.setState({ mood: i }),
+      })),
+      fsStat: this.scaleFont(Math.max(...T.stat.split("\n").map((l) => l.length)), 18, 22, 2.5, 48),
+      fsBtn: this.scaleFont(Math.max(T.next.length, T.cont.length), 7, 18, 2, 38),
+      fsRole: this.scaleFont(Math.max(T.teacher.length, T.student.length), 11, 21, 1.72, 33),
+      tTeacher: T.teacher, tStudent: T.student, tNext: T.next, tCont: T.cont,
+      t2: teacher ? T.s2t : T.s2s,
+      t3: teacher ? T.s3t : T.s3s,
+      t4: teacher ? T.s4t : T.s4s,
+      t5: T.stat,
+      t2n: this.typeNodes(teacher ? T.s2t : T.s2s, "t2-" + this.state.lang + this.state.role + this.state.navCount),
+      t3n: this.typeNodes(teacher ? T.s3t : T.s3s, "t3-" + this.state.lang + this.state.role + this.state.navCount),
+      t4n: this.typeNodes(teacher ? T.s4t : T.s4s, "t4-" + this.state.lang + this.state.role + this.state.navCount),
+      veilRef: this.veilRef,
+      globeColor: s === 1 ? "rgb(255,255,255)" : "rgb(20,132,85)",
+      videoDisplay: this.state.lang === "KR" ? "block" : "none",
+      videoSrc: this.state.lang === "KR" ? "assets/intro-bg.mp4" : "assets/intro-bg-en.mp4",
+      videoPoster: this.state.lang === "KR" ? "assets/bg-landing-kr.jpg" : "assets/bg-landing-en.jpg",
+      bgKrOpacity: this.state.lang === "KR" ? 1 : 0,
+      bgEnOpacity: this.state.lang === "KR" ? 0 : 1,
+      needSound: !!this.state.needSound && s === 1,
+      forceSound: () => {
+        const v = this.videoRef.current || document.querySelector("video");
+        if (!v) return;
+        this._userMuted = false;
+        this._unmutedOnce = true;
+        v.muted = false;
+        v.volume = 1;
+        v.play().catch(() => {});
+        this.setState({ muted: false, needSound: false });
+      },
+      soundOff: this.state.muted,
+      soundOn: !this.state.muted,
+      toggleSound: () => {
+        const v = this.videoRef.current || document.querySelector("video");
+        if (!v) return;
+        const next = !v.muted;
+        this._userMuted = next;
+        this._unmutedOnce = !next;
+        v.muted = next;
+        v.volume = 1;
+        v.play().catch(() => {});
+        this.setState({ muted: next });
+      },
+      veilAnim: s === 5
+        ? "veilSweep" + (this.state.navCount % 2 === 0 ? "A" : "B") + " " + (this.props.revealDuration ?? 4) + "s cubic-bezier(0.22,0.61,0.36,1) .35s both"
+        : "none",
+      faceAnim: s === 5
+        ? "faceSwap" + (this.state.navCount % 2 === 0 ? "A" : "B") + " " + (this.props.revealDuration ?? 4) + "s steps(1, end) .35s both"
+        : "none",
+      langOpen: this.state.langOpen,
+      openLang: () => this.setState({ langOpen: true }),
+      closeLang: () => this.setState({ langOpen: false }),
+      toggleLang: () => this.setState({ langOpen: !this.state.langOpen }),
+      langs: [
+        ["KR", "한국어"], ["EN", "English"], ["ZH", "中文"], ["VI", "Tiếng Việt"], ["FR", "Français"],
+        ["JA", "日本語"], ["ES", "Español"], ["ID", "Bahasa Indonesia"], ["TH", "ไทย"], ["AR", "العربية"]
+      ].map(([code, label]) => {
+        const on = this.state.lang === code;
+        return {
+          code, label,
+          bg: on ? "rgb(230,246,238)" : "transparent",
+          color: on ? "rgb(20,132,85)" : "rgb(70,70,70)",
+          weight: on ? 700 : 500,
+          check: on ? "✓" : "",
+          pick: () => this.setState({ lang: code, langOpen: false }),
+        };
+      }),
+      isS1: s === 1, isS2: s === 2, isS3: s === 3, isS4: s === 4, isS5: s === 5,
+      d1: s === 1 ? "block" : "none", d2: s === 2 ? "block" : "none", d3: s === 3 ? "block" : "none",
+      d4: s === 4 ? "block" : "none", d5: s === 5 ? "block" : "none",
+      a1: this.anim(1, s), a2: this.anim(2, s), a3: this.anim(3, s), a4: this.anim(4, s), a5: this.anim(5, s),
+      sel0: this.state.mood === 0, sel1: this.state.mood === 1, sel2: this.state.mood === 2,
+      notSel0: this.state.mood !== 0, notSel1: this.state.mood !== 1, notSel2: this.state.mood !== 2,
+      moodPicked: this.state.mood >= 0,
+      moodEmpty: this.state.mood < 0,
+      happy: this.state.happy,
+      notHappy: !this.state.happy,
+      isTeacher: this.state.role === "teacher",
+      isStudent: this.state.role === "student",
+      mood0: m[0], mood1: m[1], mood2: m[2],
+      goTeacher: () => { this.setState({ role: "teacher", mood: -1 }); this.go(2); },
+      goStudent: () => { this.setState({ role: "student", mood: -1 }); this.go(2); },
+      pickHard: () => this.setState({ mood: 0 }),
+      pickBlue: () => this.setState({ mood: 1 }),
+      pickOk: () => this.setState({ mood: 2 }),
+      next: () => this.go(s >= 4 ? 1 : s + 1),
+      finish: () => {
+        try {
+          localStorage.setItem("tk3_lang", this.state.lang.toLowerCase());
+          sessionStorage.setItem("tk3_onboarded", "1");
+        } catch (e) {}
+        location.href = this.state.role === "teacher" ? "../index.html#home" : "../index.html#shome";
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>
