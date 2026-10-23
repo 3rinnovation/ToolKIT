@@ -4,6 +4,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+try {
+  if (!location.hash && !sessionStorage.getItem("tk3_onboarded")) location.replace("onboarding/");
+} catch (e) {}
+</script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -353,7 +358,7 @@
 <script src="./image-slot.js"></script>
 <script>
 (function () {
-  var BASE = "https://3rinnovation.github.io/" + "ToolKIT/" + "assets/";
+  var BASE = "https://3rinnovation.github.io/ToolKIT/assets/";
   function fix() {
     var n = document.querySelectorAll("[data-remote]");
     for (var i = 0; i < n.length; i++) {
@@ -5929,7 +5934,7 @@ __P.p12 = (function () { const location = __hash.p12; return class extends SubLo
 
 }; })();
 
-const __CDN = "https://3rinnovation.github.io/" + "ToolKIT/" + "assets/";
+const __CDN = "https://3rinnovation.github.io/ToolKIT/assets/";
 function __audioBtn(audio) {
   if (!audio) return null;
   const src = (typeof window !== "undefined" && window.__A) ? window.__A(audio) : audio;
@@ -7974,6 +7979,12 @@ class Component extends DCLogic {
       if (__ROUTES[raw]) return raw;
     } catch (e) {}
     return "home";
+  })(), lang: (function () {
+    try {
+      const l = window.localStorage.getItem("tk3_lang");
+      if (["kr", "en", "zh", "vi", "fr", "ja", "es", "id", "th", "ar"].indexOf(l) >= 0) return l;
+    } catch (e) {}
+    return "kr";
   })(), vwSound: true };
   get __unusedChatIcon() { return null; }
   chatKB(stu) {
