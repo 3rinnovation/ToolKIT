@@ -4716,7 +4716,11 @@ __P.p1 = (function () { const location = __hash.p1; return class extends SubLogi
         const views = (t) => { let h = 7; for (const ch of String(t)) h = (h * 31 + ch.charCodeAt(0)) % 100003; return 40 + (h % 460); };
         groups.forEach(g => g.all.forEach(it => { if (!it.meta) it.meta = "조회수 " + views(it.title) + "회"; }));
         const open = this.state.railOpen || {};
-        return groups.map((g, gi) => ({
+        let pick = -1;
+        try { pick = parseInt(window.localStorage.getItem("tk3_mood"), 10); } catch (e) {}
+        const order = groups.map((g, gi) => gi);
+        if (pick > 0 && pick < groups.length) { order.splice(pick, 1); order.unshift(pick); }
+        return order.map((gi) => [groups[gi], gi]).map(([g, gi]) => ({
           title: g.title,
           desc: ({ "수업을 따라오지 못해요": "시작이 막히거나 설명을 놓친 순간, 다시 수업으로 돌아오게 돕는 도구예요.", "마음을 가라앉히지 못해요": "화나거나 불안한 마음을 잠시 내려놓고 차분해지도록 돕는 도구예요.", "분위기가 처져 있어요": "가라앉은 교실에 웃음과 에너지를 다시 채워주는 도구예요.", "집중하기 어려워해요": "흩어진 시선과 몸을 다시 수업으로 모아주는 도구예요." })[g.title] || "",
           prev: (e) => { const t = e.currentTarget.closest("[data-rail]").querySelector("[data-rail-track]"); t.scrollBy({ left: -t.clientWidth * 0.8, behavior: "smooth" }); },
@@ -5647,7 +5651,11 @@ __P.p8 = (function () { const location = __hash.p8; return class extends SubLogi
         const views = (t) => { let h = 7; for (const ch of String(t)) h = (h * 31 + ch.charCodeAt(0)) % 100003; return 40 + (h % 460); };
         groups.forEach(g => g.all.forEach(it => { if (!it.meta) it.meta = "조회수 " + views(it.title) + "회"; }));
         const open = this.state.railOpen || {};
-        return groups.map((g, gi) => ({
+        let pick = -1;
+        try { pick = parseInt(window.localStorage.getItem("tk3_mood"), 10); } catch (e) {}
+        const order = groups.map((g, gi) => gi);
+        if (pick > 0 && pick < groups.length) { order.splice(pick, 1); order.unshift(pick); }
+        return order.map((gi) => [groups[gi], gi]).map(([g, gi]) => ({
           title: g.title,
           desc: ({ "수업을 따라오지 못해요": "시작이 막히거나 설명을 놓친 순간, 다시 수업으로 돌아오게 돕는 도구예요.", "마음을 가라앉히지 못해요": "화나거나 불안한 마음을 잠시 내려놓고 차분해지도록 돕는 도구예요.", "분위기가 처져 있어요": "가라앉은 교실에 웃음과 에너지를 다시 채워주는 도구예요.", "집중하기 어려워해요": "흩어진 시선과 몸을 다시 수업으로 모아주는 도구예요." })[g.title] || "",
           prev: (e) => { const t = e.currentTarget.closest("[data-rail]").querySelector("[data-rail-track]"); t.scrollBy({ left: -t.clientWidth * 0.8, behavior: "smooth" }); },
