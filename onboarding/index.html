@@ -652,7 +652,11 @@ moodLabels() {
           localStorage.setItem("tk3_lang", this.state.lang.toLowerCase());
           sessionStorage.setItem("tk3_onboarded", "1");
         } catch (e) {}
-        location.href = this.state.role === "teacher" ? "../index.html#home" : "../index.html#shome";
+        const m = this.state.mood;
+        const ok = m >= 0 && m < 4;
+        location.href = this.state.role === "teacher"
+          ? (ok ? "../index.html#video/c" + m : "../index.html#home")
+          : (ok ? "../index.html" + ["#svideo/m0", "#svideo/m6", "#sgames", "#svideo/m1"][m] : "../index.html#shome");
       },
     };
   }
