@@ -4917,6 +4917,11 @@ __P.p2 = (function () { const location = __hash.p2; return class extends SubLogi
       }
       return;
     }
+    if (h.indexOf("c") === 0) {
+      const c = parseInt(h.slice(1), 10);
+      if (!isNaN(c) && c >= 0 && c < 4) this.setState({ tcat: c, sel: [0, 6, 0, 1][c], wsel: null });
+      return;
+    }
     const i = parseInt(h.replace("m", ""), 10);
     if (!isNaN(i) && i >= 0 && i < 8) this.setState({ sel: i, wsel: null });
     else this.setState({ wsel: null });
