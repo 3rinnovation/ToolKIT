@@ -36,6 +36,7 @@ try {
   @keyframes omFadeIn { from { opacity: 0; } to { opacity: 1; } }
   header { position: sticky !important; top: 0 !important; z-index: 60 !important; }
   header { animation: omFadeIn 0.5s ease both; }
+  div:has(> header) > * { zoom: var(--z, 1); }
   a, button, input { transition: color 0.22s cubic-bezier(0.22,1,0.36,1), background 0.22s cubic-bezier(0.22,1,0.36,1), border-color 0.22s cubic-bezier(0.22,1,0.36,1), transform 0.28s cubic-bezier(0.22,1,0.36,1), box-shadow 0.28s cubic-bezier(0.22,1,0.36,1), opacity 0.22s ease; }
   a img { transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease; }
   a:hover img { transform: scale(1.035); }
@@ -51,12 +52,6 @@ try {
   @media (min-width: 1101px) {
     header > div { padding-left: 80px !important; padding-right: 80px !important; }
     header > div > a:first-child { margin-left: 0 !important; }
-  }
-  @media (min-width: 1600px) {
-    header nav { gap: 4px 16px !important; }
-    header nav a, header nav .nav-dd > a { font-size: 15px !important; }
-    header > div > a:first-child img { height: 48px !important; }
-    header nav + div > div > a, header nav + div > div > span { font-size: 14px !important; padding: 6px 14px !important; }
   }
   @media (min-width: 1101px) {
     header > div { grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr) !important; }
@@ -264,18 +259,35 @@ try {
     [data-about-list][data-about-list] > div:last-child { padding-bottom: 0 !important; border-bottom: 0 !important; }
     [data-about-list][data-about-list] > div > div:first-child { flex: 0 0 clamp(68px, 24vw, 92px) !important; width: clamp(68px, 24vw, 92px) !important; }
     [data-about-list][data-about-list] > div span[style*="font-size: 19px"] { font-size: clamp(14px, 4.4vw, 18px) !important; line-height: 1.45 !important; font-weight: 700 !important; }
-    div:has(> [data-about-list])[style*="padding: 96px 80px"] { padding: 36px 22px !important; }
-    [data-about-hero][data-about-hero] { position: relative; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: flex-start !important; gap: 0 !important; aspect-ratio: 1605 / 620; padding: 14px 22px !important; overflow: hidden; border-bottom: 0 !important; }
-    [data-about-hero] > div:last-child { position: absolute !important; inset: 0; min-width: 0 !important; z-index: 0; }
-    [data-about-hero] > div:last-child > span { display: none !important; }
-    [data-about-hero] > div:last-child > div { width: 100% !important; height: 100% !important; aspect-ratio: auto !important; border-radius: 0 !important; box-shadow: none !important; border: 0 !important; transform: none !important; background-position: right center !important; }
-    [data-about-hero] > div:last-child::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(90deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.9) 30%, rgba(255,255,255,0.5) 48%, rgba(255,255,255,0) 66%); }
-    [data-about-hero] > div:first-child { position: relative; z-index: 3; flex: none !important; min-width: 0 !important; max-width: 60%; gap: 4px !important; }
-    [data-about-hero] > div:first-child > span { font-size: clamp(11px, 3vw, 14px) !important; line-height: 1.4 !important; white-space: normal !important; }
-    [data-about-hero] > div:first-child > h1 { font-size: clamp(20px, 5.8vw, 34px) !important; line-height: 1.3 !important; white-space: normal !important; }
-    [data-about-title-img] { width: 100% !important; margin: 0 !important; }
-    [data-about-chick] { display: none !important; }
-    [data-about-hero] > div:first-child > p, [data-about-hero] > div:first-child > a { display: none !important; }
+    div:has(> [data-about-list])[style*="padding: 96px 80px"] { padding: 36px 22px !important; gap: 20px !important; }
+    [data-about-title][data-about-title] { display: block !important; font-size: 20px !important; line-height: 26px !important; font-weight: 700 !important; letter-spacing: -0.02em !important; }
+    [data-about-step-title][data-about-step-title] { font-size: 20px !important; line-height: 26px !important; font-weight: 700 !important; letter-spacing: -0.02em !important; }
+    [data-about-list][data-about-list][data-about-list] { gap: 12px !important; }
+    [data-about-list][data-about-list][data-about-list] > div { flex-direction: row !important; align-items: center !important; gap: 14px !important; padding: 10px !important; border-radius: 16px !important; background: #FFFFFF !important; border: 1px solid #E8EDEA !important; box-shadow: 0 18px 34px -30px rgba(7,9,8,0.3) !important; }
+    [data-about-list][data-about-list][data-about-list] > div > div:first-child { flex: 0 0 38% !important; width: 38% !important; aspect-ratio: 4 / 3 !important; border-radius: 10px !important; }
+    [data-about-list][data-about-list][data-about-list] > div > div:last-child { flex: 1 1 auto !important; min-width: 0 !important; padding: 0 4px 0 0 !important; }
+    [data-about-list][data-about-list][data-about-list] > div span[style*="font-size: 19px"] { font-size: clamp(14px, 4.2vw, 17px) !important; line-height: 1.45 !important; display: -webkit-box !important; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden !important; }
+    [data-about-hero][data-about-hero] { position: relative !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: stretch !important; gap: 0 !important; aspect-ratio: 1605 / 620; padding: 0 22px !important; box-sizing: border-box; overflow: hidden; border-bottom: 0 !important; }
+    [data-about-hero] > div { flex: none !important; min-width: 0 !important; }
+    [data-about-hero] > div:first-child { width: 64% !important; gap: 0 !important; position: relative; z-index: 2; }
+    [data-about-title-img] { width: 100% !important; margin: 0 !important; gap: 6px !important; }
+    [data-about-hero] > div:first-child > p { display: none !important; }
+    [data-about-hero] > div:first-child { position: static !important; }
+    [data-about-hero] > div:first-child > :not(a) { position: relative; z-index: 2; }
+    [data-about-hero] > div:first-child > a { position: absolute !important; z-index: 3; right: 22px; bottom: 6%; margin: 0 !important; padding: 8px 8px 8px 18px !important; gap: 10px !important; font-size: 14px !important; line-height: 20px !important; }
+    [data-about-hero] > div:first-child > a > span:last-child { width: 26px !important; height: 26px !important; }
+    [data-about-hero][data-about-hero][data-about-hero] { aspect-ratio: 1605 / 620; justify-content: center !important; padding: 0 0 0 7% !important; }
+    [data-about-hero][data-about-hero] > div:first-child { width: 54% !important; }
+    [data-about-hero][data-about-hero] [data-about-title-img] { gap: 4% !important; }
+    [data-about-hero][data-about-hero] > div:last-child > img[src*="about-chick"] { top: 26% !important; bottom: auto !important; right: 11% !important; width: 22% !important; z-index: 1 !important; }
+    [data-about-hero][data-about-hero] > div:first-child > a { z-index: 5 !important; }
+    [data-about-hero][data-about-hero] > div:first-child > a { right: 8% !important; bottom: 21% !important; width: auto; box-sizing: border-box; display: inline-flex !important; align-items: center !important; gap: clamp(6px, 1.8vw, 12px) !important; padding: clamp(3px, 0.9vw, 6px) clamp(3px, 0.9vw, 6px) clamp(3px, 0.9vw, 6px) clamp(10px, 3vw, 18px) !important; font-size: clamp(11px, 3.1vw, 16px) !important; line-height: 1 !important; font-weight: 700 !important; white-space: nowrap; box-shadow: 0 8px 18px -8px rgba(46,170,98,0.5) !important; }
+    [data-about-hero][data-about-hero] > div:first-child > a > span:last-child { flex: 0 0 auto; width: clamp(20px, 5.6vw, 32px) !important; height: clamp(20px, 5.6vw, 32px) !important; }
+    [data-about-hero][data-about-hero] > div:first-child > a svg { width: 58%; height: 58%; }
+    [data-about-hero] > div:last-child { position: absolute !important; inset: 0; width: auto !important; pointer-events: none; }
+    [data-about-hero] > div:last-child > :not(img[src*="about-chick"]) { display: none !important; }
+    [data-about-hero][data-about-hero] { justify-content: flex-end !important; padding-bottom: 6% !important; max-width: none !important; background: linear-gradient(135deg, #EAF6EF 0%, #F3F9F5 55%, #E3F3E9 100%) !important; }
+    [data-about-hero] > div:last-child > img[src*="about-chick"] { top: auto !important; bottom: calc(11% + 48px) !important; right: 22px !important; transform: none !important; width: 27% !important; }
     [data-emo-page] > section { text-align: left !important; }
     [data-emo-page] > section:first-of-type > div { padding: 40px 22px 36px !important; gap: 0 !important; }
     [data-emo-page] > section:first-of-type > div > div:first-child { gap: 14px !important; min-width: 0 !important; flex-basis: 100% !important; }
@@ -417,6 +429,19 @@ try {
       set: function (v) { d.set.call(this, fix(v)); }
     });
   });
+})();
+</script>
+<script>
+(function () {
+  var BASE = 1512;
+  function fit() {
+    var w = window.innerWidth, z = w > BASE ? w / BASE : 1, de = document.documentElement;
+    de.style.zoom = "";
+    de.style.setProperty("--z", String(z));
+    de.style.setProperty("--hw", (w / 2 / z) + "px");
+  }
+  fit();
+  window.addEventListener("resize", fit);
 })();
 </script>
 </helmet>
@@ -816,10 +841,10 @@ try {
     <div style="position: absolute; inset: 0; z-index: 0; background: #FFFFFF;"></div>
     <div style="position: relative; z-index: 2; max-width: 1200px; width: 100%; margin: 0 auto; box-sizing: border-box; padding: 28px 80px 44px; display: flex; flex-direction: column;">
 
-      <div style="position: relative; min-height: 460px; aspect-ratio: 1605 / 620; margin: -111px calc(50% - 50vw) 8px; padding: 111px max(28px, calc(50vw - 680px)) 48px; box-sizing: border-box; overflow: hidden; background-color: #0B1410; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;">
+      <div style="position: relative; min-height: 460px; aspect-ratio: 1605 / 620; margin: -111px calc(50% - var(--hw, 50vw)) 8px; padding: 111px max(28px, calc(var(--hw, 50vw) - 680px)) 48px; box-sizing: border-box; overflow: hidden; background-color: #0B1410; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;">
         <video id="shero-video" data-remote="hero-loop-mute.mp4" autoPlay="{{ true }}" loop="{{ true }}" muted="{{ true }}" defaultMuted="{{ true }}" volume="{{ 0 }}" playsInline="{{ true }}" ref="{{ heroVideoRef }}" style="position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
         <span style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(7,9,8,0) 45%, rgba(7,9,8,0.45) 100%);"></span>
-        <span data-hero-meta="1" style="position: absolute; z-index: 4; right: max(80px, calc(50vw - 520px)); bottom: 52px; display: flex; align-items: center; gap: 28px; color: rgba(255,255,255,0.88); font-family: Pretendard, sans-serif; font-size: 14px; line-height: 1; font-weight: 700; letter-spacing: 0.04em;">
+        <span data-hero-meta="1" style="position: absolute; z-index: 4; right: max(80px, calc(var(--hw, 50vw) - 520px)); bottom: 52px; display: flex; align-items: center; gap: 28px; color: rgba(255,255,255,0.88); font-family: Pretendard, sans-serif; font-size: 14px; line-height: 1; font-weight: 700; letter-spacing: 0.04em;">
           <span>@3R INNOVATION STUDIO</span>
           <span style="display: flex; align-items: center; gap: 9px;">Scroll Down <span style="font-size: 15px;">↓</span></span>
         </span>
@@ -1131,7 +1156,7 @@ try {
   </header>
 
   <section style="background-color: #055D39; background-image: url('assets/hq-friends.jpg'); background-size: cover; background-position: right center; background-repeat: no-repeat; min-height: 400px;">
-    <div style="width: 100%; min-height: 400px; margin: 0; padding: 40px max(80px, calc(50vw - 520px)); box-sizing: border-box; display: flex; align-items: center;">
+    <div style="width: 100%; min-height: 400px; margin: 0; padding: 40px max(80px, calc(var(--hw, 50vw) - 520px)); box-sizing: border-box; display: flex; align-items: center;">
       <div style="flex: 0 1 auto; width: 44%; max-width: 480px; min-width: 240px; display: flex; flex-direction: column; align-items: flex-start; gap: 2.2%;">
         <span style="font-family: Pretendard, sans-serif; font-size: 12px; line-height: 1.5; font-weight: 700; letter-spacing: 0.14em; color: rgba(255,255,255,0.82); white-space: nowrap;">PANGPANG SCHOOL — MEET OUR FRIENDS</span>
         <h1 style="margin: 0; font-family: Pretendard, sans-serif; font-size: clamp(24px, 3.2vw, 46px); line-height: 1.25; font-weight: 800; letter-spacing: -0.03em; color: #FFFFFF; word-break: keep-all; white-space: pre-line;">다른 빛이 모여
@@ -1386,7 +1411,7 @@ try {
   </header>
 
   <section style="background-color: #055D39; background-image: url('assets/hq-friends.jpg'); background-size: cover; background-position: right center; background-repeat: no-repeat; min-height: 400px;">
-    <div style="width: 100%; min-height: 400px; margin: 0; padding: 40px max(80px, calc(50vw - 520px)); box-sizing: border-box; display: flex; align-items: center;">
+    <div style="width: 100%; min-height: 400px; margin: 0; padding: 40px max(80px, calc(var(--hw, 50vw) - 520px)); box-sizing: border-box; display: flex; align-items: center;">
       <div style="flex: 0 1 auto; width: 44%; max-width: 480px; min-width: 240px; display: flex; flex-direction: column; align-items: flex-start; gap: 2.2%;">
         <span style="font-family: Pretendard, sans-serif; font-size: 12px; line-height: 1.5; font-weight: 700; letter-spacing: 0.14em; color: rgba(255,255,255,0.82); white-space: nowrap;">PANGPANG SCHOOL — MEET OUR FRIENDS</span>
         <h1 style="margin: 0; font-family: Pretendard, sans-serif; font-size: clamp(24px, 3.2vw, 46px); line-height: 1.25; font-weight: 800; letter-spacing: -0.03em; color: #FFFFFF; word-break: keep-all; white-space: pre-line;">다른 빛이 모여
@@ -2379,11 +2404,11 @@ try {
 
     <div style="position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 28px 80px 44px; display: flex; flex-direction: column;">
 
-      <div style="position: relative; min-height: 460px; aspect-ratio: 1605 / 620; margin: -111px calc(50% - 50vw) 8px; padding: 111px max(80px, calc(50vw - 520px)) 48px; box-sizing: border-box; overflow: hidden; background-color: #0B1410; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;">
+      <div style="position: relative; min-height: 460px; aspect-ratio: 1605 / 620; margin: -111px calc(50% - var(--hw, 50vw)) 8px; padding: 111px max(80px, calc(var(--hw, 50vw) - 520px)) 48px; box-sizing: border-box; overflow: hidden; background-color: #0B1410; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;">
         <video id="thero-video" data-remote="hero-loop-mute.mp4" autoPlay="{{ true }}" loop="{{ true }}" muted="{{ true }}" defaultMuted="{{ true }}" volume="{{ 0 }}" playsInline="{{ true }}" ref="{{ heroVideoRef }}" style="position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
 
         <span style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(7,9,8,0) 45%, rgba(7,9,8,0.45) 100%);"></span>
-        <span data-hero-meta="1" style="position: absolute; z-index: 4; right: max(80px, calc(50vw - 520px)); bottom: 52px; display: flex; align-items: center; gap: 28px; color: rgba(255,255,255,0.88); font-family: Pretendard, sans-serif; font-size: 14px; line-height: 1; font-weight: 700; letter-spacing: 0.04em;">
+        <span data-hero-meta="1" style="position: absolute; z-index: 4; right: max(80px, calc(var(--hw, 50vw) - 520px)); bottom: 52px; display: flex; align-items: center; gap: 28px; color: rgba(255,255,255,0.88); font-family: Pretendard, sans-serif; font-size: 14px; line-height: 1; font-weight: 700; letter-spacing: 0.04em;">
           <span>@3R INNOVATION STUDIO</span>
           <span style="display: flex; align-items: center; gap: 9px;">Scroll Down <span style="font-size: 15px;">↓</span></span>
         </span>
@@ -3092,7 +3117,7 @@ try {
 
   <section style="background: #EDF6F0; overflow-x: clip;">
     <div style="max-width: 1200px; width: 100%; margin: 0 auto; padding: 0 80px; box-sizing: border-box;">
-      <div style="position: relative; min-height: clamp(400px, calc(111px + 30.67vw), 820px); margin: -111px calc(50% - 50vw) 8px; padding: 111px max(80px, calc(50vw - 520px)) 32px; box-sizing: border-box; overflow: hidden; background-color: #FAFBF9; background-image: linear-gradient(90deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.9) 26%, rgba(255,255,255,0.45) 46%, rgba(255,255,255,0) 62%), url('assets/hq-articles-s.webp'); background-size: cover, cover; background-repeat: no-repeat, no-repeat; background-position: center, center bottom; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;">
+      <div style="position: relative; min-height: clamp(400px, calc(111px + 30.67vw), 820px); margin: -111px calc(50% - var(--hw, 50vw)) 8px; padding: 111px max(80px, calc(var(--hw, 50vw) - 520px)) 32px; box-sizing: border-box; overflow: hidden; background-color: #FAFBF9; background-image: linear-gradient(90deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.9) 26%, rgba(255,255,255,0.45) 46%, rgba(255,255,255,0) 62%), url('assets/hq-articles-s.webp'); background-size: cover, cover; background-repeat: no-repeat, no-repeat; background-position: center, center bottom; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;">
         <h1 style="position: relative; z-index: 3; margin: 0; font-family: Pretendard, sans-serif; font-size: 38px; line-height: 1.45; font-weight: 700; letter-spacing: -0.03em; color: #2F3A36; word-break: keep-all;">수업을 도와줄<br><span style="color: #30A967;">뉴스</span>들을 모았어요.</h1>
       </div>
     </div>
@@ -3592,7 +3617,7 @@ try {
       <div style="flex: 1 1 420px; min-width: 300px; display: flex; flex-direction: column; align-items: flex-start; gap: 20px;">
         <h1 data-about-title-img="1" style="margin: 0 0 0 -4%; width: min(108%, 560px); display: flex; flex-direction: column; gap: 20px;">
           <span role="img" aria-label="학교와 가정에서 사용하는 아이 맞춤 툴킷" style="display: block; width: 72%; margin-left: 7%; aspect-ratio: 1845 / 260; background-image: url('assets/about-tag.png'); background-size: 117% auto; background-position: 70% 48.8%; background-repeat: no-repeat;"></span>
-          <span role="img" aria-label="아이가 막힌 순간, 스스로 다시 시작하도록 돕습니다" style="display: block; width: 100%; aspect-ratio: 1719 / 598; background-image: url('assets/about-title.png'); background-size: 100% auto; background-position: 0 100%; background-repeat: no-repeat;"></span>
+          <span role="img" aria-label="아이가 막힌 순간, 스스로 다시 시작하도록 돕습니다" style="display: block; width: 100%; aspect-ratio: 1719 / 645; background-image: url('assets/about-title.png'); background-size: 100% auto; background-position: 0 100%; -webkit-mask: linear-gradient(#000, #000) right top / 90% 100% no-repeat, linear-gradient(#000, #000) left bottom / 100% 86% no-repeat; mask: linear-gradient(#000, #000) right top / 90% 100% no-repeat, linear-gradient(#000, #000) left bottom / 100% 86% no-repeat; background-repeat: no-repeat;"></span>
         </h1>
         <p style="margin: 0; font-family: Pretendard, sans-serif; font-size: 17px; line-height: 30px; font-weight: 400; color: #6E7873; word-break: keep-all; text-wrap: pretty;">진단이나 치료를 제공하지 않습니다. 지금 겪는 어려움을 묻고,<br>위험 신호는 보호자·교사와 전문 지원으로 연결합니다.</p>
         <a href="#video" style="margin-top: 10px; display: inline-flex; align-items: center; gap: 18px; padding: 14px 14px 14px 32px; border-radius: 999px; background: #2EAA62; color: #FFFFFF; font-family: Pretendard, sans-serif; font-size: 19px; line-height: 28px; font-weight: 700; box-shadow: 0 10px 24px -8px rgba(46,170,98,0.5);" style-hover="background: #258F52; color: #FFFFFF;">툴킷 살펴보기<span style="width: 40px; height: 40px; border-radius: 999px; background: #FFFFFF; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2EAA62" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
@@ -3634,7 +3659,7 @@ try {
         <div style="display: flex; flex-wrap: wrap; flex-direction: {{ s.dir }}; gap: {{ s.gap }}; align-items: center; justify-content: center;">
           <div style="flex: 1 1 400px; min-width: 280px; max-width: 560px; display: flex; flex-direction: column; gap: 12px;">
             <span style="align-self: flex-start; font-family: Pretendard, sans-serif; font-size: 13px; line-height: 20px; font-weight: 700; letter-spacing: 0.1em; color: #30A967; margin-bottom: 6px;">STEP {{ s.num }}</span>
-            <span style="font-family: Pretendard, sans-serif; font-size: 28px; line-height: 1.4; font-weight: 800; letter-spacing: -0.02em; color: #131C29; word-break: keep-all; white-space: pre-line;">{{ s.title }}</span>
+            <span data-about-step-title="1" style="font-family: Pretendard, sans-serif; font-size: 28px; line-height: 1.4; font-weight: 800; letter-spacing: -0.02em; color: #131C29; word-break: keep-all; white-space: pre-line;">{{ s.title }}</span>
             <span style="font-size: 17px; line-height: 29px; font-weight: 400; color: #6E7873; max-width: 40ch; word-break: keep-all; text-wrap: pretty;">{{ s.body }}</span>
           </div>
           <div data-about-step="1" style="flex: 1 1 360px; min-width: 260px; max-width: 480px; position: relative; aspect-ratio: 4 / 3; border-radius: 16px; overflow: hidden; background-color: #FFFFFF; background-image: {{ s.bgImage }}; background-size: cover; background-position: center;">
