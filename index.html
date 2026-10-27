@@ -4423,8 +4423,21 @@ const __VALT = {
   "1QRCmGvS7ThQ43mqjpKC1SEQUpzw8mpdW": "1TGOnkGIkCSxZv0_r4E_SxLW9zskfGAwI",
   "19hb9kuX4MmgUOYmEiOYFgrS7mxmMVlkJ": "1tgmTiIe9pJ-Eb0dMRMZIEeVk27F2DW1g"
 };
+const __VYT = {
+  "1QRCmGvS7ThQ43mqjpKC1SEQUpzw8mpdW": "0bEKSQy_Hg0",
+  "1NB08_eSZiEtsBX5xpnBPxrsZoBzEfuSG": "TeqPKoyOvqk",
+  "19hb9kuX4MmgUOYmEiOYFgrS7mxmMVlkJ": "j1Z6g1B1ZO0",
+  "14OgcW-D0PqcCK4vrmWTtTZZu2VeU7XXi": "c5kaD5JQMbY",
+  "1saw15bjvFppWGaVitNs6wHfG2OwDALhq": "leWI8322wkw",
+  "1yrGy8cXZQl-VAHB9Dkk8uHQ_yp_ZPYzn": "h_2LT0yFays",
+  "1oMndFfzeVW6SMPuJeqg63BbrK4wazUkY": "VkBzVjBw8PQ"
+};
 const __PICKSRC = (src) => {
-  if (!src || __CURLANG === "kr") return src;
+  if (!src) return src;
+  if (__CURLANG === "kr") {
+    for (const id in __VYT) if (src.indexOf(id) !== -1) return "https://www.youtube.com/embed/" + __VYT[id] + "?autoplay=1&rel=0&playsinline=1";
+    return src;
+  }
   for (const id in __VALT) if (src.indexOf(id) !== -1) return src.replace(id, __VALT[id]);
   return src;
 };
