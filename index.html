@@ -4763,9 +4763,9 @@ __P.p1 = (function () { const location = __hash.p1; return class extends SubLogi
       ],
       gameRail: __G.map(g => ({ title: g.t, href: g.file || "#games", img: this.cssUrl(g.thumb || g.wide), mBg: g.mthumb ? this.cssUrl(g.mthumb) : undefined })),
       heroGames: [
-        { title: "인상업", href: "https://3rinnovation.github.io/Impression-up/", img: this.cssUrl("assets/c-game-1.jpg") },
-        { title: "스마일 리프팅", href: "https://3rinnovation.github.io/-Smile-Lifting/", img: this.cssUrl("assets/c-game-2.jpg") },
-        { title: "미소배틀", href: "https://3rinnovation.github.io/SMILE-BATTING/", img: this.cssUrl("assets/c-game-3.jpg") }
+        { title: "인상업", href: "games/impression-up/", img: this.cssUrl("assets/c-game-1.jpg") },
+        { title: "스마일 리프팅", href: "games/smile-lifting/", img: this.cssUrl("assets/c-game-2.jpg") },
+        { title: "미소배틀", href: "games/smile-batting/", img: this.cssUrl("assets/c-game-3.jpg") }
       ],
       moments: [1, 5, 0, 2, 4, 3, 6, 7].map((i, pos) => ({ m: allMoments[i], i, pos })).map(({ m, i, pos }) => {
         const on = i === sel, top = pos < 4;
@@ -6117,10 +6117,10 @@ __P.p13 = (function () { const location = __hash.p13; return class extends SubLo
 }; })();
 
 const __G = [
-  { t: "미소배틀", sub: "누가누가 더 밝게 웃나 시합!", how: "두 명이서 하는 게임입니다. 카메라가 필요하고, 두 명의 웃는 모습으로 겨루기를 할 수 있습니다.", wide: "assets/min-game-smilebattle-wide.jpg", tint: "#FDF0F5", dur: "약 3분", desc: "표정을 바꿔가며 겨루는 짧은 배틀.", kidDesc: "웃는 표정으로 한 판 붙어 보자!", file: "https://3rinnovation.github.io/SMILE-BATTING/", tone: "#F58BB0", moment: 6, thumb: "assets/kg-smilebattle-n.webp", mthumb: "assets/mg-smilebattle.png", kleft: "assets/kg-left-smilebattle.png", thumb2: "assets/min-game-smilebattle-2.jpg" },
-  { t: "불안몬잡기", sub: "걱정을 하나씩 잡아 없애기!", how: "머릿속을 맴도는 걱정을 몬스터로 만나 하나씩 잡아 봅니다. 걱정에 이름을 붙이고 정리하는 연습이 됩니다.", wide: "assets/min-game-anxiety-wide.jpg", tint: "#F1F3FE", dur: "약 1분", desc: "머릿속 걱정을 하나씩 잡아 정리합니다.", kidDesc: "걱정 몬스터를 하나씩 잡아 봐!", file: "https://3rinnovation.github.io/anxiety/", tone: "#7C8BF5", moment: 4, thumb: "assets/kg-anxiety-n.webp", mthumb: "assets/mg-anxiety.png", kleft: "assets/kg-left-anxiety.png", thumb2: "assets/min-game-anxiety-2.jpg" },
-  { t: "스마일리프팅", sub: "7초면 얼굴이 풀려요!", how: "화면이 알려주는 대로 얼굴 근육을 따라 움직입니다. 한 번에 7초, 짧게 반복하며 긴장을 내려놓습니다.", wide: "assets/min-game-smile-wide.jpg", tint: "#FEF8EA", dur: "1회 7초", desc: "얼굴 근육을 풀며 긴장을 내려놓습니다.", kidDesc: "얼굴을 쭉 늘려서 힘을 풀어 보자.", file: "https://3rinnovation.github.io/-Smile-Lifting/", tone: "#F5B01B", moment: 5, thumb: "assets/kg-smile-n.webp", mthumb: "assets/mg-smile-meadow.png", kleft: "assets/kg-left-smile.png", thumb2: "assets/min-game-smile-2.jpg" },
-  { t: "인상업", sub: "표정 하나로 기분이 올라가요!", how: "카메라가 표정을 알아봅니다. 웃는 표정을 만들면 점수가 올라가고, 매일 1분씩 습관으로 이어집니다.", wide: "assets/min-game-impression-wide.jpg", tint: "#EFF9F3", dur: "매일 1분", desc: "표정을 인식해 기분을 올리는 미니 게임.", kidDesc: "표정을 바꾸면 점수가 올라가!", file: "https://3rinnovation.github.io/Impression-up/", tone: "#50BE82", moment: 1, thumb: "assets/kg-impression-n.webp", mthumb: "assets/mg-impression.png", kleft: "assets/kg-left-impression.png", thumb2: "assets/min-game-impression-2.jpg" }
+  { t: "미소배틀", sub: "누가누가 더 밝게 웃나 시합!", how: "두 명이서 하는 게임입니다. 카메라가 필요하고, 두 명의 웃는 모습으로 겨루기를 할 수 있습니다.", wide: "assets/min-game-smilebattle-wide.jpg", tint: "#FDF0F5", dur: "약 3분", desc: "표정을 바꿔가며 겨루는 짧은 배틀.", kidDesc: "웃는 표정으로 한 판 붙어 보자!", file: "games/smile-batting/", tone: "#F58BB0", moment: 6, thumb: "assets/kg-smilebattle-n.webp", mthumb: "assets/mg-smilebattle.png", kleft: "assets/kg-left-smilebattle.png", thumb2: "assets/min-game-smilebattle-2.jpg" },
+  { t: "불안몬잡기", sub: "걱정을 하나씩 잡아 없애기!", how: "머릿속을 맴도는 걱정을 몬스터로 만나 하나씩 잡아 봅니다. 걱정에 이름을 붙이고 정리하는 연습이 됩니다.", wide: "assets/min-game-anxiety-wide.jpg", tint: "#F1F3FE", dur: "약 1분", desc: "머릿속 걱정을 하나씩 잡아 정리합니다.", kidDesc: "걱정 몬스터를 하나씩 잡아 봐!", file: "games/anxiety/", tone: "#7C8BF5", moment: 4, thumb: "assets/kg-anxiety-n.webp", mthumb: "assets/mg-anxiety.png", kleft: "assets/kg-left-anxiety.png", thumb2: "assets/min-game-anxiety-2.jpg" },
+  { t: "스마일리프팅", sub: "7초면 얼굴이 풀려요!", how: "화면이 알려주는 대로 얼굴 근육을 따라 움직입니다. 한 번에 7초, 짧게 반복하며 긴장을 내려놓습니다.", wide: "assets/min-game-smile-wide.jpg", tint: "#FEF8EA", dur: "1회 7초", desc: "얼굴 근육을 풀며 긴장을 내려놓습니다.", kidDesc: "얼굴을 쭉 늘려서 힘을 풀어 보자.", file: "games/smile-lifting/", tone: "#F5B01B", moment: 5, thumb: "assets/kg-smile-n.webp", mthumb: "assets/mg-smile-meadow.png", kleft: "assets/kg-left-smile.png", thumb2: "assets/min-game-smile-2.jpg" },
+  { t: "인상업", sub: "표정 하나로 기분이 올라가요!", how: "카메라가 표정을 알아봅니다. 웃는 표정을 만들면 점수가 올라가고, 매일 1분씩 습관으로 이어집니다.", wide: "assets/min-game-impression-wide.jpg", tint: "#EFF9F3", dur: "매일 1분", desc: "표정을 인식해 기분을 올리는 미니 게임.", kidDesc: "표정을 바꾸면 점수가 올라가!", file: "games/impression-up/", tone: "#50BE82", moment: 1, thumb: "assets/kg-impression-n.webp", mthumb: "assets/mg-impression.png", kleft: "assets/kg-left-impression.png", thumb2: "assets/min-game-impression-2.jpg" }
 ];
 
 __P.p14 = (function () { const location = __hash.p14; return class extends SubLogic {
@@ -8359,12 +8359,12 @@ class Component extends DCLogic {
         const thSkip = el.hasAttribute("data-gamepage");
         {
           const PAIRS = [
-            ["https://3rinnovation.github.io/SMILE-BATTING/", "https://3rinnovation.github.io/smile-battle-en/"],
-            ["https://3rinnovation.github.io/Impression-up/", "https://3rinnovation.github.io/mood-up/"],
-            ["https://3rinnovation.github.io/-Smile-Lifting/", "https://3rinnovation.github.io/smile-lifting-en-/"],
-            ["https://3rinnovation.github.io/anxiety/", "https://3rinnovation.github.io/worry-monster/"]
+            ["games/smile-batting/", "games/smile-batting-en/"],
+            ["games/impression-up/", "games/impression-up-en/"],
+            ["games/smile-lifting/", "games/smile-lifting-en/"],
+            ["games/anxiety/", "games/anxiety-en/"]
           ];
-          const gl = document.querySelectorAll("a[href*='3rinnovation.github.io']");
+          const gl = document.querySelectorAll("a[href*='games/']");
           for (let q = 0; q < gl.length; q++) {
             const a = gl[q], hv = a.getAttribute("href") || "";
             for (let p = 0; p < PAIRS.length; p++) {
