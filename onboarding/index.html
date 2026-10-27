@@ -3,6 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>자기조절 툴킷</title>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <script src="../support.js"></script>
 </head>
 <body>
@@ -146,7 +151,7 @@ a:hover { color: rgb(20,126,82); }
       </sc-if>
       <div style="position: absolute; left: 50%; bottom: {{ bChar }}; transform: translateX(-50%); width: {{ wChar4 }}; aspect-ratio: 1 / 1;">
         <div style="position: absolute; left: 17.6%; top: 82.7%; width: 66.57%; height: 15.54%; border-radius: 50%; background: rgb(237,231,209);"></div>
-        <img loading="eager" decoding="sync" fetchpriority="high" src="assets/char-toolkit.png" alt="응원툴킷을 든 포팡이" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+        <img loading="eager" decoding="sync" fetchpriority="high" src="assets/char-toolkit.png" alt="자기조절 툴킷을 든 포팡이" style="position: absolute; inset: 0; width: 100%; height: 100%;">
         <img src="assets/obj-small.png" alt="" style="position: absolute; left: 71.85%; top: 22.29%; width: 14.66%; height: 18.48%; transform: scaleX(-1);">
       </div>
       <button type="button" onClick="{{ finish }}" style="position: absolute; left: 50%; bottom: {{ bNext }}; transform: translateX(-50%); width: clamp(160px, 13.04vw, 250px); height: clamp(46px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(20,132,85); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: pointer;" style-hover="background: rgb(16,110,71);">{{ tCont }}</button>
@@ -367,17 +372,17 @@ i18n() {
         s2t: "안녕하세요! 저는 포팡이에요.\n요즘 아이들 반에서 어때요?",
         s3s: "알려줘서 고마워\n너를 만나게 되어 정말 기뻐.",
         s3t: "알려주셔서 감사해요.\n선생님을 만나게 되어\n정말 반가워요!",
-        s4s: "응원툴킷은 학교에서\n너를 응원해주기 위한거야.\n지금 바로 사용해볼래?",
-        s4t: "응원툴킷은 학교에서\n아이들을 위한 도구예요.\n지금 바로 사용해 볼까요?",
-        stat: "98%의 사용자가 응원툴킷이\n공부에 도움이 된다고 답했어요",
+        s4s: "자기조절 툴킷은 학교에서\n너를 응원해주기 위한거야.\n지금 바로 사용해볼래?",
+        s4t: "자기조절 툴킷은 학교에서\n아이들을 위한 도구예요.\n지금 바로 사용해 볼까요?",
+        stat: "98%의 사용자가 자기조절 툴킷이\n공부에 도움이 된다고 답했어요",
         ms: ["힘들어", "우울해", "괜찮아"], mt: ["집중을 못해요", "산만해요", "우울해해요"] },
       EN: { teacher: "Start as a teacher", student: "Start as a student", next: "Next  →", cont: "Get started",
         s2s: "Hi! I'm Popang.\nHow are you doing?",
         s2t: "Hello! I'm Popang.\nHow is your class doing?",
         s3s: "Thanks for sharing.\nSo glad we met.",
         s3t: "Thanks for sharing.\nSo glad to meet you!",
-        s4s: "The Cheer Toolkit\ncheers you on at school.\nWant to try it?",
-        s4t: "The Cheer Toolkit\nsupports kids at school.\nShall we try it?",
+        s4s: "The Self-Care Toolkit\ncheers you on at school.\nWant to try it?",
+        s4t: "The Self-Care Toolkit\nsupports kids at school.\nShall we try it?",
         stat: "98% of users say the toolkit\nhelps with studying",
         ms: ["It's hard", "I feel down", "I'm okay"], mt: ["Can't focus", "Restless", "Feeling down"] },
       ZH: { teacher: "以教师身份开始", student: "以学生身份开始", next: "下一步  →", cont: "立即开始",
@@ -385,17 +390,17 @@ i18n() {
         s2t: "您好！我是泡泡。\n最近孩子们在班里怎么样？",
         s3s: "谢谢你告诉我。\n很高兴认识你。",
         s3t: "谢谢您告诉我。\n很高兴\n认识您！",
-        s4s: "加油工具箱是在学校\n为你加油的工具。\n现在就试试看？",
-        s4t: "加油工具箱是学校里\n为孩子们准备的工具。\n现在就试用一下吗？",
-        stat: "98% 的用户表示加油工具箱\n对学习很有帮助",
+        s4s: "自我调节工具箱是在学校\n为你加油的工具。\n现在就试试看？",
+        s4t: "自我调节工具箱是学校里\n为孩子们准备的工具。\n现在就试用一下吗？",
+        stat: "98% 的用户表示自我调节工具箱\n对学习很有帮助",
         ms: ["很累", "有点难过", "还不错"], mt: ["无法专注", "容易分心", "情绪低落"] },
       VI: { teacher: "Bắt đầu với tư cách giáo viên", student: "Bắt đầu với tư cách học sinh", next: "Tiếp  →", cont: "Bắt đầu ngay",
         s2s: "Xin chào! Mình là Popang.\nDạo này bạn thế nào?",
         s2t: "Xin chào! Tôi là Popang.\nDạo này các em trong lớp thế nào?",
         s3s: "Cảm ơn bạn đã chia sẻ.\nMình rất vui được gặp bạn.",
         s3t: "Cảm ơn thầy cô đã chia sẻ.\nTôi rất vui được\ngặp thầy cô!",
-        s4s: "Bộ công cụ cổ vũ giúp\ncổ vũ bạn ở trường.\nThử ngay nhé?",
-        s4t: "Bộ công cụ cổ vũ là công cụ\ndành cho các em ở trường.\nThử ngay nhé?",
+        s4s: "Bộ công cụ tự điều chỉnh\ncổ vũ bạn ở trường.\nThử ngay nhé?",
+        s4t: "Bộ công cụ tự điều chỉnh\ndành cho các em ở trường.\nThử ngay nhé?",
         stat: "98% người dùng cho biết bộ công cụ\ngiúp ích cho việc học",
         ms: ["Mệt mỏi", "Buồn", "Ổn thôi"], mt: ["Khó tập trung", "Hiếu động", "Buồn bã"] },
       FR: { teacher: "Commencer en tant qu'enseignant", student: "Commencer en tant qu'élève", next: "Suivant  →", cont: "Commencer",
@@ -403,8 +408,8 @@ i18n() {
         s2t: "Bonjour ! Je suis Popang.\nComment vont les élèves en classe ?",
         s3s: "Merci de me l'avoir dit.\nJe suis ravi de te rencontrer.",
         s3t: "Merci de m'en avoir parlé.\nJe suis ravi de\nvous rencontrer !",
-        s4s: "La trousse d'encouragement est là\npour te soutenir à l'école.\nOn essaie tout de suite ?",
-        s4t: "La trousse d'encouragement est un\noutil pour les élèves à l'école.\nOn l'essaie maintenant ?",
+        s4s: "La trousse d'autorégulation est là\npour te soutenir à l'école.\nOn essaie tout de suite ?",
+        s4t: "La trousse d'autorégulation est un\noutil pour les élèves à l'école.\nOn l'essaie maintenant ?",
         stat: "98 % des utilisateurs disent que la trousse\nles aide dans leurs études",
         ms: ["C'est dur", "Je suis triste", "Ça va"], mt: ["Manque de concentration", "Agité", "Mélancolique"] },
       JA: { teacher: "先生としてはじめる", student: "学生としてはじめる", next: "次へ  →", cont: "はじめる",
@@ -412,17 +417,17 @@ i18n() {
         s2t: "こんにちは！わたしはポパンです。\n最近クラスの子どもたちはどうですか？",
         s3s: "教えてくれてありがとう。\n出会えてとてもうれしいよ。",
         s3t: "教えてくださってありがとう。\n先生に出会えて\nとてもうれしいです！",
-        s4s: "応援ツールキットは学校で\n君を応援するためのものだよ。\n今すぐ使ってみる？",
-        s4t: "応援ツールキットは学校で\n子どもたちのための道具です。\n今すぐ使ってみますか？",
-        stat: "98%のユーザーが応援ツールキットは\n勉強に役立つと答えました",
+        s4s: "自己調整ツールキットは学校で\n君を応援するためのものだよ。\n今すぐ使ってみる？",
+        s4t: "自己調整ツールキットは学校で\n子どもたちのための道具です。\n今すぐ使ってみますか？",
+        stat: "98%のユーザーが自己調整ツールキットは\n勉強に役立つと答えました",
         ms: ["つらい", "落ちこむ", "だいじょうぶ"], mt: ["集中できない", "落ち着かない", "元気がない"] },
       ES: { teacher: "Empezar como docente", student: "Empezar como estudiante", next: "Siguiente  →", cont: "Empezar",
         s2s: "¡Hola! Soy Popang.\n¿Cómo has estado últimamente?",
         s2t: "¡Hola! Soy Popang.\n¿Cómo van los niños en clase?",
         s3s: "Gracias por contarme.\nMe alegra mucho conocerte.",
         s3t: "Gracias por contarme.\nMe alegra mucho\nconocerle.",
-        s4s: "El kit de ánimo está en la escuela\npara apoyarte.\n¿Quieres probarlo ya?",
-        s4t: "El kit de ánimo es una herramienta\npara los niños en la escuela.\n¿Lo probamos ahora?",
+        s4s: "El kit de autorregulación está\nen la escuela para apoyarte.\n¿Quieres probarlo ya?",
+        s4t: "El kit de autorregulación es una\nherramienta para los niños.\n¿Lo probamos ahora?",
         stat: "El 98 % de los usuarios dice que el kit\nles ayuda a estudiar",
         ms: ["Es difícil", "Estoy triste", "Estoy bien"], mt: ["No se concentra", "Inquieto", "Desanimado"] },
       ID: { teacher: "Mulai sebagai guru", student: "Mulai sebagai siswa", next: "Lanjut  →", cont: "Mulai sekarang",
@@ -430,17 +435,17 @@ i18n() {
         s2t: "Halo! Saya Popang.\nBagaimana anak-anak di kelas?",
         s3s: "Terima kasih sudah bercerita.\nAku senang bertemu denganmu.",
         s3t: "Terima kasih sudah bercerita.\nSaya senang bisa\nbertemu Anda!",
-        s4s: "Kit Dukungan hadir di sekolah\nuntuk menyemangatimu.\nMau coba sekarang?",
-        s4t: "Kit Dukungan adalah alat\nuntuk anak-anak di sekolah.\nMau coba sekarang?",
-        stat: "98% pengguna mengatakan Kit Dukungan\nmembantu mereka belajar",
+        s4s: "Kit Regulasi Diri hadir di sekolah\nuntuk menyemangatimu.\nMau coba sekarang?",
+        s4t: "Kit Regulasi Diri adalah alat\nuntuk anak-anak di sekolah.\nMau coba sekarang?",
+        stat: "98% pengguna mengatakan Kit Regulasi Diri\nmembantu mereka belajar",
         ms: ["Berat", "Sedih", "Baik saja"], mt: ["Sulit fokus", "Tidak tenang", "Murung"] },
       TH: { teacher: "เริ่มต้นในฐานะครู", student: "เริ่มต้นในฐานะนักเรียน", next: "ถัดไป  →", cont: "เริ่มเลย",
         s2s: "สวัสดี! ฉันชื่อโพปัง\nช่วงนี้เธอเป็นอย่างไรบ้าง?",
         s2t: "สวัสดีค่ะ! ฉันชื่อโพปัง\nช่วงนี้เด็ก ๆ ในห้องเป็นอย่างไรบ้าง?",
         s3s: "ขอบคุณที่บอกนะ\nดีใจมากที่ได้เจอเธอ",
         s3t: "ขอบคุณที่บอกนะคะ\nดีใจมากที่ได้\nพบคุณครู!",
-        s4s: "ชุดเครื่องมือให้กำลังใจ\nอยู่ที่โรงเรียนเพื่อเชียร์เธอ\nลองใช้เลยไหม?",
-        s4t: "ชุดเครื่องมือให้กำลังใจเป็น\nเครื่องมือสำหรับเด็ก ๆ ในโรงเรียน\nลองใช้เลยไหม?",
+        s4s: "ชุดเครื่องมือควบคุมตนเอง\nอยู่ที่โรงเรียนเพื่อเชียร์เธอ\nลองใช้เลยไหม?",
+        s4t: "ชุดเครื่องมือควบคุมตนเองเป็น\nเครื่องมือสำหรับเด็ก ๆ ในโรงเรียน\nลองใช้เลยไหม?",
         stat: "ผู้ใช้ 98% บอกว่าชุดเครื่องมือนี้\nช่วยเรื่องการเรียนได้",
         ms: ["เหนื่อย", "เศร้า", "สบายดี"], mt: ["ไม่มีสมาธิ", "อยู่ไม่นิ่ง", "ซึมเศร้า"] },
       AR: { teacher: "ابدأ كمعلم", student: "ابدأ كطالب", next: "التالي  →", cont: "ابدأ الآن",
@@ -448,9 +453,9 @@ i18n() {
         s2t: "مرحبًا! أنا بوبانغ.\nكيف حال الأطفال في الصف؟",
         s3s: "شكرًا لإخباري.\nسعيد جدًا بلقائك.",
         s3t: "شكرًا لإخباري.\nسعيد جدًا\nبلقائك!",
-        s4s: "حقيبة التشجيع موجودة في المدرسة\nلتشجيعك.\nهل نجربها الآن؟",
-        s4t: "حقيبة التشجيع أداة\nللأطفال في المدرسة.\nهل نجربها الآن؟",
-        stat: "قال 98% من المستخدمين إن حقيبة التشجيع\nتساعدهم في الدراسة",
+        s4s: "حقيبة التنظيم الذاتي موجودة في المدرسة\nلتشجيعك.\nهل نجربها الآن؟",
+        s4t: "حقيبة التنظيم الذاتي أداة\nللأطفال في المدرسة.\nهل نجربها الآن؟",
+        stat: "قال 98% من المستخدمين إن حقيبة التنظيم الذاتي\nتساعدهم في الدراسة",
         ms: ["أشعر بالتعب", "أشعر بالحزن", "أنا بخير"], mt: ["لا يركز", "كثير الحركة", "حزين"] },
     };
     return D[this.state.lang] || D.KR;
