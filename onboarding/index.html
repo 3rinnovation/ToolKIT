@@ -17,7 +17,9 @@
 <style>
 @font-face { font-family: "Ownglyph PDH"; src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
-html, body { margin: 0; padding: 0; background: rgb(251,249,241); }
+html, body { margin: 0; padding: 0; background: rgb(251,249,241); height: 100%; overflow: hidden; overscroll-behavior: none; }
+section[data-screen-label] { min-height: 0 !important; height: 100vh; height: 100dvh; }
+section[data-screen-label^="01"] > div { width: max(177.65vh, min(100%, 222vh)) !important; }
 a { color: rgb(26,159,103); text-decoration: none; }
 a:hover { color: rgb(20,126,82); }
 @property --sweep { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
