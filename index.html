@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,6 +15,7 @@ try {
 } catch (e) {}
 </script>
 <script src="./support.js"></script>
+<script src="./a11y.js"></script>
 </head>
 <body>
 <x-dc>
@@ -87,14 +88,14 @@ try {
   body { margin: 0; background: #FFFFFF; font-family: "Pretendard Variable", Pretendard, system-ui, sans-serif; -webkit-font-smoothing: antialiased; color: #20211E; }
   * { box-sizing: border-box; }
   a { color: #287A50; text-decoration: none; }
-  a:hover { color: #50BE82; }
+  a:hover { color: #1A7F48; }
   @font-face { font-family: "TTHakgyoansimJiugae"; src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimJiugaeR.woff2") format("woff2"); font-weight: 400; font-display: swap; }
   .nav-dd { position: relative; }
   .nav-dd-menu { display: none; }
-  .nav-dd:hover .nav-dd-menu { display: flex; }
+  .nav-dd:hover .nav-dd-menu, .nav-dd:focus-within .nav-dd-menu { display: flex; }
   .lang-dd { position: relative; }
   .lang-dd-menu { display: none; }
-  .lang-dd:hover .lang-dd-menu { display: flex; }
+  .lang-dd:hover .lang-dd-menu, .lang-dd:focus-within .lang-dd-menu { display: flex; }
   @keyframes orgSway { 0%, 100% { transform: rotate(-2.2deg); } 50% { transform: rotate(2.2deg); } }
   .org-hang { transform-origin: top center; animation: orgSway 4.6s ease-in-out infinite; }
   .org-hang:hover { animation-play-state: paused; }
@@ -810,20 +811,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -857,7 +858,7 @@ try {
           <div style="min-width: 0; display: flex; flex-direction: column; gap: 14px;">
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
               <h3 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; color: #131C29;">{{ r.title }}</h3>
-              <a href="#svideo" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #8B948F;">전체보기 →</a>
+              <a href="#svideo" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #646D68;">전체보기 →</a>
             </div>
             <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px;">
               <sc-for list="{{ r.items }}" as="v" hint-placeholder-count="4">
@@ -915,7 +916,7 @@ try {
   <section style="max-width: 1200px; margin: 0 auto; padding: 104px 80px 40px; display: flex; flex-direction: column; gap: 24px;">
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px;">
       <h2 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; color: #131C29; word-break: keep-all;">쇼츠</h2>
-      <a href="#sshorts" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #8B948F;">전체보기 →</a>
+      <a href="#sshorts" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #646D68;">전체보기 →</a>
     </div>
       <div style="display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 6px;">
         <sc-for list="{{ p8.shorts }}" as="it" hint-placeholder-count="5">
@@ -948,9 +949,9 @@ try {
           <div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 3px;">
             <div style="display: flex; align-items: center; gap: 7px; min-width: 0;">
               <span style="min-width: 0; font-family: Pretendard, sans-serif; font-size: 17px; line-height: 25px; font-weight: 600; letter-spacing: -0.01em; color: #131C29; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ s.name }}</span>
-              <span style="flex: 0 0 auto; padding: 1px 7px; border-radius: 999px; background: #EFF3F1; color: #6E7873; font-family: Pretendard, sans-serif; font-size: 11px; line-height: 17px; font-weight: 700; letter-spacing: 0.04em;">{{ s.lang }}</span>
+              <span style="flex: 0 0 auto; padding: 1px 7px; border-radius: 999px; background: #EFF3F1; color: #5F6964; font-family: Pretendard, sans-serif; font-size: 11px; line-height: 17px; font-weight: 700; letter-spacing: 0.04em;">{{ s.lang }}</span>
             </div>
-            <span style="font-family: Pretendard, sans-serif; font-size: 14px; line-height: 21px; font-weight: 400; color: #8B948F; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ s.body }}</span>
+            <span style="font-family: Pretendard, sans-serif; font-size: 14px; line-height: 21px; font-weight: 400; color: #646D68; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ s.body }}</span>
           </div>
           <span style="flex: 0 0 auto; display: flex; align-items: center;">{{ s.player }}</span>
         </div>
@@ -961,11 +962,11 @@ try {
   <section style="max-width: 1200px; margin: 0 auto; padding: 104px 80px 40px; display: flex; flex-direction: column; gap: 24px;">
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px;">
       <h2 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; color: #131C29; word-break: keep-all;">네컷 만화</h2>
-      <a href="#scardnews" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #8B948F;">전체보기 →</a>
+      <a href="#scardnews" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #646D68;">전체보기 →</a>
     </div>
       <div style="display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 4px;">
         <sc-for list="{{ p8.cards }}" as="it" hint-placeholder-count="8">
-          <a href="{{ it.href }}" style="flex: 0 0 calc((100% - 80px) / 4.5); min-width: 0; scroll-snap-align: start; display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 14px; overflow: hidden; cursor: pointer; transition: transform 0.18s ease;" style-hover="transform: translateY(-3px);">
+          <a href="{{ it.href }}" aria-label="{{ it.title }}" style="flex: 0 0 calc((100% - 80px) / 4.5); min-width: 0; scroll-snap-align: start; display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 14px; overflow: hidden; cursor: pointer; transition: transform 0.18s ease;" style-hover="transform: translateY(-3px);">
             <div style="position: relative; aspect-ratio: 1 / 1; background: #EDF3EF;">
               <div style="position: absolute; inset: 0; background-image: {{ it.bgImage }}; background-size: cover; background-position: center;"></div>
             </div>
@@ -979,7 +980,7 @@ try {
   <section style="max-width: 1200px; margin: 0 auto; padding: 104px 80px 40px;">
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px;">
       <h2 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; color: #131C29; word-break: keep-all;">명상</h2>
-      <a href="#svideo" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #8B948F;">전체보기 →</a>
+      <a href="#svideo" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #646D68;">전체보기 →</a>
     </div>
     <div style="display: flex; gap: 20px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 6px;">
       <sc-for list="{{ p8.wide }}" as="v" hint-placeholder-count="2">
@@ -1002,7 +1003,7 @@ try {
   <section id="games-rail" style="max-width: 1200px; margin: 0 auto; padding: 104px 80px 40px; display: flex; flex-direction: column; gap: 24px;">
       <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px;">
       <h2 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; color: #131C29; word-break: keep-all;">게임</h2>
-        <a href="#sgames" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #8B948F;">전체보기 →</a>
+        <a href="#sgames" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #646D68;">전체보기 →</a>
       </div>
       <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; align-items: stretch;">
         <sc-for list="{{ p15.items }}" as="g" hint-placeholder-count="4">
@@ -1030,11 +1031,11 @@ try {
     <section style="position: relative; margin-top: 104px; background: #FAF8F1;">
       <div style="max-width: 1104px; margin: 0 auto; padding: 64px 48px 56px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
         <h2 style="margin: 4px 0 0; font-family: Pretendard, sans-serif; font-size: 32px; line-height: 1.4; font-weight: 800; letter-spacing: -0.02em; color: #131C29; text-align: center; word-break: keep-all;">우리 반에도 이런 친구들 있어?</h2>
-        <p style="margin: 0; font-family: Pretendard, sans-serif; font-size: 16px; line-height: 27px; font-weight: 400; color: #6E7873; text-align: center; word-break: keep-all;">집중하는 방법도, 마음을 표현하는 방식도 다른 포커스팡 친구들을 만나보자.</p>
+        <p style="margin: 0; font-family: Pretendard, sans-serif; font-size: 16px; line-height: 27px; font-weight: 400; color: #5F6964; text-align: center; word-break: keep-all;">집중하는 방법도, 마음을 표현하는 방식도 다른 포커스팡 친구들을 만나보자.</p>
 
         <div style="margin-top: 26px; width: 100%; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: center; gap: 16px;">
           <sc-for list="{{ charCards }}" as="c" hint-placeholder-count="5">
-            <div style="position: relative; flex: 0 1 180px; min-width: 150px; aspect-ratio: 5 / 7; border-radius: 20px; overflow: hidden; background-color: {{ c.bg }}; background-image: {{ c.img }}; background-size: cover; background-position: center; transform: rotate({{ c.tilt }}); transition: transform 0.25s cubic-bezier(0.22,1,0.36,1);" style-hover="transform: translateY(-6px) rotate(0deg);">
+            <div data-sel="{{ c.selOn }}" style="position: relative; flex: 0 1 180px; min-width: 150px; aspect-ratio: 5 / 7; border-radius: 20px; overflow: hidden; background-color: {{ c.bg }}; background-image: {{ c.img }}; background-size: cover; background-position: center; transform: rotate({{ c.tilt }}); transition: transform 0.25s cubic-bezier(0.22,1,0.36,1);" style-hover="transform: translateY(-6px) rotate(0deg);">
               <span style="position: absolute; left: 14px; right: 14px; bottom: 14px; padding: 8px 10px; border-radius: 999px; background: rgba(255,255,255,0.95); color: {{ c.fg }}; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 20px; font-weight: 700; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ c.label }}</span>
             </div>
           </sc-for>
@@ -1134,20 +1135,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -1191,7 +1192,7 @@ try {
     <div style="max-width: 1200px; margin: 0 auto; padding: 96px 80px 8px; display: flex; flex-direction: column; gap: 12px;">
       <span style="font-family: Pretendard, sans-serif; font-size: 13px; line-height: 20px; font-weight: 700; letter-spacing: 0.16em; color: #4C5A54;">MAIN CHARACTERS</span>
       <h2 style="margin: 0; font-family: Pretendard, sans-serif; font-size: 30px; line-height: 1.4; font-weight: 800; letter-spacing: -0.02em; color: #131C29;">팡 빌리지의 다섯 친구</h2>
-      <p style="margin: 6px 0 0; font-family: Pretendard, sans-serif; font-size: 16px; line-height: 27px; font-weight: 400; color: #6E7873; word-break: keep-all; text-wrap: pretty;">화면과 공책 사이 어딘가에 있는 작은 마을. 아이가 공부를 시작하면 저마다의 방에서 친구들이 살며시 나타나요.</p>
+      <p style="margin: 6px 0 0; font-family: Pretendard, sans-serif; font-size: 16px; line-height: 27px; font-weight: 400; color: #5F6964; word-break: keep-all; text-wrap: pretty;">화면과 공책 사이 어딘가에 있는 작은 마을. 아이가 공부를 시작하면 저마다의 방에서 친구들이 살며시 나타나요.</p>
 
       <div style="margin-top: 28px; display: flex; flex-direction: column; gap: 24px;">
         <div style="min-width: 0; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); align-items: center; gap: 32px; padding: 28px; border-radius: 24px; background: #F2F8F4;">
@@ -1255,20 +1256,20 @@ try {
       <div style="background: #F3F8F5; padding: 44px 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
         <div style="width: 232px; height: 232px; background-image: {{ p16.m.img }}; background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
         <span style="margin-top: 20px; font-size: 32px; line-height: 44px; font-weight: 700; color: #070908;">{{ p16.m.name }}</span>
-        <span style="font-size: 15px; line-height: 24px; color: #6E7873; text-align: center; word-break: keep-all;">{{ p16.m.role }}</span>
+        <span style="font-size: 15px; line-height: 24px; color: #5F6964; text-align: center; word-break: keep-all;">{{ p16.m.role }}</span>
       </div>
       <div style="min-width: 0; padding: 44px 40px 40px; display: flex; flex-direction: column; gap: 26px;">
         <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
           <div style="min-width: 0; padding: 14px 16px; border: 1px solid #E4E6E5; border-radius: 14px; display: flex; flex-direction: column; gap: 4px;">
-            <span style="font-size: 13px; line-height: 20px; color: #8B948F;">성격유형</span>
+            <span style="font-size: 13px; line-height: 20px; color: #646D68;">성격유형</span>
             <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: {{ p16.m.color }};">{{ p16.m.mbti }}</span>
           </div>
           <div style="min-width: 0; padding: 14px 16px; border: 1px solid #E4E6E5; border-radius: 14px; display: flex; flex-direction: column; gap: 4px;">
-            <span style="font-size: 13px; line-height: 20px; color: #8B948F;">종족·동물</span>
+            <span style="font-size: 13px; line-height: 20px; color: #646D68;">종족·동물</span>
             <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #070908;">{{ p16.m.species }}</span>
           </div>
           <div style="min-width: 0; padding: 14px 16px; border: 1px solid #E4E6E5; border-radius: 14px; display: flex; flex-direction: column; gap: 4px;">
-            <span style="font-size: 13px; line-height: 20px; color: #8B948F;">좋아하는 과목</span>
+            <span style="font-size: 13px; line-height: 20px; color: #646D68;">좋아하는 과목</span>
             <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #070908; word-break: keep-all;">{{ p16.m.subject }}</span>
           </div>
         </div>
@@ -1292,7 +1293,7 @@ try {
   <section style="background: #FFFFFF;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 88px 80px 0; display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center;">
       <h2 style="margin: 0; font-family: Pretendard, sans-serif; font-size: 30px; line-height: 1.45; font-weight: 800; letter-spacing: -0.02em; color: #131C29; word-break: keep-all;">필요한 순간, 친구들이 도구를 건네줄게</h2>
-      <p style="margin: 0; max-width: 52ch; font-size: 16px; line-height: 28px; font-weight: 400; color: #6E7873; word-break: keep-all; text-wrap: pretty;">타이머, 호흡, 마음 카드, 짧은 영상까지 — 지금 필요한 걸 골라서 3분만 같이 해보자.</p>
+      <p style="margin: 0; max-width: 52ch; font-size: 16px; line-height: 28px; font-weight: 400; color: #5F6964; word-break: keep-all; text-wrap: pretty;">타이머, 호흡, 마음 카드, 짧은 영상까지 — 지금 필요한 걸 골라서 3분만 같이 해보자.</p>
       <img src="assets/friends-illust-s.webp" alt="친구들과 툴킷" style="width: 100%; max-width: 880px; height: auto; display: block; margin-top: 8px;">
     </div>
   </section>
@@ -1300,7 +1301,7 @@ try {
   <section style="margin-top: 72px; background: #F3F8F5;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 72px 80px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px;">
       <h2 style="margin: 0; font-family: Pretendard, sans-serif; font-size: 30px; line-height: 1.45; font-weight: 800; letter-spacing: -0.02em; color: #131C29; word-break: keep-all;">포팡과 친구들이 곁에서,<br>그 별을 함께 찾아갈게.</h2>
-      <a href="#semoji" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-family: Pretendard, sans-serif; font-weight: 700; font-size: 17px;" style-hover="color: #FFFFFF; background: #26824F;">이모티콘 받으러 가기 <span style="font-size: 15px;">→</span></a>
+      <a href="#semoji" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; border-radius: 999px; background: #148455; color: #FFFFFF; font-family: Pretendard, sans-serif; font-weight: 700; font-size: 17px;" style-hover="color: #FFFFFF; background: #26824F;">이모티콘 받으러 가기 <span style="font-size: 15px;">→</span></a>
     </div>
   </section>
 
@@ -1389,20 +1390,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -1446,7 +1447,7 @@ try {
     <div style="max-width: 1200px; margin: 0 auto; padding: 96px 80px 8px; display: flex; flex-direction: column; gap: 12px;">
       <span style="font-family: Pretendard, sans-serif; font-size: 13px; line-height: 20px; font-weight: 700; letter-spacing: 0.16em; color: #4C5A54;">MAIN CHARACTERS</span>
       <h2 style="margin: 0; font-family: Pretendard, sans-serif; font-size: 30px; line-height: 1.4; font-weight: 800; letter-spacing: -0.02em; color: #131C29;">팡 빌리지의 다섯 친구</h2>
-      <p style="margin: 6px 0 0; font-family: Pretendard, sans-serif; font-size: 16px; line-height: 27px; font-weight: 400; color: #6E7873; word-break: keep-all; text-wrap: pretty;">화면과 공책 사이 어딘가에 있는 작은 마을. 아이가 공부를 시작하면 저마다의 방에서 친구들이 살며시 나타나요.</p>
+      <p style="margin: 6px 0 0; font-family: Pretendard, sans-serif; font-size: 16px; line-height: 27px; font-weight: 400; color: #5F6964; word-break: keep-all; text-wrap: pretty;">화면과 공책 사이 어딘가에 있는 작은 마을. 아이가 공부를 시작하면 저마다의 방에서 친구들이 살며시 나타나요.</p>
 
       <div style="margin-top: 28px; display: flex; flex-direction: column; gap: 24px;">
         <div style="min-width: 0; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); align-items: center; gap: 32px; padding: 28px; border-radius: 24px; background: #F2F8F4;">
@@ -1510,20 +1511,20 @@ try {
       <div style="background: #F3F8F5; padding: 44px 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
         <div style="width: 232px; height: 232px; background-image: {{ p16.m.img }}; background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
         <span style="margin-top: 20px; font-size: 32px; line-height: 44px; font-weight: 700; color: #070908;">{{ p16.m.name }}</span>
-        <span style="font-size: 15px; line-height: 24px; color: #6E7873; text-align: center; word-break: keep-all;">{{ p16.m.role }}</span>
+        <span style="font-size: 15px; line-height: 24px; color: #5F6964; text-align: center; word-break: keep-all;">{{ p16.m.role }}</span>
       </div>
       <div style="min-width: 0; padding: 44px 40px 40px; display: flex; flex-direction: column; gap: 26px;">
         <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
           <div style="min-width: 0; padding: 14px 16px; border: 1px solid #E4E6E5; border-radius: 14px; display: flex; flex-direction: column; gap: 4px;">
-            <span style="font-size: 13px; line-height: 20px; color: #8B948F;">성격유형</span>
+            <span style="font-size: 13px; line-height: 20px; color: #646D68;">성격유형</span>
             <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: {{ p16.m.color }};">{{ p16.m.mbti }}</span>
           </div>
           <div style="min-width: 0; padding: 14px 16px; border: 1px solid #E4E6E5; border-radius: 14px; display: flex; flex-direction: column; gap: 4px;">
-            <span style="font-size: 13px; line-height: 20px; color: #8B948F;">종족·동물</span>
+            <span style="font-size: 13px; line-height: 20px; color: #646D68;">종족·동물</span>
             <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #070908;">{{ p16.m.species }}</span>
           </div>
           <div style="min-width: 0; padding: 14px 16px; border: 1px solid #E4E6E5; border-radius: 14px; display: flex; flex-direction: column; gap: 4px;">
-            <span style="font-size: 13px; line-height: 20px; color: #8B948F;">좋아하는 과목</span>
+            <span style="font-size: 13px; line-height: 20px; color: #646D68;">좋아하는 과목</span>
             <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #070908; word-break: keep-all;">{{ p16.m.subject }}</span>
           </div>
         </div>
@@ -1547,7 +1548,7 @@ try {
   <section style="background: #FFFFFF;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 88px 80px 0; display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center;">
       <h2 style="margin: 0; font-family: Pretendard, sans-serif; font-size: 30px; line-height: 1.45; font-weight: 800; letter-spacing: -0.02em; color: #131C29; word-break: keep-all;">필요한 순간, 친구들이 도구를 건네줘요</h2>
-      <p style="margin: 0; max-width: 52ch; font-size: 16px; line-height: 28px; font-weight: 400; color: #6E7873; word-break: keep-all; text-wrap: pretty;">타이머, 호흡, 마음 카드, 짧은 영상까지 — 지금 상황에 맞는 도구를 골라 3분만 함께해 보세요.</p>
+      <p style="margin: 0; max-width: 52ch; font-size: 16px; line-height: 28px; font-weight: 400; color: #5F6964; word-break: keep-all; text-wrap: pretty;">타이머, 호흡, 마음 카드, 짧은 영상까지 — 지금 상황에 맞는 도구를 골라 3분만 함께해 보세요.</p>
       <img src="assets/friends-illust-s.webp" alt="친구들과 툴킷" style="width: 100%; max-width: 880px; height: auto; display: block; margin-top: 8px;">
     </div>
   </section>
@@ -1555,7 +1556,7 @@ try {
   <section style="margin-top: 72px; background: #F3F8F5;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 72px 80px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px;">
       <h2 style="margin: 0; font-family: Pretendard, sans-serif; font-size: 30px; line-height: 1.45; font-weight: 800; letter-spacing: -0.02em; color: #131C29; word-break: keep-all;">포팡과 친구들이 곁에서,<br>그 별을 함께 찾아갑니다.</h2>
-      <a href="#emoji" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-family: Pretendard, sans-serif; font-weight: 700; font-size: 17px;" style-hover="color: #FFFFFF; background: #26824F;">이모티콘 받으러 가기 <span style="font-size: 15px;">→</span></a>
+      <a href="#emoji" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; border-radius: 999px; background: #148455; color: #FFFFFF; font-family: Pretendard, sans-serif; font-weight: 700; font-size: 17px;" style-hover="color: #FFFFFF; background: #26824F;">이모티콘 받으러 가기 <span style="font-size: 15px;">→</span></a>
     </div>
   </section>
 
@@ -1645,20 +1646,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -1676,12 +1677,12 @@ try {
   <section style="background: #EEF6F1; border-bottom: 1px solid #E2EDE7;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 22px 80px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px;">
       <div style="flex: 0 0 auto; display: flex; align-items: baseline; gap: 12px;">
-        <span style="font-size: 14px; line-height: 22px; font-weight: 700; color: #30A967;">영상 선택</span>
+        <span style="font-size: 14px; line-height: 22px; font-weight: 700; color: #1A7F48;">영상 선택</span>
         <h1 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 800; letter-spacing: -0.02em; color: #131C29; white-space: nowrap;">지금 내 마음은?</h1>
       </div>
       <div style="flex: 1 1 600px; min-width: 280px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
         <sc-for list="{{ p9.moments }}" as="m" hint-placeholder-count="8">
-          <div onClick="{{ m.select }}" style="min-width: 0; display: flex; align-items: center; gap: 9px; padding: 7px 12px 7px 7px; border-radius: 999px; background: {{ m.bg }}; border: 1px solid {{ m.border }}; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
+          <div data-sel="{{ m.selOn }}" onClick="{{ m.select }}" style="min-width: 0; display: flex; align-items: center; gap: 9px; padding: 7px 12px 7px 7px; border-radius: 999px; background: {{ m.bg }}; border: 1px solid {{ m.border }}; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
             <span style="width: 36px; height: 36px; flex: 0 0 auto; border-radius: 999px; background-image: {{ m.icon }}; background-size: contain; background-repeat: no-repeat; background-position: center;"></span>
             <span style="min-width: 0; color: {{ m.fg }}; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 21px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ m.title }}</span>
           </div>
@@ -1735,7 +1736,7 @@ try {
           <div style="flex: 1 1 260px; min-width: 200px; display: flex; flex-direction: column; gap: 6px;">
             <span style="display: flex; align-items: center; gap: 8px;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E9E62" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
-              <span style="font-family: Pretendard, sans-serif; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0.04em; color: #2E9E62;">언제</span>
+              <span style="font-family: Pretendard, sans-serif; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0.04em; color: #1A7F48;">언제</span>
             </span>
             <span style="font-family: Pretendard, sans-serif; font-size: 22px; line-height: 32px; font-weight: 800; letter-spacing: -0.01em; color: #1F2A25; word-break: keep-all;">{{ p9.useWhen }}</span>
           </div>
@@ -1743,14 +1744,14 @@ try {
           <div style="flex: 0 0 auto; display: flex; flex-direction: column; gap: 6px;">
             <span style="display: flex; align-items: center; gap: 8px;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E9E62" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
-              <span style="font-family: Pretendard, sans-serif; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0.04em; color: #2E9E62;">시간</span>
+              <span style="font-family: Pretendard, sans-serif; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0.04em; color: #1A7F48;">시간</span>
             </span>
             <span style="font-family: Pretendard, sans-serif; font-size: 24px; line-height: 32px; font-weight: 800; letter-spacing: -0.01em; color: #1F2A25; white-space: nowrap;">{{ p9.useTime }}</span>
           </div>
         </div>
         <sc-for list="{{ p9.useRows }}" as="u" hint-placeholder-count="2">
           <div style="display: flex; align-items: baseline; gap: 20px; padding-left: 22px;">
-            <span style="flex: 0 0 76px; font-family: Pretendard, sans-serif; font-size: 15px; line-height: 24px; font-weight: 700; color: #2E9E62;">{{ u.k }}</span>
+            <span style="flex: 0 0 76px; font-family: Pretendard, sans-serif; font-size: 15px; line-height: 24px; font-weight: 700; color: #1A7F48;">{{ u.k }}</span>
             <span style="flex: 0 0 auto; align-self: stretch; width: 1px; background: #D9E5DE;"></span>
             <span style="flex: 1 1 auto; min-width: 0; font-family: Pretendard, sans-serif; font-size: 15px; line-height: 24px; font-weight: 400; color: #1F2A25; word-break: keep-all;">{{ u.v }}</span>
           </div>
@@ -1775,7 +1776,7 @@ try {
       <h2 style="margin: 0; font-size: 24px; line-height: 36px; font-weight: 700; letter-spacing: -0.01em;">나를 위한 마음 챙김</h2>
       <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;">
         <sc-for list="{{ p9.wideVideos }}" as="w" hint-placeholder-count="2">
-          <div onClick="{{ w.select }}" style="min-width: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 18px 14px; border-radius: 12px; background: {{ w.bg }}; border: 1px solid {{ w.border }}; color: {{ w.fg }}; font-size: 18px; line-height: 28px; font-weight: 600; word-break: keep-all; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-3px);">{{ w.title }}</div>
+          <div data-sel="{{ w.selOn }}" onClick="{{ w.select }}" style="min-width: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 18px 14px; border-radius: 12px; background: {{ w.bg }}; border: 1px solid {{ w.border }}; color: {{ w.fg }}; font-size: 18px; line-height: 28px; font-weight: 600; word-break: keep-all; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-3px);">{{ w.title }}</div>
         </sc-for>
       </div>
     </div>
@@ -1789,7 +1790,7 @@ try {
       <h2 style="margin: 0; font-size: 24px; line-height: 36px; font-weight: 700; letter-spacing: -0.01em;">나를 위한 마음 챙김</h2>
       <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;">
         <sc-for list="{{ p9.wideVideos }}" as="w" hint-placeholder-count="2">
-          <div onClick="{{ w.select }}" style="min-width: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 18px 14px; border-radius: 12px; background: {{ w.bg }}; border: 1px solid {{ w.border }}; color: {{ w.fg }}; font-size: 18px; line-height: 28px; font-weight: 600; word-break: keep-all; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-3px);">{{ w.title }}</div>
+          <div data-sel="{{ w.selOn }}" onClick="{{ w.select }}" style="min-width: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 18px 14px; border-radius: 12px; background: {{ w.bg }}; border: 1px solid {{ w.border }}; color: {{ w.fg }}; font-size: 18px; line-height: 28px; font-weight: 600; word-break: keep-all; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-3px);">{{ w.title }}</div>
         </sc-for>
       </div>
     </div>
@@ -1883,20 +1884,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -1910,12 +1911,12 @@ try {
   <section style="background: #EEF6F1; border-bottom: 1px solid #E2EDE7;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 22px 80px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px;">
       <div style="flex: 0 0 auto; display: flex; align-items: baseline; gap: 12px;">
-        <span style="font-size: 14px; line-height: 22px; font-weight: 700; color: #30A967;">네컷 만화 선택</span>
+        <span style="font-size: 14px; line-height: 22px; font-weight: 700; color: #1A7F48;">네컷 만화 선택</span>
         <h1 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 800; letter-spacing: -0.02em; color: #131C29; white-space: nowrap;">어떤 이야기를 볼까?</h1>
       </div>
       <div style="flex: 1 1 600px; min-width: 280px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
         <sc-for list="{{ p10.moments }}" as="m" hint-placeholder-count="9">
-          <div onClick="{{ m.select }}" style="min-width: 0; display: flex; align-items: center; gap: 9px; padding: 7px 12px 7px 7px; border-radius: 999px; background: {{ m.bg }}; border: 1px solid {{ m.border }}; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
+          <div data-sel="{{ m.selOn }}" onClick="{{ m.select }}" style="min-width: 0; display: flex; align-items: center; gap: 9px; padding: 7px 12px 7px 7px; border-radius: 999px; background: {{ m.bg }}; border: 1px solid {{ m.border }}; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
             <span style="width: 36px; height: 36px; flex: 0 0 auto; border-radius: 999px; background-image: {{ m.icon }}; background-size: contain; background-repeat: no-repeat; background-position: center;"></span>
             <span style="min-width: 0; color: {{ m.fg }}; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 21px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ m.title }}</span>
           </div>
@@ -1937,7 +1938,7 @@ try {
       </div>
       <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
         <sc-for list="{{ p10.dots }}" as="d" hint-placeholder-count="4">
-          <div onClick="{{ d.select }}" style="width: 9px; height: 9px; border-radius: 999px; background: {{ d.bg }}; cursor: pointer;"></div>
+          <div data-sel="{{ d.selOn }}" onClick="{{ d.select }}" style="width: 9px; height: 9px; border-radius: 999px; background: {{ d.bg }}; cursor: pointer;"></div>
         </sc-for>
       </div>
     </div>
@@ -1946,12 +1947,12 @@ try {
       <h1 style="margin: 0; font-size: 34px; line-height: 50px; font-weight: 700; letter-spacing: -0.02em; word-break: keep-all;">{{ p10.title }}</h1>
 
       <div style="display: flex; flex-direction: column; gap: 14px;">
-        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #30A967;">설명</span>
+        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #1A7F48;">설명</span>
         <p style="margin: 0; font-size: 18px; line-height: 27px; color: #4C4B45; word-break: keep-all; text-wrap: pretty;">{{ p10.why }}</p>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 14px; padding-top: 22px; border-top: 1px solid #E4E6E5;">
-        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #30A967;">이렇게 해봐!</span>
+        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #1A7F48;">이렇게 해봐!</span>
         <p style="margin: 0; font-size: 18px; line-height: 27px; color: #4C4B45; word-break: keep-all; text-wrap: pretty;">{{ p10.how }}</p>
       </div>
 
@@ -1960,7 +1961,7 @@ try {
         <div style="display: flex; flex-wrap: wrap; gap: 10px;">
           <div onClick="{{ p10.voteYes }}" style="padding: 12px 20px; border-radius: 999px; background: {{ p10.yesBg }}; border: 1px solid {{ p10.yesBorder }}; color: {{ p10.yesFg }}; font-size: 15px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; flex: 0 0 auto;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" style="flex: 0 0 auto;"><path d="M7 10v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3z"></path><path d="M7 10l4.5-7a2 2 0 0 1 3.4 2l-1.3 5h5.2a2 2 0 0 1 2 2.5l-1.6 6A2 2 0 0 1 17.3 20H7"></path></svg>네, 도움이 됐어요</div>
           <div onClick="{{ p10.voteNo }}" style="padding: 12px 20px; border-radius: 999px; background: {{ p10.noBg }}; border: 1px solid {{ p10.noBorder }}; color: {{ p10.noFg }}; font-size: 15px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; flex: 0 0 auto;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" style="flex: 0 0 auto;"><path d="M17 14V4h3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-3z"></path><path d="M17 14l-4.5 7a2 2 0 0 1-3.4-2l1.3-5H5.2a2 2 0 0 1-2-2.5l1.6-6A2 2 0 0 1 6.7 4H17"></path></svg>잘 모르겠어요</div>
-          <a href="{{ p10.videoHref }}" style="margin-left: auto; display: flex; align-items: center; padding: 12px 4px; color: #30A967; font-size: 18px; font-weight: 600;">관련 영상 보기 →</a>
+          <a href="{{ p10.videoHref }}" style="margin-left: auto; display: flex; align-items: center; padding: 12px 4px; color: #1A7F48; font-size: 18px; font-weight: 600;">관련 영상 보기 →</a>
         </div>
       </div>
     </div>
@@ -2060,20 +2061,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -2089,9 +2090,9 @@ try {
 상황별/모션 이모티콘 출시</h1>
         <p style="margin: 0; font-size: 19px; line-height: 32px; color: #4C4B45; max-width: 44ch; word-break: keep-all; text-wrap: pretty;">막힌 순간을 표현하는 포커스팡 이모티콘 세트입니다. 학급 알림장, 가정 메신저, 학습 앱 어디서든 쓸 수 있습니다.</p>
         <div data-emo-dl="1" style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px;">
-          <span onClick="{{ p11.downloadAll }}" style="display: flex; align-items: center; gap: 10px; padding: 20px 40px; border-radius: 12px; background: #50BE82; color: #FFFFFF; font-weight: 700; font-size: 20px; cursor: pointer;" style-hover="color: #FFFFFF; background: #30A967;">전체 다운로드<span style="font-size: 18px;">↓</span></span>
+          <span onClick="{{ p11.downloadAll }}" style="display: flex; align-items: center; gap: 10px; padding: 20px 40px; border-radius: 12px; background: #148455; color: #FFFFFF; font-weight: 700; font-size: 20px; cursor: pointer;" style-hover="color: #FFFFFF; background: #148455;">전체 다운로드<span style="font-size: 18px;">↓</span></span>
         </div>
-        <div style="display: flex; flex-wrap: wrap; gap: 28px; margin-top: 10px; font-size: 15px; line-height: 24px; color: #6E7873;">
+        <div style="display: flex; flex-wrap: wrap; gap: 28px; margin-top: 10px; font-size: 15px; line-height: 24px; color: #5F6964;">
           <span><strong style="color: #070908;">{{ p11.count }}</strong> 세트</span>
           <span><strong style="color: #070908;">PNG · JPG</strong> 제공</span>
           <span><strong style="color: #070908;">고해상도</strong> 원본</span>
@@ -2131,7 +2132,7 @@ try {
     </a>
 
     <div style="display: flex; justify-content: center; margin-top: 48px;">
-      <span onClick="{{ p11.downloadAll }}" style="display: flex; align-items: center; gap: 12px; padding: 20px 40px; border-radius: 12px; background: #50BE82; color: #FFFFFF; font-weight: 700; font-size: 20px; cursor: pointer;" style-hover="color: #FFFFFF; background: #30A967;">이모티콘 전체 다운로드<span style="font-size: 22px;">↓</span></span>
+      <span onClick="{{ p11.downloadAll }}" style="display: flex; align-items: center; gap: 12px; padding: 20px 40px; border-radius: 12px; background: #148455; color: #FFFFFF; font-weight: 700; font-size: 20px; cursor: pointer;" style-hover="color: #FFFFFF; background: #148455;">이모티콘 전체 다운로드<span style="font-size: 22px;">↓</span></span>
     </div>
   </section>
 
@@ -2237,20 +2238,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -2273,7 +2274,7 @@ try {
                   <iframe src="{{ v.src }}" allow="autoplay; encrypted-media" allowfullscreen="true" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #070908;"></iframe>
                 </sc-if>
                 <sc-if value="{{ v.idle }}" hint-placeholder-val="{{ true }}">
-                  <div onClick="{{ v.play }}" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(7,9,8,0.06); cursor: pointer;">
+                  <div onClick="{{ v.play }}" aria-label="{{ v.title }} 재생" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(7,9,8,0.06); cursor: pointer;">
                     <span style="width: 54px; height: 54px; border-radius: 999px; background: rgba(7,9,8,0.55); display: flex; align-items: center; justify-content: center;">
                       <span style="width: 0; height: 0; border-left: 18px solid #FFFFFF; border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 5px;"></span>
                     </span>
@@ -2281,7 +2282,7 @@ try {
                 </sc-if>
               </div>
               <span style="display: block; width: 100%; font-size: 18px; line-height: 26px; font-weight: 700; color: #070908; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ v.title }}</span>
-              <span style="display: block; width: 100%; margin-top: -4px; font-size: 14px; line-height: 20px; font-weight: 500; color: #6E7873; text-align: left;">{{ v.views }}</span>
+              <span style="display: block; width: 100%; margin-top: -4px; font-size: 14px; line-height: 20px; font-weight: 500; color: #5F6964; text-align: left;">{{ v.views }}</span>
             </div>
           </sc-for>
         </div>
@@ -2376,20 +2377,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -2434,7 +2435,7 @@ try {
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
               <h3 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; color: #131C29;">{{ r.title }}</h3>
               <sc-if value="{{ r.hasMore }}" hint-placeholder-val="{{ true }}">
-                <span onClick="{{ r.toggle }}" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #8B948F; cursor: pointer;" style-hover="color: #1F6B45;">{{ r.moreLabel }}</span>
+                <span onClick="{{ r.toggle }}" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #646D68; cursor: pointer;" style-hover="color: #1F6B45;">{{ r.moreLabel }}</span>
               </sc-if>
             </div>
             <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px;">
@@ -2461,7 +2462,7 @@ try {
   <section id="shorts" style="max-width: 1200px; margin: 0 auto; padding: 72px 80px 40px;">
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px;">
       <h2 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; color: #131C29; word-break: keep-all;">쇼츠</h2>
-      <a href="#shorts" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #8B948F;">전체보기 →</a>
+      <a href="#shorts" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #646D68;">전체보기 →</a>
     </div>
     <div style="display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 6px;">
       <sc-for list="{{ p1.shorts }}" as="v" hint-placeholder-count="5">
@@ -2494,9 +2495,9 @@ try {
           <div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 3px;">
             <div style="display: flex; align-items: center; gap: 7px; min-width: 0;">
               <span style="min-width: 0; font-family: Pretendard, sans-serif; font-size: 17px; line-height: 25px; font-weight: 600; letter-spacing: -0.01em; color: #131C29; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ s.name }}</span>
-              <span style="flex: 0 0 auto; padding: 1px 7px; border-radius: 999px; background: #EFF3F1; color: #6E7873; font-family: Pretendard, sans-serif; font-size: 11px; line-height: 17px; font-weight: 700; letter-spacing: 0.04em;">{{ s.lang }}</span>
+              <span style="flex: 0 0 auto; padding: 1px 7px; border-radius: 999px; background: #EFF3F1; color: #5F6964; font-family: Pretendard, sans-serif; font-size: 11px; line-height: 17px; font-weight: 700; letter-spacing: 0.04em;">{{ s.lang }}</span>
             </div>
-            <span style="font-family: Pretendard, sans-serif; font-size: 14px; line-height: 21px; font-weight: 400; color: #8B948F; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ s.body }}</span>
+            <span style="font-family: Pretendard, sans-serif; font-size: 14px; line-height: 21px; font-weight: 400; color: #646D68; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ s.body }}</span>
           </div>
           <sc-if value="{{ s.hasAudio }}" hint-placeholder-val="{{ false }}">
             <span style="flex: 0 0 auto; display: flex; align-items: center;">{{ s.player }}</span>
@@ -2509,11 +2510,11 @@ try {
   <section id="cards" style="max-width: 1200px; margin: 0 auto; padding: 64px 80px 40px;">
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px;">
       <h2 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; color: #131C29; word-break: keep-all;">네컷 만화</h2>
-      <a href="#cardnews" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #8B948F;">전체보기 →</a>
+      <a href="#cardnews" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #646D68;">전체보기 →</a>
     </div>
     <div style="display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 4px;">
       <sc-for list="{{ p1.visibleCards }}" as="c" hint-placeholder-count="8">
-        <a href="{{ c.href }}" style="flex: 0 0 calc((100% - 80px) / 4.5); min-width: 0; scroll-snap-align: start; display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 14px; overflow: hidden; cursor: pointer; transition: transform 0.18s ease;" style-hover="transform: translateY(-3px);">
+        <a href="{{ c.href }}" aria-label="{{ c.title }}" style="flex: 0 0 calc((100% - 80px) / 4.5); min-width: 0; scroll-snap-align: start; display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 14px; overflow: hidden; cursor: pointer; transition: transform 0.18s ease;" style-hover="transform: translateY(-3px);">
           <div style="position: relative; aspect-ratio: 1 / 1; background: #EDF3EF;">
             <div style="position: absolute; inset: 0; background-image: {{ c.bgImage }}; background-size: cover; background-position: center;"></div>
           </div>
@@ -2525,7 +2526,7 @@ try {
   <section id="meditation" style="display: none;">
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px;">
       <h2 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; color: #131C29; word-break: keep-all;">명상</h2>
-      <a href="#video" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #8B948F;">전체보기 →</a>
+      <a href="#video" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #646D68;">전체보기 →</a>
     </div>
     <div style="display: flex; gap: 20px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 6px;">
       <sc-for list="{{ p1.wide }}" as="v" hint-placeholder-count="3">
@@ -2547,7 +2548,7 @@ try {
   <section id="games-rail" style="max-width: 1200px; margin: 0 auto; padding: 64px 80px 40px;">
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px;">
       <h2 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; color: #131C29; word-break: keep-all;">게임</h2>
-      <a href="#games" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #8B948F;">전체보기 →</a>
+      <a href="#games" style="flex: 0 0 auto; font-size: 13px; font-weight: 600; white-space: nowrap; color: #646D68;">전체보기 →</a>
     </div>
     <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; align-items: stretch;">
       <sc-for list="{{ p1.gameRail }}" as="g" hint-placeholder-count="4">
@@ -2576,7 +2577,7 @@ try {
         </div>
         <div style="display: flex; align-items: center; gap: 14px;">
           <sc-for list="{{ p1.viewerDots }}" as="d" hint-placeholder-count="4">
-            <div style="width: 8px; height: 8px; border-radius: 999px; background: {{ d.bg }};"></div>
+            <div data-sel="{{ d.selOn }}" style="width: 8px; height: 8px; border-radius: 999px; background: {{ d.bg }};"></div>
           </sc-for>
         </div>
         <div onClick="{{ p1.viewerPrev }}" style="position: absolute; left: 10px; top: 44%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 999px; background: rgba(7,9,8,0.45); color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; user-select: none;">‹</div>
@@ -2588,10 +2589,10 @@ try {
   <section data-research-band="1" style="margin-top: 88px; background: #FFFFFF; border-top: 1px solid #ECF1EE;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 40px 80px 56px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center;">
       <div style="flex: 1 1 340px; min-width: 300px; display: flex; flex-direction: column; gap: 14px;">
-        <span style="font-family: Pretendard, sans-serif; font-size: 13px; line-height: 20px; font-weight: 700; letter-spacing: 0.18em; color: #2E9E62;">RESEARCH BACKGROUND</span>
+        <span style="font-family: Pretendard, sans-serif; font-size: 13px; line-height: 20px; font-weight: 700; letter-spacing: 0.18em; color: #1A7F48;">RESEARCH BACKGROUND</span>
         <p style="margin: 0; font-size: 26px; line-height: 38px; font-weight: 700; letter-spacing: -0.01em; color: #1F2A25; max-width: 24ch; word-break: keep-all; white-space: pre-line;">아이에게 닿기 전,
 전문가의 기준으로 검토합니다.</p>
-        <a href="#about/research" style="align-self: flex-start; margin-top: 0; padding: 0; color: #30A967; font-size: 18px; font-weight: 600;">연구 배경 보기 →</a>
+        <a href="#about/research" style="align-self: flex-start; margin-top: 0; padding: 0; color: #1A7F48; font-size: 18px; font-weight: 600;">연구 배경 보기 →</a>
       </div>
       <div class="org-mobile" style="flex: 1 1 380px; min-width: 300px; padding-top: 26px; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: flex-start; gap: 18px 14px;">
         <sc-for list="{{ p1.orgHang }}" as="o" hint-placeholder-count="6">
@@ -2708,20 +2709,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -2734,14 +2735,14 @@ try {
     <div data-tool-left="1" style="min-width: 0; padding: 28px 24px; border-radius: 28px; background: rgba(255,255,255,0.6); border: 1px solid #FFFFFF; display: flex; flex-direction: column; gap: 18px;">
       <div style="display: flex; flex-direction: column; gap: 8px;">
         <div style="display: flex; align-items: center; gap: 14px;">
-          <span style="flex: 0 0 auto; padding: 6px 16px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 17px; line-height: 24px; font-weight: 800; letter-spacing: 0.02em;">STEP 1</span>
+          <span style="flex: 0 0 auto; padding: 6px 16px; border-radius: 999px; background: #148455; color: #FFFFFF; font-size: 17px; line-height: 24px; font-weight: 800; letter-spacing: 0.02em;">STEP 1</span>
           <h1 style="margin: 0; font-size: 26px; line-height: 36px; font-weight: 800; letter-spacing: -0.02em; color: #131C29; word-break: keep-all;">상황을 선택하세요!</h1>
         </div>
         <p style="margin: 0; font-size: 15px; line-height: 24px; color: #5E6762; word-break: keep-all;">지금 어떤 상황인가요? 상황을 선택하면, 도움이 되는 도구들이 나타나요.</p>
       </div>
       <div data-tool-cats="1" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;">
         <sc-for list="{{ p2.toolCats }}" as="c" hint-placeholder-count="4">
-          <div onClick="{{ c.select }}" style="min-width: 0; display: flex; align-items: center; gap: 14px; padding: 20px 14px 20px 20px; border-radius: 18px; background: {{ c.cardBg }}; border: 2px solid {{ c.cardBorder }}; box-shadow: 0 2px 12px rgba(31,74,51,0.05); cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
+          <div data-sel="{{ c.cardSelOn }}" onClick="{{ c.select }}" style="min-width: 0; display: flex; align-items: center; gap: 14px; padding: 20px 14px 20px 20px; border-radius: 18px; background: {{ c.cardBg }}; border: 2px solid {{ c.cardBorder }}; box-shadow: 0 2px 12px rgba(31,74,51,0.05); cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
             <span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; font-size: 17px; line-height: 25px; font-weight: 700; color: #131C29; word-break: keep-all;"><span>{{ c.l1 }}</span><span>{{ c.l2 }}</span></span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto;"><path d="M9 6l6 6-6 6"></path></svg>
           </div>
@@ -2750,14 +2751,14 @@ try {
       <span style="display: block; height: 1px; margin: 10px 0 6px; background: #DCE7E1;"></span>
       <div style="display: flex; flex-direction: column; gap: 8px;">
         <div style="display: flex; align-items: center; gap: 14px;">
-          <span style="flex: 0 0 auto; padding: 6px 16px; border-radius: 999px; background: #30A967; color: #FFFFFF; font-size: 17px; line-height: 24px; font-weight: 800; letter-spacing: 0.02em;">STEP 2</span>
+          <span style="flex: 0 0 auto; padding: 6px 16px; border-radius: 999px; background: #148455; color: #FFFFFF; font-size: 17px; line-height: 24px; font-weight: 800; letter-spacing: 0.02em;">STEP 2</span>
           <h2 style="margin: 0; font-size: 26px; line-height: 36px; font-weight: 800; letter-spacing: -0.02em; color: #131C29; word-break: keep-all;">도구를 선택하세요!</h2>
         </div>
         <p style="margin: 0; font-size: 15px; line-height: 24px; color: #5E6762; word-break: keep-all;">선택한 상황에 맞는 도구를 골라보세요.</p>
       </div>
       <div data-tool-items="1" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 64px; align-content: start; gap: 12px; min-height: 216px;">
         <sc-for list="{{ p2.toolItems }}" as="m" hint-placeholder-count="5">
-          <div onClick="{{ m.select }}" style="min-width: 0; display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 12px; border-radius: 16px; background: {{ m.bg }}; border: 2px solid {{ m.border }}; box-shadow: 0 2px 10px rgba(31,74,51,0.04); cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
+          <div data-sel="{{ m.selOn }}" onClick="{{ m.select }}" style="min-width: 0; display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 12px; border-radius: 16px; background: {{ m.bg }}; border: 2px solid {{ m.border }}; box-shadow: 0 2px 10px rgba(31,74,51,0.04); cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
             <span style="width: 40px; height: 40px; flex: 0 0 auto; border-radius: 999px; background-image: {{ m.icon }}; background-size: {{ m.iconSize }}; background-repeat: no-repeat; background-position: center;"></span>
             <span style="flex: 1 1 auto; min-width: 0; color: {{ m.fg }}; font-family: Pretendard, sans-serif; font-size: 16px; line-height: 24px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ m.title }}</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto;"><path d="M9 6l6 6-6 6"></path></svg>
@@ -2925,20 +2926,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -2949,7 +2950,7 @@ try {
   <section style="background: #EEF6F1; border-bottom: 1px solid #E2EDE7;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 22px 80px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px;">
       <div style="flex: 0 0 auto; display: flex; align-items: baseline; gap: 12px;">
-        <span style="font-size: 14px; line-height: 22px; font-weight: 700; color: #30A967;">네컷 만화 선택</span>
+        <span style="font-size: 14px; line-height: 22px; font-weight: 700; color: #1A7F48;">네컷 만화 선택</span>
         <h1 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 800; letter-spacing: -0.02em; color: #131C29; white-space: nowrap;">어떤 이야기를 볼까요?</h1>
       </div>
       <div data-cn-chips="1" data-open="{{ p3.cnOpen }}" style="flex: 1 1 600px; min-width: 280px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
@@ -2957,7 +2958,7 @@ try {
           <span data-cn-more="1" onClick="{{ p3.toggleCnMore }}" style="display: none;">{{ p3.cnMoreLabel }}</span>
         </sc-if>
         <sc-for list="{{ p3.moments }}" as="m" hint-placeholder-count="8">
-          <div onClick="{{ m.select }}" style="min-width: 0; display: flex; align-items: center; gap: 9px; padding: 7px 12px 7px 7px; border-radius: 999px; background: {{ m.bg }}; border: 1px solid {{ m.border }}; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
+          <div data-sel="{{ m.selOn }}" onClick="{{ m.select }}" style="min-width: 0; display: flex; align-items: center; gap: 9px; padding: 7px 12px 7px 7px; border-radius: 999px; background: {{ m.bg }}; border: 1px solid {{ m.border }}; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
             <span style="width: 36px; height: 36px; flex: 0 0 auto; border-radius: 999px; background-image: {{ m.icon }}; background-size: contain; background-repeat: no-repeat; background-position: center;"></span>
             <span style="min-width: 0; color: {{ m.fg }}; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 21px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ m.title }}</span>
           </div>
@@ -2979,7 +2980,7 @@ try {
       </div>
       <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
         <sc-for list="{{ p3.dots }}" as="d" hint-placeholder-count="4">
-          <div onClick="{{ d.select }}" style="width: 9px; height: 9px; border-radius: 999px; background: {{ d.bg }}; cursor: pointer;"></div>
+          <div data-sel="{{ d.selOn }}" onClick="{{ d.select }}" style="width: 9px; height: 9px; border-radius: 999px; background: {{ d.bg }}; cursor: pointer;"></div>
         </sc-for>
       </div>
     </div>
@@ -2988,12 +2989,12 @@ try {
       <h1 style="margin: 0; font-size: 34px; line-height: 50px; font-weight: 700; letter-spacing: -0.02em; word-break: keep-all;">{{ p3.current.title }}</h1>
 
       <div style="display: flex; flex-direction: column; gap: 14px;">
-        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #30A967;">설명</span>
+        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #1A7F48;">설명</span>
         <p style="margin: 0; font-size: 18px; line-height: 27px; color: #4C4B45; word-break: keep-all; text-wrap: pretty;">{{ p3.current.body }}</p>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 14px; padding-top: 22px; border-top: 1px solid #E4E6E5;">
-        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #30A967;">이렇게 행동해요</span>
+        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #1A7F48;">이렇게 행동해요</span>
         <p style="margin: 0; font-size: 18px; line-height: 27px; color: #4C4B45; word-break: keep-all; text-wrap: pretty;">{{ p3.current.how }}</p>
       </div>
 
@@ -3002,7 +3003,7 @@ try {
         <div style="display: flex; flex-wrap: wrap; gap: 10px;">
           <div onClick="{{ p3.voteYes }}" style="padding: 12px 20px; border-radius: 999px; background: {{ p3.yesBg }}; border: 1px solid {{ p3.yesBorder }}; color: {{ p3.yesFg }}; font-size: 15px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; flex: 0 0 auto;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" style="flex: 0 0 auto;"><path d="M7 10v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3z"></path><path d="M7 10l4.5-7a2 2 0 0 1 3.4 2l-1.3 5h5.2a2 2 0 0 1 2 2.5l-1.6 6A2 2 0 0 1 17.3 20H7"></path></svg>네, 도움이 됐어요</div>
           <div onClick="{{ p3.voteNo }}" style="padding: 12px 20px; border-radius: 999px; background: {{ p3.noBg }}; border: 1px solid {{ p3.noBorder }}; color: {{ p3.noFg }}; font-size: 15px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; flex: 0 0 auto;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" style="flex: 0 0 auto;"><path d="M17 14V4h3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-3z"></path><path d="M17 14l-4.5 7a2 2 0 0 1-3.4-2l1.3-5H5.2a2 2 0 0 1-2-2.5l1.6-6A2 2 0 0 1 6.7 4H17"></path></svg>잘 모르겠어요</div>
-          <a href="#video" style="margin-left: auto; display: flex; align-items: center; padding: 12px 4px; color: #30A967; font-size: 18px; font-weight: 600;">관련 영상 보기 →</a>
+          <a href="#video" style="margin-left: auto; display: flex; align-items: center; padding: 12px 4px; color: #1A7F48; font-size: 18px; font-weight: 600;">관련 영상 보기 →</a>
         </div>
       </div>
     </div>
@@ -3094,20 +3095,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -3118,7 +3119,7 @@ try {
   <section style="background: #EDF6F0; overflow-x: clip;">
     <div style="max-width: 1200px; width: 100%; margin: 0 auto; padding: 0 80px; box-sizing: border-box;">
       <div style="position: relative; min-height: clamp(400px, calc(111px + 30.67vw), 820px); margin: -111px calc(50% - var(--hw, 50vw)) 8px; padding: 111px max(80px, calc(var(--hw, 50vw) - 520px)) 32px; box-sizing: border-box; overflow: hidden; background-color: #FAFBF9; background-image: linear-gradient(90deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.9) 26%, rgba(255,255,255,0.45) 46%, rgba(255,255,255,0) 62%), url('assets/hq-articles-s.webp'); background-size: cover, cover; background-repeat: no-repeat, no-repeat; background-position: center, center bottom; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;">
-        <h1 style="position: relative; z-index: 3; margin: 0; font-family: Pretendard, sans-serif; font-size: 38px; line-height: 1.45; font-weight: 700; letter-spacing: -0.03em; color: #2F3A36; word-break: keep-all;">수업을 도와줄<br><span style="color: #30A967;">뉴스</span>들을 모았어요.</h1>
+        <h1 style="position: relative; z-index: 3; margin: 0; font-family: Pretendard, sans-serif; font-size: 38px; line-height: 1.45; font-weight: 700; letter-spacing: -0.03em; color: #2F3A36; word-break: keep-all;">수업을 도와줄<br><span style="color: #1A7F48;">뉴스</span>들을 모았어요.</h1>
       </div>
     </div>
   </section>
@@ -3127,10 +3128,10 @@ try {
     <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
       <div style="display: flex; flex-wrap: wrap; gap: 8px;">
         <sc-for list="{{ p4.tabs }}" as="t" hint-placeholder-count="4">
-          <div onClick="{{ t.select }}" style="padding: 9px 18px; border-radius: 999px; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 21px; font-weight: 700; cursor: pointer; transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease; background: {{ t.bg }}; color: {{ t.fg }}; border: 1px solid {{ t.border }};">{{ t.label }}</div>
+          <div data-sel="{{ t.selOn }}" onClick="{{ t.select }}" style="padding: 9px 18px; border-radius: 999px; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 21px; font-weight: 700; cursor: pointer; transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease; background: {{ t.bg }}; color: {{ t.fg }}; border: 1px solid {{ t.border }};">{{ t.label }}</div>
         </sc-for>
       </div>
-      <span style="font-family: Pretendard, sans-serif; font-size: 14px; line-height: 22px; font-weight: 500; color: #8B948F;">{{ p4.countLabel }}</span>
+      <span style="font-family: Pretendard, sans-serif; font-size: 14px; line-height: 22px; font-weight: 500; color: #646D68;">{{ p4.countLabel }}</span>
     </div>
     <div data-art-list="1" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 32px 24px;">
       <sc-for list="{{ p4.articles }}" as="a" hint-placeholder-count="6">
@@ -3140,7 +3141,7 @@ try {
           </div>
           <div style="min-width: 0; display: flex; flex-direction: column; gap: 8px;">
             <span style="font-family: Pretendard, sans-serif; font-size: 20px; line-height: 30px; font-weight: 700; letter-spacing: -0.01em; color: #1F2A25; word-break: keep-all;">{{ a.title }}</span>
-            <span style="font-family: Pretendard, sans-serif; font-size: 16px; line-height: 26px; font-weight: 400; color: #6E7873; word-break: keep-all; text-wrap: pretty;">{{ a.summary }}</span>
+            <span style="font-family: Pretendard, sans-serif; font-size: 16px; line-height: 26px; font-weight: 400; color: #5F6964; word-break: keep-all; text-wrap: pretty;">{{ a.summary }}</span>
             <span data-art-ex="1" style="display: none;">{{ a.excerpt }}</span>
             <span data-art-date="1" style="display: none;">{{ a.date }}</span>
           </div>
@@ -3148,11 +3149,11 @@ try {
       </sc-for>
     </div>
     <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 40px;">
-      <div onClick="{{ p4.prevPage }}" style="width: 38px; height: 38px; border-radius: 999px; border: 1px solid #E4E6E5; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #8B948F; cursor: pointer;">‹</div>
+      <div onClick="{{ p4.prevPage }}" style="width: 38px; height: 38px; border-radius: 999px; border: 1px solid #E4E6E5; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #646D68; cursor: pointer;">‹</div>
       <sc-for list="{{ p4.pages }}" as="p" hint-placeholder-count="2">
-        <div onClick="{{ p.select }}" style="min-width: 38px; height: 38px; padding: 0 12px; border-radius: 999px; background: {{ p.bg }}; color: {{ p.fg }}; border: 1px solid {{ p.border }}; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; cursor: pointer;">{{ p.label }}</div>
+        <div data-sel="{{ p.selOn }}" onClick="{{ p.select }}" style="min-width: 38px; height: 38px; padding: 0 12px; border-radius: 999px; background: {{ p.bg }}; color: {{ p.fg }}; border: 1px solid {{ p.border }}; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; cursor: pointer;">{{ p.label }}</div>
       </sc-for>
-      <div onClick="{{ p4.nextPage }}" style="width: 38px; height: 38px; border-radius: 999px; border: 1px solid #E4E6E5; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #8B948F; cursor: pointer;">›</div>
+      <div onClick="{{ p4.nextPage }}" style="width: 38px; height: 38px; border-radius: 999px; border: 1px solid #E4E6E5; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #646D68; cursor: pointer;">›</div>
     </div>
   </section>
 
@@ -3177,7 +3178,7 @@ try {
       <h2 style="margin: 0; position: relative; z-index: 2; font-size: 38px; line-height: 54px; font-weight: 700; letter-spacing: -0.02em; color: #FFFFFF; word-break: keep-all; white-space: pre-line;">아이들이 막힌 순간,
 다시 해볼 방법을 건네요.</h2>
       <p style="margin: 0; position: relative; z-index: 2; font-size: 18px; line-height: 28px; font-weight: 500; color: #FFFFFF;">더 건강해진 우리 반을 경험해 보세요.</p>
-      <span style="position: relative; z-index: 2; padding: 20px 40px; border-radius: 12px; background: #50BE82; color: #FFFFFF; font-size: 20px; font-weight: 700;">우리 반에서 시작하기 →</span>
+      <span style="position: relative; z-index: 2; padding: 20px 40px; border-radius: 12px; background: #148455; color: #FFFFFF; font-size: 20px; font-weight: 700;">우리 반에서 시작하기 →</span>
     </div>
   </section>
 
@@ -3267,20 +3268,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -3291,8 +3292,8 @@ try {
   <section style="background: #F5F7F5;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 40px 80px 64px;">
       <div style="max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px;">
-        <a href="#articles" style="align-self: flex-start; font-size: 18px; line-height: 27px; font-weight: 600; color: #6E7873;">← 아티클</a>
-        <span style="font-size: 18px; line-height: 27px; font-weight: 700; letter-spacing: 0.02em; color: #30A967;">{{ p5.current.tag }}</span>
+        <a href="#articles" style="align-self: flex-start; font-size: 18px; line-height: 27px; font-weight: 600; color: #5F6964;">← 아티클</a>
+        <span style="font-size: 18px; line-height: 27px; font-weight: 700; letter-spacing: 0.02em; color: #1A7F48;">{{ p5.current.tag }}</span>
         <h1 style="margin: 0; font-size: 42px; line-height: 60px; font-weight: 700; letter-spacing: -0.02em; word-break: keep-all;">{{ p5.current.title }}</h1>
       </div>
     </div>
@@ -3307,7 +3308,7 @@ try {
       </sc-for>
       <div style="margin: 14px 0; padding: 28px 32px; border-radius: 16px; background: #F5F7F5; font-size: 20px; line-height: 34px; font-weight: 600; color: #1F6B45; word-break: keep-all; text-wrap: pretty;">{{ p5.current.quote }}</div>
       <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px;">
-        <a href="#video" style="padding: 15px 28px; border-radius: 8px; background: #50BE82; color: #FFFFFF; font-size: 18px; font-weight: 600;">관련 영상 보기 →</a>
+        <a href="#video" style="padding: 15px 28px; border-radius: 8px; background: #148455; color: #FFFFFF; font-size: 18px; font-weight: 600;">관련 영상 보기 →</a>
         <a href="#cardnews" style="padding: 15px 28px; border-radius: 8px; border: 1px solid #E4E6E5; color: #070908; font-size: 18px; font-weight: 600;">만화로 보기</a>
       </div>
     </div>
@@ -3414,20 +3415,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -3443,9 +3444,9 @@ try {
 상황별/모션 이모티콘 출시</h1>
         <p style="margin: 0; font-size: 19px; line-height: 32px; color: #4C4B45; max-width: 44ch; word-break: keep-all; text-wrap: pretty;">막힌 순간을 표현하는 포커스팡 이모티콘 세트입니다. 학급 알림장, 가정 메신저, 학습 앱 어디서든 쓸 수 있습니다.</p>
         <div data-emo-dl="1" style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px;">
-          <span onClick="{{ p6.downloadAll }}" style="display: flex; align-items: center; gap: 10px; padding: 20px 40px; border-radius: 12px; background: #50BE82; color: #FFFFFF; font-weight: 700; font-size: 20px; cursor: pointer;" style-hover="color: #FFFFFF; background: #30A967;">전체 다운로드<span style="font-size: 18px;">↓</span></span>
+          <span onClick="{{ p6.downloadAll }}" style="display: flex; align-items: center; gap: 10px; padding: 20px 40px; border-radius: 12px; background: #148455; color: #FFFFFF; font-weight: 700; font-size: 20px; cursor: pointer;" style-hover="color: #FFFFFF; background: #148455;">전체 다운로드<span style="font-size: 18px;">↓</span></span>
         </div>
-        <div style="display: flex; flex-wrap: wrap; gap: 28px; margin-top: 10px; font-size: 15px; line-height: 24px; color: #6E7873;">
+        <div style="display: flex; flex-wrap: wrap; gap: 28px; margin-top: 10px; font-size: 15px; line-height: 24px; color: #5F6964;">
           <span><strong style="color: #070908;">{{ p6.count }}</strong> 세트</span>
           <span><strong style="color: #070908;">PNG · JPG</strong> 제공</span>
           <span><strong style="color: #070908;">고해상도</strong> 원본</span>
@@ -3485,7 +3486,7 @@ try {
     </a>
 
     <div style="display: flex; justify-content: center; margin-top: 48px;">
-      <span onClick="{{ p6.downloadAll }}" style="display: flex; align-items: center; gap: 12px; padding: 20px 40px; border-radius: 12px; background: #50BE82; color: #FFFFFF; font-weight: 700; font-size: 20px; cursor: pointer;" style-hover="color: #FFFFFF; background: #30A967;">이모티콘 전체 다운로드<span style="font-size: 22px;">↓</span></span>
+      <span onClick="{{ p6.downloadAll }}" style="display: flex; align-items: center; gap: 12px; padding: 20px 40px; border-radius: 12px; background: #148455; color: #FFFFFF; font-weight: 700; font-size: 20px; cursor: pointer;" style-hover="color: #FFFFFF; background: #148455;">이모티콘 전체 다운로드<span style="font-size: 22px;">↓</span></span>
     </div>
   </section>
 
@@ -3591,20 +3592,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -3619,8 +3620,8 @@ try {
           <span role="img" aria-label="학교와 가정에서 사용하는 아이 맞춤 툴킷" style="display: block; width: 72%; margin-left: 7%; aspect-ratio: 1845 / 260; background-image: url('assets/about-tag.png'); background-size: 117% auto; background-position: 70% 48.8%; background-repeat: no-repeat;"></span>
           <span role="img" aria-label="아이가 막힌 순간, 스스로 다시 시작하도록 돕습니다" style="display: block; width: 100%; aspect-ratio: 1719 / 645; background-image: url('assets/about-title.png'); background-size: 100% auto; background-position: 0 100%; -webkit-mask: linear-gradient(#000, #000) right top / 90% 100% no-repeat, linear-gradient(#000, #000) left bottom / 100% 86% no-repeat; mask: linear-gradient(#000, #000) right top / 90% 100% no-repeat, linear-gradient(#000, #000) left bottom / 100% 86% no-repeat; background-repeat: no-repeat;"></span>
         </h1>
-        <p style="margin: 0; font-family: Pretendard, sans-serif; font-size: 17px; line-height: 30px; font-weight: 400; color: #6E7873; word-break: keep-all; text-wrap: pretty;">진단이나 치료를 제공하지 않습니다. 지금 겪는 어려움을 묻고,<br>위험 신호는 보호자·교사와 전문 지원으로 연결합니다.</p>
-        <a href="#video" style="margin-top: 10px; display: inline-flex; align-items: center; gap: 18px; padding: 14px 14px 14px 32px; border-radius: 999px; background: #2EAA62; color: #FFFFFF; font-family: Pretendard, sans-serif; font-size: 19px; line-height: 28px; font-weight: 700; box-shadow: 0 10px 24px -8px rgba(46,170,98,0.5);" style-hover="background: #258F52; color: #FFFFFF;">툴킷 살펴보기<span style="width: 40px; height: 40px; border-radius: 999px; background: #FFFFFF; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2EAA62" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+        <p style="margin: 0; font-family: Pretendard, sans-serif; font-size: 17px; line-height: 30px; font-weight: 400; color: #5F6964; word-break: keep-all; text-wrap: pretty;">진단이나 치료를 제공하지 않습니다. 지금 겪는 어려움을 묻고,<br>위험 신호는 보호자·교사와 전문 지원으로 연결합니다.</p>
+        <a href="#video" style="margin-top: 10px; display: inline-flex; align-items: center; gap: 18px; padding: 14px 14px 14px 32px; border-radius: 999px; background: #148455; color: #FFFFFF; font-family: Pretendard, sans-serif; font-size: 19px; line-height: 28px; font-weight: 700; box-shadow: 0 10px 24px -8px rgba(46,170,98,0.5);" style-hover="background: #258F52; color: #FFFFFF;">툴킷 살펴보기<span style="width: 40px; height: 40px; border-radius: 999px; background: #FFFFFF; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2EAA62" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
       </div>
       <div style="flex: 1 1 480px; min-width: 320px; position: relative;">
         <span style="position: absolute; inset: -16% -12% -16% -14%; background-image: url('assets/about-blob.png'); background-size: 100% 100%; background-repeat: no-repeat; opacity: 0.9; z-index: 0;"></span>
@@ -3658,9 +3659,9 @@ try {
         <div style="display: flex; flex-direction: column;">
         <div style="display: flex; flex-wrap: wrap; flex-direction: {{ s.dir }}; gap: {{ s.gap }}; align-items: center; justify-content: center;">
           <div style="flex: 1 1 400px; min-width: 280px; max-width: 560px; display: flex; flex-direction: column; gap: 12px;">
-            <span style="align-self: flex-start; font-family: Pretendard, sans-serif; font-size: 13px; line-height: 20px; font-weight: 700; letter-spacing: 0.1em; color: #30A967; margin-bottom: 6px;">STEP {{ s.num }}</span>
+            <span style="align-self: flex-start; font-family: Pretendard, sans-serif; font-size: 13px; line-height: 20px; font-weight: 700; letter-spacing: 0.1em; color: #1A7F48; margin-bottom: 6px;">STEP {{ s.num }}</span>
             <span data-about-step-title="1" style="font-family: Pretendard, sans-serif; font-size: 28px; line-height: 1.4; font-weight: 800; letter-spacing: -0.02em; color: #131C29; word-break: keep-all; white-space: pre-line;">{{ s.title }}</span>
-            <span style="font-size: 17px; line-height: 29px; font-weight: 400; color: #6E7873; max-width: 40ch; word-break: keep-all; text-wrap: pretty;">{{ s.body }}</span>
+            <span style="font-size: 17px; line-height: 29px; font-weight: 400; color: #5F6964; max-width: 40ch; word-break: keep-all; text-wrap: pretty;">{{ s.body }}</span>
           </div>
           <div data-about-step="1" style="flex: 1 1 360px; min-width: 260px; max-width: 480px; position: relative; aspect-ratio: 4 / 3; border-radius: 16px; overflow: hidden; background-color: #FFFFFF; background-image: {{ s.bgImage }}; background-size: cover; background-position: center;">
             <sc-if value="{{ s.needsSlot }}" hint-placeholder-val="{{ true }}">
@@ -3676,14 +3677,14 @@ try {
   <section id="research" style="background: #F3F8F5;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 96px 80px; display: flex; flex-wrap: wrap; gap: 56px;">
     <div style="flex: 1 1 300px; min-width: 280px; display: flex; flex-direction: column; gap: 12px;">
-      <span style="font-family: Pretendard, sans-serif; font-size: 14px; line-height: 22px; font-weight: 600; letter-spacing: 0.08em; color: #30A967;">RESEARCH</span>
+      <span style="font-family: Pretendard, sans-serif; font-size: 14px; line-height: 22px; font-weight: 600; letter-spacing: 0.08em; color: #1A7F48;">RESEARCH</span>
       <h2 style="margin: 0; font-family: Pretendard, sans-serif; font-size: 30px; line-height: 1.45; font-weight: 800; letter-spacing: -0.02em; color: #131C29; word-break: keep-all;">다섯 이론을 통해<br>이 흐름을 뒷받침합니다</h2>
     </div>
     <div style="flex: 1 1 520px; min-width: 320px; display: flex; flex-direction: column;">
       <sc-for list="{{ p7.theories }}" as="t" hint-placeholder-count="5">
         <div style="display: flex; flex-wrap: wrap; gap: 6px 28px; padding: 22px 0; border-top: 1px solid #DDE8E1;">
           <span style="flex: 0 0 150px; font-family: Pretendard, sans-serif; font-size: 16px; line-height: 27px; font-weight: 700; color: #131C29;">{{ t.title }}</span>
-          <span style="flex: 1 1 240px; min-width: 0; font-size: 16px; line-height: 27px; font-weight: 400; color: #6E7873; word-break: keep-all; text-wrap: pretty;">{{ t.body }}</span>
+          <span style="flex: 1 1 240px; min-width: 0; font-size: 16px; line-height: 27px; font-weight: 400; color: #5F6964; word-break: keep-all; text-wrap: pretty;">{{ t.body }}</span>
         </div>
       </sc-for>
     </div>
@@ -3696,7 +3697,7 @@ try {
       <h2 style="margin: 0; position: relative; z-index: 2; font-size: 38px; line-height: 54px; font-weight: 700; letter-spacing: -0.02em; color: #FFFFFF; word-break: keep-all; white-space: pre-line;">아이들이 막힌 순간,
 다시 해볼 방법을 건네요.</h2>
       <p style="margin: 0; position: relative; z-index: 2; font-size: 18px; line-height: 28px; font-weight: 500; color: #FFFFFF;">더 건강해진 우리 반을 경험해 보세요.</p>
-      <span style="position: relative; z-index: 2; padding: 20px 40px; border-radius: 12px; background: #50BE82; color: #FFFFFF; font-size: 20px; font-weight: 700;">우리 반에서 시작하기 →</span>
+      <span style="position: relative; z-index: 2; padding: 20px 40px; border-radius: 12px; background: #148455; color: #FFFFFF; font-size: 20px; font-weight: 700;">우리 반에서 시작하기 →</span>
     </div>
   </section>
 
@@ -3787,20 +3788,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -3823,7 +3824,7 @@ try {
                   <iframe src="{{ v.src }}" allow="autoplay; encrypted-media" allowfullscreen="true" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #070908;"></iframe>
                 </sc-if>
                 <sc-if value="{{ v.idle }}" hint-placeholder-val="{{ true }}">
-                  <div onClick="{{ v.play }}" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(7,9,8,0.06); cursor: pointer;">
+                  <div onClick="{{ v.play }}" aria-label="{{ v.title }} 재생" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(7,9,8,0.06); cursor: pointer;">
                     <span style="width: 54px; height: 54px; border-radius: 999px; background: rgba(7,9,8,0.55); display: flex; align-items: center; justify-content: center;">
                       <span style="width: 0; height: 0; border-left: 18px solid #FFFFFF; border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 5px;"></span>
                     </span>
@@ -3831,7 +3832,7 @@ try {
                 </sc-if>
               </div>
               <span style="display: block; width: 100%; font-size: 18px; line-height: 26px; font-weight: 700; color: #070908; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ v.title }}</span>
-              <span style="display: block; width: 100%; margin-top: -4px; font-size: 14px; line-height: 20px; font-weight: 500; color: #6E7873; text-align: left;">{{ v.views }}</span>
+              <span style="display: block; width: 100%; margin-top: -4px; font-size: 14px; line-height: 20px; font-weight: 500; color: #5F6964; text-align: left;">{{ v.views }}</span>
             </div>
           </sc-for>
         </div>
@@ -3926,20 +3927,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -3951,12 +3952,12 @@ try {
   <section style="background: #EEF6F1; border-bottom: 1px solid #E2EDE7;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 22px 80px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px;">
       <div style="flex: 0 0 auto; display: flex; align-items: baseline; gap: 12px;">
-        <span style="font-size: 14px; line-height: 22px; font-weight: 700; color: #30A967;">게임 선택</span>
+        <span style="font-size: 14px; line-height: 22px; font-weight: 700; color: #1A7F48;">게임 선택</span>
         <h1 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 800; letter-spacing: -0.02em; color: #131C29; white-space: nowrap;">어떤 게임을 해볼까요?</h1>
       </div>
       <div style="flex: 0 1 auto; min-width: 0; display: flex; flex-wrap: wrap; gap: 10px;">
         <sc-for list="{{ p14.items }}" as="g" hint-placeholder-count="4">
-          <div onClick="{{ g.select }}" style="flex: 0 0 auto; min-width: 0; display: flex; align-items: center; gap: 10px; padding: 7px 20px 7px 7px; border-radius: 999px; background: {{ g.pillBg }}; border: 1px solid {{ g.pillBorder }}; color: {{ g.tabFg }}; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 21px; font-weight: 700; white-space: nowrap; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
+          <div data-sel="{{ g.pillSelOn }}" onClick="{{ g.select }}" style="flex: 0 0 auto; min-width: 0; display: flex; align-items: center; gap: 10px; padding: 7px 20px 7px 7px; border-radius: 999px; background: {{ g.pillBg }}; border: 1px solid {{ g.pillBorder }}; color: {{ g.tabFg }}; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 21px; font-weight: 700; white-space: nowrap; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
             <span style="flex: 0 0 auto; width: 38px; height: 38px; border-radius: 999px; background-image: {{ g.iconImg }}; background-size: cover; background-position: center;"></span>
             <span style="min-width: 0; overflow: hidden; text-overflow: ellipsis;">{{ g.title }}</span>
           </div>
@@ -3991,17 +3992,17 @@ try {
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 14px;">
-        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #30A967;">게임 소개</span>
+        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #1A7F48;">게임 소개</span>
         <p style="margin: 0; font-size: 18px; line-height: 1.5; color: #4C4B45; word-break: keep-all; text-wrap: pretty;">{{ p14.curHow }}</p>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 14px; padding-top: 22px; border-top: 1px solid #E4E6E5;">
-        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #30A967;">게임 방법</span>
+        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #1A7F48;">게임 방법</span>
         <p style="margin: 0; font-size: 18px; line-height: 27px; color: #4C4B45;">{{ p14.curDur }}</p>
       </div>
 
       <div style="margin-top: auto; display: flex; flex-direction: column; gap: 16px; padding-top: 32px;">
-        <a href="{{ p14.curHref }}" target="_blank" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; border-radius: 14px; background: #30A967; color: #FFFFFF; font-size: 18px; line-height: 28px; font-weight: 700;" style-hover="color: #FFFFFF; background: #287A50;">게임 실행하기 <span style="font-size: 15px;">→</span></a>
+        <a href="{{ p14.curHref }}" target="_blank" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; border-radius: 14px; background: #148455; color: #FFFFFF; font-size: 18px; line-height: 28px; font-weight: 700;" style-hover="color: #FFFFFF; background: #287A50;">게임 실행하기 <span style="font-size: 15px;">→</span></a>
       </div>
     </div>
   </section>
@@ -4092,20 +4093,20 @@ try {
         </div>
         <span style="width: 1px; height: 22px; background: #E4E6E5;"></span>
         <span class="lang-dd" style="order: -1; display: flex; align-items: center;">
-          <span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+          <span tabindex="0" aria-label="언어 선택 · Language" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#131C29" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.4"></circle><ellipse cx="12" cy="12" rx="3.6" ry="8.4"></ellipse><path d="M3.9 9.2h16.2M3.9 14.8h16.2"></path></svg>
           </span>
           <span class="lang-dd-menu" style="position: absolute; top: 100%; right: -6px; flex-direction: column; gap: 2px; min-width: 176px; padding: 8px; background: #FFFFFF; border: 1px solid #E4E6E5; border-radius: 12px; box-shadow: 0 14px 30px -16px rgba(7,9,8,0.3); z-index: 40;">
             <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
-              <span onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
+              <span data-sel="{{ L.selOn }}" onClick="{{ L.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: {{ L.bg }};" style-hover="background: #F3F8F5;">
                 <span style="flex: 0 0 30px; font-family: Pretendard, sans-serif; font-size: 13px; font-weight: 800; color: {{ L.color }};">{{ L.abbr }}</span>
                 <span style="flex: 1 1 auto; font-family: Pretendard, sans-serif; font-size: 15px; font-weight: {{ L.weight }}; color: {{ L.color }}; white-space: nowrap;">{{ L.label }}</span>
-                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #30A967;">{{ L.check }}</span>
+                <span style="flex: 0 0 auto; font-size: 13px; font-weight: 800; color: #1A7F48;">{{ L.check }}</span>
               </span>
             </sc-for>
           </span>
         </span>
-        <span style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
+        <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer;" style-hover="background: #F1F4F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4C4B45" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5L21 21"></path></svg>
         </span>
 
@@ -4116,12 +4117,12 @@ try {
   <section style="background: #EEF6F1; border-bottom: 1px solid #E2EDE7;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 22px 80px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px;">
       <div style="flex: 0 0 auto; display: flex; align-items: baseline; gap: 12px;">
-        <span style="font-size: 14px; line-height: 22px; font-weight: 700; color: #30A967;">게임 선택</span>
+        <span style="font-size: 14px; line-height: 22px; font-weight: 700; color: #1A7F48;">게임 선택</span>
         <h1 style="margin: 0; font-size: 22px; line-height: 32px; font-weight: 800; letter-spacing: -0.02em; color: #131C29; white-space: nowrap;">어떤 게임을 해볼까?</h1>
       </div>
       <div style="flex: 0 1 auto; min-width: 0; display: flex; flex-wrap: wrap; gap: 10px;">
         <sc-for list="{{ p15.items }}" as="g" hint-placeholder-count="4">
-          <div onClick="{{ g.select }}" style="flex: 0 0 auto; min-width: 0; display: flex; align-items: center; gap: 10px; padding: 7px 20px 7px 7px; border-radius: 999px; background: {{ g.pillBg }}; border: 1px solid {{ g.pillBorder }}; color: {{ g.tabFg }}; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 21px; font-weight: 700; white-space: nowrap; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
+          <div data-sel="{{ g.pillSelOn }}" onClick="{{ g.select }}" style="flex: 0 0 auto; min-width: 0; display: flex; align-items: center; gap: 10px; padding: 7px 20px 7px 7px; border-radius: 999px; background: {{ g.pillBg }}; border: 1px solid {{ g.pillBorder }}; color: {{ g.tabFg }}; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 21px; font-weight: 700; white-space: nowrap; cursor: pointer; transition: transform 0.15s ease;" style-hover="transform: translateY(-2px);">
             <span style="flex: 0 0 auto; width: 38px; height: 38px; border-radius: 999px; background-image: {{ g.iconImg }}; background-size: cover; background-position: center;"></span>
             <span style="min-width: 0; overflow: hidden; text-overflow: ellipsis;">{{ g.title }}</span>
           </div>
@@ -4156,17 +4157,17 @@ try {
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 14px;">
-        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #30A967;">게임 소개</span>
+        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #1A7F48;">게임 소개</span>
         <p style="margin: 0; font-size: 18px; line-height: 1.5; color: #4C4B45; word-break: keep-all; text-wrap: pretty;">{{ p15.curHow }}</p>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 14px; padding-top: 22px; border-top: 1px solid #E4E6E5;">
-        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #30A967;">게임 방법</span>
+        <span style="font-size: 18px; line-height: 28px; font-weight: 700; color: #1A7F48;">게임 방법</span>
         <p style="margin: 0; font-size: 18px; line-height: 27px; color: #4C4B45;">{{ p15.curDur }}</p>
       </div>
 
       <div style="margin-top: auto; display: flex; flex-direction: column; gap: 16px; padding-top: 32px;">
-        <a href="{{ p15.curHref }}" target="_blank" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; border-radius: 14px; background: #30A967; color: #FFFFFF; font-size: 18px; line-height: 28px; font-weight: 700;" style-hover="color: #FFFFFF; background: #287A50;">게임 시작하기 <span style="font-size: 15px;">→</span></a>
+        <a href="{{ p15.curHref }}" target="_blank" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; border-radius: 14px; background: #148455; color: #FFFFFF; font-size: 18px; line-height: 28px; font-weight: 700;" style-hover="color: #FFFFFF; background: #287A50;">게임 시작하기 <span style="font-size: 15px;">→</span></a>
       </div>
     </div>
   </section>
@@ -4273,7 +4274,7 @@ try {
           <span style="font-family: Pretendard, sans-serif; font-size: 13px; line-height: 20px; font-weight: 500; color: #6B766F;">{{ chatSub }}</span>
         </span>
         <sc-if value="{{ chatCanReset }}" hint-placeholder-val="{{ false }}">
-          <span onClick="{{ chatReset }}" style="flex: 0 0 auto; padding: 7px 12px; border-radius: 999px; background: #FFFFFF; border: 1px solid #DCEAE1; color: #1F6B45; font-family: Pretendard, sans-serif; font-size: 12px; line-height: 16px; font-weight: 700; white-space: nowrap; cursor: pointer;" style-hover="background: #30A967; border-color: #30A967; color: #FFFFFF;">새 대화</span>
+          <span onClick="{{ chatReset }}" style="flex: 0 0 auto; padding: 7px 12px; border-radius: 999px; background: #FFFFFF; border: 1px solid #DCEAE1; color: #1F6B45; font-family: Pretendard, sans-serif; font-size: 12px; line-height: 16px; font-weight: 700; white-space: nowrap; cursor: pointer;" style-hover="background: #148455; border-color: #30A967; color: #FFFFFF;">새 대화</span>
         </sc-if>
         <span onClick="{{ chatClose }}" style="width: 32px; height: 32px; flex: 0 0 auto; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #5A6560; font-size: 18px; cursor: pointer;" style-hover="background: #FFFFFF; color: #131C29;">×</span>
       </div>
@@ -4281,9 +4282,9 @@ try {
       <div id="pangchat-body" style="flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 18px 16px; display: flex; flex-direction: column; gap: 12px; background: #FFFFFF;">
         <sc-for list="{{ chatMsgs }}" as="m" hint-placeholder-count="1">
           <div style="display: flex; flex-direction: column; gap: 8px; align-items: {{ m.rowJustify }};">
-            <span style="max-width: 84%; padding: 11px 14px; border-radius: {{ m.radius }}; background: {{ m.bg }}; color: {{ m.color }}; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 22px; font-weight: 400; word-break: keep-all; text-wrap: pretty; white-space: pre-line;">{{ m.t }}</span>
+            <span data-sel="{{ m.selOn }}" style="max-width: 84%; padding: 11px 14px; border-radius: {{ m.radius }}; background: {{ m.bg }}; color: {{ m.color }}; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 22px; font-weight: 400; word-break: keep-all; text-wrap: pretty; white-space: pre-line;">{{ m.t }}</span>
             <sc-for list="{{ m.links }}" as="ln" hint-placeholder-count="0">
-              <a href="{{ ln.href }}" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; border: 1px solid #CFE6D9; background: #F2F8F4; color: #1F6B45; font-family: Pretendard, sans-serif; font-size: 13px; line-height: 18px; font-weight: 700; text-decoration: none;" style-hover="background: #30A967; border-color: #30A967; color: #FFFFFF;">{{ ln.label }} →</a>
+              <a href="{{ ln.href }}" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; border: 1px solid #CFE6D9; background: #F2F8F4; color: #1F6B45; font-family: Pretendard, sans-serif; font-size: 13px; line-height: 18px; font-weight: 700; text-decoration: none;" style-hover="background: #148455; border-color: #30A967; color: #FFFFFF;">{{ ln.label }} →</a>
             </sc-for>
           </div>
         </sc-for>
@@ -4302,7 +4303,7 @@ try {
 
       <div style="flex: 0 0 auto; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-top: 1px solid #EFF1F0; background: #FFFFFF;">
         <input id="pangchat-input" type="text" autoComplete="off" onKeyDown="{{ chatKey }}" placeholder="{{ chatPlaceholder }}" style="flex: 1 1 auto; min-width: 0; padding: 11px 14px; border-radius: 999px; border: 1px solid #E4E6E5; background: #F7F9F8; font-family: Pretendard, sans-serif; font-size: 14px; line-height: 20px; color: #131C29; outline: none;">
-        <span onClick="{{ chatSend }}" style="width: 42px; height: 42px; flex: 0 0 auto; border-radius: 999px; background: #30A967; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer;" style-hover="background: #26824F;">↑</span>
+        <span onClick="{{ chatSend }}" style="width: 42px; height: 42px; flex: 0 0 auto; border-radius: 999px; background: #148455; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer;" style-hover="background: #26824F;">↑</span>
       </div>
     </div>
   </sc-if>
@@ -4433,10 +4434,11 @@ const __VYT = {
   "1Wj5JUfKjOZ--MH4XnqrISrdH78ILRhyM": "MEeQRFUmEag",
   "1oMndFfzeVW6SMPuJeqg63BbrK4wazUkY": "VkBzVjBw8PQ"
 };
+const __CC = () => { let lg = "ko"; try { lg = __LG === "kr" ? "ko" : __LG; } catch (e) {} return "cc_load_policy=1&cc_lang_pref=" + lg + "&hl=" + lg; };
 const __PICKSRC = (src) => {
   if (!src) return src;
   if (__CURLANG === "kr") {
-    for (const id in __VYT) if (src.indexOf(id) !== -1) return "https://www.youtube.com/embed/" + __VYT[id] + "?autoplay=1&rel=0&playsinline=1";
+    for (const id in __VYT) if (src.indexOf(id) !== -1) return "https://www.youtube.com/embed/" + __VYT[id] + "?autoplay=1&rel=0&playsinline=1&" + __CC();
     return src;
   }
   for (const id in __VALT) if (src.indexOf(id) !== -1) return src.replace(id, __VALT[id]);
@@ -4663,7 +4665,7 @@ __P.p1 = (function () { const location = __hash.p1; return class extends SubLogi
     return {
       viewerOpen: !!deck,
       viewerImage: deck ? "'" + this.u(deck[Math.min(this.state.page, deck.length - 1)]) + "'" : "none",
-      viewerDots: ((deck && deck.length > 1) ? deck : []).map((_, i) => ({ bg: i === this.state.page ? "#FFFFFF" : "rgba(255,255,255,0.35)" })),
+      viewerDots: ((deck && deck.length > 1) ? deck : []).map((_, i) => ({ bg: i === this.state.page ? "#FFFFFF" : "rgba(255,255,255,0.35)", selOn: !!(i === this.state.page) })),
       viewerPrev: (e) => { e.stopPropagation(); this.setState(s => ({ page: (s.page - 1 + deck.length) % deck.length })); },
       viewerNext: (e) => { e.stopPropagation(); this.setState(s => ({ page: (s.page + 1) % deck.length })); },
       viewerClose: () => this.setState({ viewer: null, page: 0 }),
@@ -4704,7 +4706,7 @@ __P.p1 = (function () { const location = __hash.p1; return class extends SubLogi
       }),
       cats: ["전체", "집중", "시작", "감정 조절", "도움 요청"].map(c => {
         const on = (this.state.cat ?? "전체") === c;
-        return { label: c, bg: on ? "#30A967" : "#F1F4F2", fg: on ? "#FFFFFF" : "#4C4B45", select: () => this.setState({ cat: c }) };
+        return { label: c, bg: on ? "#148455" : "#F1F4F2", selOn: !!(on), fg: on ? "#FFFFFF" : "#4C4B45", select: () => this.setState({ cat: c }) };
       }),
       rails: (() => {
         const catOf = ["시작", "집중", "시작", "집중", "시작", "집중", "감정 조절", "도움 요청"];
@@ -4787,9 +4789,10 @@ __P.p1 = (function () { const location = __hash.p1; return class extends SubLogi
           ...m,
           select: () => this.setState({ sel: -1, vote: null }),
           href: "#video/m" + i,
-          bg: on ? "#50BE82" : "rgba(255,255,255,0.94)",
+          bg: on ? "#148455" : "rgba(255,255,255,0.94)",
+          selOn: !!(on),
           fg: on ? "#FFFFFF" : "#20211E",
-          border: on ? "#50BE82" : "rgba(255,255,255,0.6)",
+          border: on ? "#148455" : "rgba(255,255,255,0.6)",
           arrow: on ? "#FFFFFF" : "#8B948F",
           icon: this.chipIcon(m.kind, on ? "#FFFFFF" : "#30A967")
         };
@@ -4851,9 +4854,10 @@ __P.p1 = (function () { const location = __hash.p1; return class extends SubLogi
         return {
           label,
           select: () => this.setState({ cat: label }),
-          bg: on ? "#50BE82" : "#FFFFFF",
+          bg: on ? "#148455" : "#FFFFFF",
+          selOn: !!(on),
           fg: on ? "#FFFFFF" : "#4C4B45",
-          border: on ? "#50BE82" : "#E4E6E5"
+          border: on ? "#148455" : "#E4E6E5"
         };
       }),
       shorts: __SHLIST().map(v => ({ id: v.id, title: v.title, dur: "", meta: v.views, thumb: __SHTHUMB(v), href: __SHHREF(v), hover: __SHHOVER(v) })).map(v => ({
@@ -4871,7 +4875,7 @@ __P.p1 = (function () { const location = __hash.p1; return class extends SubLogi
       })),
       shortOpen: !!this.state.short,
       shortEmbed: this.state.short
-        ? "https://www.youtube.com/embed/" + this.state.short
+        ? "https://www.youtube.com/embed/" + this.state.short + "?" + __CC()
         : "",
       shortClose: () => this.setState({ short: null }),
       shortStop: (e) => e.stopPropagation(),
@@ -4915,12 +4919,12 @@ __P.p2 = (function () { const location = __hash.p2; return class extends SubLogi
       leftMax: (sel === undefined || sel === null) ? "560px" : "100%",
       wideTitle: (sel === undefined || sel === null) ? "" : __W[sel].t,
       wideDesc: (sel === undefined || sel === null) ? "" : (__W[sel].desc || ""),
-      wideYesBg: this.state.wvote === "yes" ? "#50BE82" : "#FFFFFF",
+      wideYesBg: this.state.wvote === "yes" ? "#148455" : "#FFFFFF",
       wideYesFg: this.state.wvote === "yes" ? "#FFFFFF" : "#4C4B45",
-      wideYesBorder: this.state.wvote === "yes" ? "#50BE82" : "#DDE7E1",
-      wideNoBg: this.state.wvote === "no" ? "#50BE82" : "#FFFFFF",
+      wideYesBorder: this.state.wvote === "yes" ? "#148455" : "#DDE7E1",
+      wideNoBg: this.state.wvote === "no" ? "#148455" : "#FFFFFF",
       wideNoFg: this.state.wvote === "no" ? "#FFFFFF" : "#4C4B45",
-      wideNoBorder: this.state.wvote === "no" ? "#50BE82" : "#DDE7E1",
+      wideNoBorder: this.state.wvote === "no" ? "#148455" : "#DDE7E1",
       wideVoteYes: () => this.setState({ wvote: "yes" }),
       wideVoteNo: () => this.setState({ wvote: "no" }),
       wideOtherLabel: "다른 응원 영상 보기",
@@ -4928,8 +4932,9 @@ __P.p2 = (function () { const location = __hash.p2; return class extends SubLogi
       wideClose: () => this.setState({ wsel: null }),
       wideVideos: __W.map((m, i) => ({
         title: m.t,
-        bg: i === sel ? "#50BE82" : "#FFFFFF",
-        border: i === sel ? "#50BE82" : "#E4E6E5",
+        bg: i === sel ? "#148455" : "#FFFFFF",
+        selOn: !!(i === sel),
+        border: i === sel ? "#148455" : "#E4E6E5",
         fg: i === sel ? "#FFFFFF" : "#4C4B45",
         select: () => this.pickWide(i)
       }))
@@ -5127,12 +5132,12 @@ __P.p2 = (function () { const location = __hash.p2; return class extends SubLogi
       voted: v !== null,
       voteYes: () => this.setState({ vote: "yes" }),
       voteNo: () => this.setState({ vote: "no" }),
-      yesBg: v === "yes" ? "#50BE82" : "#FFFFFF",
-      yesFg: v === "yes" ? "#FFFFFF" : "#6E7873",
-      yesBorder: v === "yes" ? "#50BE82" : "#E4E6E5",
-      noBg: v === "no" ? "#50BE82" : "#FFFFFF",
-      noFg: v === "no" ? "#FFFFFF" : "#6E7873",
-      noBorder: v === "no" ? "#50BE82" : "#E4E6E5",
+      yesBg: v === "yes" ? "#148455" : "#FFFFFF",
+      yesFg: v === "yes" ? "#FFFFFF" : "#5F6964",
+      yesBorder: v === "yes" ? "#148455" : "#E4E6E5",
+      noBg: v === "no" ? "#148455" : "#FFFFFF",
+      noFg: v === "no" ? "#FFFFFF" : "#5F6964",
+      noBorder: v === "no" ? "#148455" : "#E4E6E5",
       current: cur,
       crumb: __CRUMB[Math.max(0, sel - 1)] || __CRUMB[0],
       subtitle: cur.why || "",
@@ -5175,9 +5180,10 @@ __P.p2 = (function () { const location = __hash.p2; return class extends SubLogi
             face: this.cssUrl(["assets/char-popang.webp", "assets/char-chaekpang.webp", "assets/char-tampang.webp", "assets/char-butpang.webp"][ci]),
             faceBg: ["#F3EEFF", "#FFEFF4", "#EAF4FF", "#FFF6E3"][ci],
             cardBg: ci === tc ? "#F3FBF6" : "#FFFFFF",
-            cardBorder: ci === tc ? "#30A967" : "#FFFFFF",
+            cardSelOn: !!(ci === tc),
+            cardBorder: ci === tc ? "#148455" : "#FFFFFF",
             select: () => this.setState({ tcat: ci }),
-            fg: ci === tc ? "#131C29" : "#8B948F",
+            fg: ci === tc ? "#131C29" : "#646D68",
             line: ci === tc ? "#30A967" : "transparent"
           })),
           toolItems: TC[tc].items.map(it => {
@@ -5193,8 +5199,9 @@ __P.p2 = (function () { const location = __hash.p2; return class extends SubLogi
                 else window.location.hash = it.href;
               },
               bg: on ? "#EAF6EF" : "#FFFFFF",
+              selOn: !!(on),
               fg: on ? "#14472C" : "#20211E",
-              border: on ? "#30A967" : "#EFF1F0"
+              border: on ? "#148455" : "#EFF1F0"
             };
           })
         };
@@ -5204,8 +5211,9 @@ __P.p2 = (function () { const location = __hash.p2; return class extends SubLogi
         icon: this.cssUrl(__MI[i + 1]),
         select: () => { clearTimeout(this._t); this.setState({ sel: i, vote: null, playing: false, ended: false, wsel: null }); },
         bg: (i === sel && !wideOn) ? "#EAF6EF" : "#FFFFFF",
+        selOn: !!((i === sel && !wideOn)),
         fg: (i === sel && !wideOn) ? "#14472C" : "#20211E",
-        border: (i === sel && !wideOn) ? "#30A967" : "#EFF1F0"
+        border: (i === sel && !wideOn) ? "#148455" : "#EFF1F0"
       }))
     };
   }
@@ -5271,7 +5279,8 @@ __P.p3 = (function () { const location = __hash.p3; return class extends SubLogi
       cardImage: "url('" + deck[page] + "')",
       dots: (deck.length > 1 ? deck : []).map((_, i) => ({
         select: () => this.setState({ page: i }),
-        bg: i === page ? "#287A50" : "#CFD8D3"
+        bg: i === page ? "#287A50" : "#CFD8D3",
+        selOn: !!(i === page),
       })),
       hasPrev: page > 0,
       hasNext: page < deck.length - 1,
@@ -5286,18 +5295,19 @@ __P.p3 = (function () { const location = __hash.p3; return class extends SubLogi
         icon: this.cssUrl(__MI[i]),
         select: () => this.setState({ sel: i, page: 0, vote: null }),
         bg: i === sel ? "#EAF6EF" : "#FFFFFF",
+        selOn: !!(i === sel),
         fg: i === sel ? "#14472C" : "#20211E",
-        border: i === sel ? "#30A967" : "#EFF1F0"
+        border: i === sel ? "#148455" : "#EFF1F0"
       })),
       voted: v !== null,
       voteYes: () => this.setState({ vote: "yes" }),
       voteNo: () => this.setState({ vote: "no" }),
-      yesBg: v === "yes" ? "#50BE82" : "#FFFFFF",
-      yesFg: v === "yes" ? "#FFFFFF" : "#6E7873",
-      yesBorder: v === "yes" ? "#50BE82" : "#E4E6E5",
-      noBg: v === "no" ? "#50BE82" : "#FFFFFF",
-      noFg: v === "no" ? "#FFFFFF" : "#6E7873",
-      noBorder: v === "no" ? "#50BE82" : "#E4E6E5"
+      yesBg: v === "yes" ? "#148455" : "#FFFFFF",
+      yesFg: v === "yes" ? "#FFFFFF" : "#5F6964",
+      yesBorder: v === "yes" ? "#148455" : "#E4E6E5",
+      noBg: v === "no" ? "#148455" : "#FFFFFF",
+      noFg: v === "no" ? "#FFFFFF" : "#5F6964",
+      noBorder: v === "no" ? "#148455" : "#E4E6E5"
     };
   }
 
@@ -5357,9 +5367,10 @@ __P.p4 = (function () { const location = __hash.p4; return class extends SubLogi
       pages: Array.from({ length: total }, (_, i) => ({
         label: String(i + 1),
         select: () => this.setState({ page: i }),
-        bg: i === page ? "#50BE82" : "#FFFFFF",
+        bg: i === page ? "#148455" : "#FFFFFF",
+        selOn: !!(i === page),
         fg: i === page ? "#FFFFFF" : "#4C4B45",
-        border: i === page ? "#50BE82" : "#E4E6E5"
+        border: i === page ? "#148455" : "#E4E6E5"
       })),
       prevPage: () => this.setState({ page: Math.max(0, page - 1) }),
       nextPage: () => this.setState({ page: Math.min(total - 1, page + 1) }),
@@ -5369,8 +5380,9 @@ __P.p4 = (function () { const location = __hash.p4; return class extends SubLogi
           label,
           select: () => this.setState({ tab: label, page: 0 }),
           bg: on ? "#EAF6EF" : "#FFFFFF",
+          selOn: !!(on),
           fg: on ? "#14472C" : "#20211E",
-          border: on ? "#30A967" : "#EFF1F0"
+          border: on ? "#148455" : "#EFF1F0"
         };
       }),
       listTitle: tab === "전체" ? "모든 아티클" : tab + " 아티클",
@@ -5771,12 +5783,12 @@ __P.p9 = (function () { const location = __hash.p9; return class extends SubLogi
       leftMax: (sel === undefined || sel === null) ? "560px" : "100%",
       wideTitle: (sel === undefined || sel === null) ? "" : __W[sel].t,
       wideDesc: (sel === undefined || sel === null) ? "" : (__W[sel].desc || ""),
-      wideYesBg: this.state.wvote === "yes" ? "#50BE82" : "#FFFFFF",
+      wideYesBg: this.state.wvote === "yes" ? "#148455" : "#FFFFFF",
       wideYesFg: this.state.wvote === "yes" ? "#FFFFFF" : "#4C4B45",
-      wideYesBorder: this.state.wvote === "yes" ? "#50BE82" : "#DDE7E1",
-      wideNoBg: this.state.wvote === "no" ? "#50BE82" : "#FFFFFF",
+      wideYesBorder: this.state.wvote === "yes" ? "#148455" : "#DDE7E1",
+      wideNoBg: this.state.wvote === "no" ? "#148455" : "#FFFFFF",
       wideNoFg: this.state.wvote === "no" ? "#FFFFFF" : "#4C4B45",
-      wideNoBorder: this.state.wvote === "no" ? "#50BE82" : "#DDE7E1",
+      wideNoBorder: this.state.wvote === "no" ? "#148455" : "#DDE7E1",
       wideVoteYes: () => this.setState({ wvote: "yes" }),
       wideVoteNo: () => this.setState({ wvote: "no" }),
       wideOtherLabel: "다른 응원 영상 보기",
@@ -5784,8 +5796,9 @@ __P.p9 = (function () { const location = __hash.p9; return class extends SubLogi
       wideClose: () => this.setState({ wsel: null }),
       wideVideos: __W.map((m, i) => ({
         title: m.t,
-        bg: i === sel ? "#50BE82" : "#FFFFFF",
-        border: i === sel ? "#50BE82" : "#E4E6E5",
+        bg: i === sel ? "#148455" : "#FFFFFF",
+        selOn: !!(i === sel),
+        border: i === sel ? "#148455" : "#E4E6E5",
         fg: i === sel ? "#FFFFFF" : "#4C4B45",
         select: () => this.pickWide(i)
       }))
@@ -5827,12 +5840,12 @@ __P.p9 = (function () { const location = __hash.p9; return class extends SubLogi
       ],
       voteYes: () => this.setState({ vote: "yes" }),
       voteNo: () => this.setState({ vote: "no" }),
-      yesBg: this.state.vote === "yes" ? "#50BE82" : "#FFFFFF",
+      yesBg: this.state.vote === "yes" ? "#148455" : "#FFFFFF",
       yesFg: this.state.vote === "yes" ? "#FFFFFF" : "#4C4B45",
-      yesBorder: this.state.vote === "yes" ? "#50BE82" : "#E4E6E5",
-      noBg: this.state.vote === "no" ? "#50BE82" : "#FFFFFF",
+      yesBorder: this.state.vote === "yes" ? "#148455" : "#E4E6E5",
+      noBg: this.state.vote === "no" ? "#148455" : "#FFFFFF",
       noFg: this.state.vote === "no" ? "#FFFFFF" : "#4C4B45",
-      noBorder: this.state.vote === "no" ? "#50BE82" : "#E4E6E5",
+      noBorder: this.state.vote === "no" ? "#148455" : "#E4E6E5",
       ...this.wideVals(),
       videoSrc: cur.src ? (cur.src.indexOf("drive.google.com") !== -1 ? __PICKSRC(cur.src) : cur.src + "?rk=" + this.state.nonce) : "about:blank",
       showPoster: false,
@@ -5845,8 +5858,9 @@ __P.p9 = (function () { const location = __hash.p9; return class extends SubLogi
         icon: this.cssUrl(__MI[i + 1]),
         select: () => this.setState({ sel: i, playing: false, nonce: this.state.nonce + 1, wsel: null }),
         bg: (i === sel && !wideOn) ? "#EAF6EF" : "#FFFFFF",
+        selOn: !!((i === sel && !wideOn)),
         fg: (i === sel && !wideOn) ? "#14472C" : "#20211E",
-        border: (i === sel && !wideOn) ? "#30A967" : "#EFF1F0"
+        border: (i === sel && !wideOn) ? "#148455" : "#EFF1F0"
       }))
     };
   }
@@ -5877,18 +5891,18 @@ __P.p10 = (function () { const location = __hash.p10; return class extends SubLo
     return {
       voteYes: () => this.setState({ vote: "yes" }),
       voteNo: () => this.setState({ vote: "no" }),
-      yesBg: _v === "yes" ? "#50BE82" : "#FFFFFF",
-      yesBorder: _v === "yes" ? "#50BE82" : "#E4E6E5",
+      yesBg: _v === "yes" ? "#148455" : "#FFFFFF",
+      yesBorder: _v === "yes" ? "#148455" : "#E4E6E5",
       yesFg: _v === "yes" ? "#FFFFFF" : "#4C4B45",
-      noBg: _v === "no" ? "#50BE82" : "#FFFFFF",
-      noBorder: _v === "no" ? "#50BE82" : "#E4E6E5",
+      noBg: _v === "no" ? "#148455" : "#FFFFFF",
+      noBorder: _v === "no" ? "#148455" : "#E4E6E5",
       noFg: _v === "no" ? "#FFFFFF" : "#4C4B45",
       title: cur.t,
       why: cur.why,
       how: cur.how,
       cardImage: this.cssUrl(deck[page]),
       pageLabel: (page + 1) + " / " + deck.length,
-      dots: (deck.length > 1 ? deck : []).map((_, i) => ({ select: () => this.setState({ page: i }), bg: i === page ? "#287A50" : "#CFD8D3" })),
+      dots: (deck.length > 1 ? deck : []).map((_, i) => ({ select: () => this.setState({ page: i }), bg: i === page ? "#287A50" : "#CFD8D3", selOn: !!(i === page) })),
       hasPrev: page > 0,
       hasNext: page < deck.length - 1,
       prevPage: () => this.setState(s => ({ page: Math.max(0, s.page - 1) })),
@@ -5903,8 +5917,9 @@ __P.p10 = (function () { const location = __hash.p10; return class extends SubLo
         icon: this.cssUrl(__MI[i]),
         select: () => this.setState({ sel: i, page: 0 }),
         bg: i === sel ? "#EAF6EF" : "#FFFFFF",
+        selOn: !!(i === sel),
         fg: i === sel ? "#14472C" : "#20211E",
-        border: i === sel ? "#30A967" : "#EFF1F0"
+        border: i === sel ? "#148455" : "#EFF1F0"
       }))
     };
   }
@@ -5993,6 +6008,7 @@ function __audioBtn(audio) {
     const a = document.getElementById(aid), b = document.getElementById(bid);
     if (!a || !b) return;
     const c = a.paused ? "#8B908E" : "#5A605D";
+    b.setAttribute("aria-label", a.paused ? "노래 재생" : "노래 일시정지");
     b.innerHTML = a.paused
       ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="' + c + '" stroke="' + c + '" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round"><path d="M9 6.6 L17.4 12 L9 17.4 Z"></path></svg>'
       : '<svg width="20" height="20" viewBox="0 0 24 24" fill="' + c + '"><rect x="7.5" y="6.5" width="3.4" height="11" rx="1.7"></rect><rect x="13.1" y="6.5" width="3.4" height="11" rx="1.7"></rect></svg>';
@@ -6008,7 +6024,7 @@ function __audioBtn(audio) {
       onPause: sync, onEnded: sync, style: { display: "none" }
     }),
     React.createElement("span", {
-      key: "b", id: bid,
+      key: "b", id: bid, role: "button", tabIndex: 0, "aria-label": "노래 재생",
       onClick: () => {
         const a = document.getElementById(aid);
         if (!a) return;
@@ -6094,7 +6110,7 @@ const __SHTHUMBALT = {
 const __SHTHUMB = (v) => (__CURLANG !== "kr" && __SHTHUMBALT[v.id]) || v.thumb || ("https://i.ytimg.com/vi/" + v.id + "/maxresdefault.jpg");
 const __SHHREF = (v) => "https://www.youtube.com/shorts/" + __SHID(v);
 const __SHHOVER = (v) => "https://www.youtube.com/embed/" + __SHID(v) + "?autoplay=1&mute=1&rel=0&playsinline=1&controls=0";
-const __SHPLAY = (v) => "https://www.youtube.com/embed/" + __SHID(v);
+const __SHPLAY = (v) => "https://www.youtube.com/embed/" + __SHID(v) + "?" + __CC();
 const __SHBYID = (id) => __SH.filter(v => v.id === id)[0] || { id: id };
 
 __P.p13 = (function () { const location = __hash.p13; return class extends SubLogic {
@@ -6161,9 +6177,11 @@ __P.p14 = (function () { const location = __hash.p14; return class extends SubLo
         iconBg: "transparent",
         iconImg: this.cssUrl(["assets/gi-smile.png", "assets/gi-anxiety.png", "assets/gi-lifting.png", "assets/gi-impression.png"][i % 4]),
         pillBg: i === sel ? "#EAF6EF" : "#FFFFFF",
-        pillBorder: i === sel ? "#30A967" : "#EFF1F0",
+        pillSelOn: !!(i === sel),
+        pillBorder: i === sel ? "#148455" : "#EFF1F0",
         pillShadow: i === sel ? "0 12px 24px -18px rgba(7,9,8,0.4)" : "none",
         tabBg: i === sel ? "#FFFFFF" : "transparent",
+        tabSelOn: !!(i === sel),
         tabBar: i === sel ? g.tone : "transparent",
         tabFg: i === sel ? "#14472C" : "#20211E",
         tabWeight: i === sel ? 700 : 500,
@@ -6176,11 +6194,11 @@ __P.p14 = (function () { const location = __hash.p14; return class extends SubLo
       curNoHow: !cur.how,
       voteYes: () => this.setState({ vote: "y" }),
       voteNo: () => this.setState({ vote: "n" }),
-      yesBg: vote === "y" ? "#30A967" : "#FFFFFF",
-      yesBorder: vote === "y" ? "#30A967" : "#E4E6E5",
+      yesBg: vote === "y" ? "#148455" : "#FFFFFF",
+      yesBorder: vote === "y" ? "#148455" : "#E4E6E5",
       yesFg: vote === "y" ? "#FFFFFF" : "#4C4B45",
-      noBg: vote === "n" ? "#30A967" : "#FFFFFF",
-      noBorder: vote === "n" ? "#30A967" : "#E4E6E5",
+      noBg: vote === "n" ? "#148455" : "#FFFFFF",
+      noBorder: vote === "n" ? "#148455" : "#E4E6E5",
       noFg: vote === "n" ? "#FFFFFF" : "#4C4B45",
       curTitle: cur.t,
       curTint: cur.tint,
@@ -6230,9 +6248,11 @@ __P.p15 = (function () { const location = __hash.p15; return class extends SubLo
         iconBg: "transparent",
         iconImg: this.cssUrl(["assets/gi-smile.png", "assets/gi-anxiety.png", "assets/gi-lifting.png", "assets/gi-impression.png"][i % 4]),
         pillBg: i === sel ? "#EAF6EF" : "#FFFFFF",
-        pillBorder: i === sel ? "#30A967" : "#EFF1F0",
+        pillSelOn: !!(i === sel),
+        pillBorder: i === sel ? "#148455" : "#EFF1F0",
         pillShadow: i === sel ? "0 12px 24px -18px rgba(7,9,8,0.4)" : "none",
         tabBg: i === sel ? "#FFFFFF" : "transparent",
+        tabSelOn: !!(i === sel),
         tabBar: i === sel ? g.tone : "transparent",
         tabFg: i === sel ? "#14472C" : "#20211E",
         tabWeight: i === sel ? 700 : 500,
@@ -6245,11 +6265,11 @@ __P.p15 = (function () { const location = __hash.p15; return class extends SubLo
       curNoHow: !cur.how,
       voteYes: () => this.setState({ vote: "y" }),
       voteNo: () => this.setState({ vote: "n" }),
-      yesBg: vote === "y" ? "#30A967" : "#FFFFFF",
-      yesBorder: vote === "y" ? "#30A967" : "#E4E6E5",
+      yesBg: vote === "y" ? "#148455" : "#FFFFFF",
+      yesBorder: vote === "y" ? "#148455" : "#E4E6E5",
       yesFg: vote === "y" ? "#FFFFFF" : "#4C4B45",
-      noBg: vote === "n" ? "#30A967" : "#FFFFFF",
-      noBorder: vote === "n" ? "#30A967" : "#E4E6E5",
+      noBg: vote === "n" ? "#148455" : "#FFFFFF",
+      noBorder: vote === "n" ? "#148455" : "#E4E6E5",
       noFg: vote === "n" ? "#FFFFFF" : "#4C4B45",
       curTitle: cur.t,
       curTint: cur.tint,
@@ -8135,7 +8155,7 @@ class Component extends DCLogic {
       chatMsgs: msgs.map((m) => ({
         t: m.t,
         rowJustify: m.me ? "flex-end" : "flex-start",
-        bg: m.me ? "#30A967" : "#F1F5F3",
+        bg: m.me ? "#148455" : "#F1F5F3",
         color: m.me ? "#FFFFFF" : "#131C29",
         radius: m.me ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
         links: (m.l || []).map((x) => ({ label: x[0], href: x[1] }))
@@ -8188,6 +8208,7 @@ class Component extends DCLogic {
     this._scanReveal();
     this._revealTimer = setInterval(this._scanReveal, 500);
     this._onScrollHero = () => {
+      if (document.documentElement.classList.contains("a11y-calm")) return;
       const vids = document.querySelectorAll("#thero-video, #shero-video, .hero-swap");
       for (let i = 0; i < vids.length; i++) {
         const v = vids[i];
@@ -8502,6 +8523,7 @@ class Component extends DCLogic {
       document.documentElement.setAttribute("dir", "ltr");
     }
     const chain = DICTS[lg] || [__EN];
+    if (document.documentElement.lang !== (lg === "kr" ? "ko" : lg)) document.documentElement.lang = lg === "kr" ? "ko" : lg;
     const strip = (s) => s.replace(/[\s>↓→·]+$/g, "").trim();
     if (!this._normIdx) this._normIdx = new WeakMap();
     const normOf = (d) => {
