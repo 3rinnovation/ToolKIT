@@ -31,6 +31,7 @@ a:hover { color: rgb(20,126,82); }
 @keyframes charIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes scEnterA { from { opacity: 0; } to { opacity: 1; } }
 @keyframes scEnterB { from { opacity: 0; } to { opacity: 1; } }
+video::-webkit-media-controls, video::-webkit-media-controls-start-playback-button, video::-webkit-media-controls-overlay-play-button, video::-webkit-media-controls-panel { display: none !important; -webkit-appearance: none; opacity: 0 !important; }
 button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; box-shadow: 0 0 0 5px rgb(255,255,255); }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.001ms !important; animation-delay: 0s !important; transition-duration: 0.001ms !important; } }
 </style>
@@ -97,11 +98,11 @@ button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; bo
         <div aria-hidden="true" style="position: absolute; left: 50%; bottom: {{ capBottom }}; transform: translateX(-50%); padding: 6px 14px; border-radius: 6px; background: rgba(0,0,0,0.8); color: rgb(255,255,255); font-family: Pretendard, sans-serif; font-size: clamp(14px, 0.94vw, 18px); line-height: 1.4; white-space: nowrap; z-index: 30;">{{ captionText }}</div>
       </sc-if>
       <sc-if value="{{ mob }}">
-        <div style="position: absolute; left: 50%; bottom: calc(9vh + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; width: 84vw; max-width: 340px; box-sizing: border-box;">
-          <button type="button" onClick="{{ goTeacher }}" style="width: 100%; height: 60px; border: none; border-radius: 60px; background: rgb(255,255,255); display: flex; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; cursor: pointer; font: inherit;">
+        <div style="position: absolute; left: 50%; bottom: calc(9vh + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; width: 300px; max-width: 86%; box-sizing: border-box; z-index: 20;">
+          <button type="button" onClick="{{ goTeacher }}" style="display: flex; width: 100%; max-width: 300px; height: 60px; border: none; border-radius: 30px; -webkit-border-radius: 30px; overflow: hidden; -webkit-appearance: none; appearance: none; background: rgb(255,255,255); display: flex; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; cursor: pointer; font: inherit;">
             <span style="font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; font-size: {{ fsRoleMob }}; color: rgb(20,132,85); white-space: nowrap;">{{ tTeacher }}</span>
           </button>
-          <button type="button" onClick="{{ goStudent }}" style="width: 100%; height: 60px; border: none; border-radius: 60px; background: rgb(20,132,85); display: flex; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; cursor: pointer; font: inherit;">
+          <button type="button" onClick="{{ goStudent }}" style="display: flex; width: 100%; max-width: 300px; height: 60px; border: none; border-radius: 30px; -webkit-border-radius: 30px; overflow: hidden; -webkit-appearance: none; appearance: none; background: rgb(20,132,85); display: flex; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; cursor: pointer; font: inherit;">
             <span style="font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; font-size: {{ fsRoleMob }}; color: rgb(255,255,255); white-space: nowrap;">{{ tStudent }}</span>
           </button>
         </div>
@@ -223,7 +224,14 @@ class Component extends DCLogic {
     try { document.documentElement.lang = "ko"; } catch (e) {}
     this._onKey = (e) => { if (e.key === "Escape" && this.state.langOpen) this.setState({ langOpen: false }); };
     document.addEventListener("keydown", this._onKey);
-    this._onResize = () => this.setState({ vw: window.innerWidth, vh: window.innerHeight });
+    this._onResize = () => {
+      const de = document.documentElement;
+      const vw = Math.min(window.innerWidth || 9999, (de && de.clientWidth) || 9999, (window.screen && window.screen.width) || 9999);
+      const vh = window.innerHeight || (de && de.clientHeight) || 800;
+      this.setState({ vw, vh });
+    };
+    this._onResize();
+    [100, 400, 1000].forEach((t) => setTimeout(this._onResize, t));
     window.addEventListener("resize", this._onResize);
     window.addEventListener("orientationchange", this._onResize);
     this._outsideLang = (e) => {
@@ -578,7 +586,8 @@ moodLabels() {
     const T = this.i18n();
     const teacher = this.state.role === "teacher";
     const m = teacher ? T.mt : T.ms;
-    const mob = this.state.vw < 768 || (this.state.vw < 1024 && this.state.vh > this.state.vw);
+    const coarse = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+    const mob = this.state.vw < 768 || (this.state.vw < 1024 && this.state.vh > this.state.vw) || (coarse && this.state.vh > this.state.vw);
     const bubbleTexts = teacher ? [T.s2t, T.s3t, T.s4t] : [T.s2s, T.s3s, T.s4s];
     const mobFs = () => {
       const wide = { KR: 0.82, JA: 0.82, ZH: 0.85, TH: 0.56, AR: 0.44 };
