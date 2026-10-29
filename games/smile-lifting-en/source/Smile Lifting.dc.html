@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#2fb3a8;--teal-d:#1e8a81;--teal-dd:#166b64;
+    --mint:#d9efe9;--mint-2:#eaf6f2;--ink:#2e5d59;--ink2:#6f938e;
+    --line:#d7ebe5;--card:#ffffff;--bg:#e6f4ef;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#cfe6dd;font-family:'Baloo 2',system-ui,sans-serif;color:var(--ink);-webkit-user-select:none;user-select:none}
+  .sb-phone{width:390px;height:844px;margin:0 auto;background:var(--bg);position:relative;overflow:hidden;border-radius:46px;box-shadow:0 30px 70px rgba(30,90,84,.28)}
+  .sb-screen{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden}
+  .jua{font-family:'Baloo 2',sans-serif;font-weight:800;letter-spacing:.01em}
+  .ico{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.8);color:var(--teal-d);font-size:19px;border:none;cursor:pointer;box-shadow:0 2px 7px rgba(30,90,84,.12)}
+  .ico:hover{background:#fff}
+  .btn{border:none;cursor:pointer;font-family:'Baloo 2';font-weight:700;border-radius:20px;transition:transform .08s,filter .15s}
+  .btn:hover{filter:brightness(1.05)}
+  .btn:active{transform:translateY(1px)}
+  .btn-t{background:linear-gradient(180deg,#3ec2b6,#26a498);color:#fff;box-shadow:0 8px 0 #1b8078,0 14px 22px rgba(38,164,152,.4)}
+  .btn-t:active{box-shadow:0 3px 0 #1b8078,0 6px 12px rgba(38,164,152,.4);transform:translateY(5px)}
+  .btn-ghost{background:transparent;color:var(--ink2)}
+  .btn-soft{background:var(--mint);color:var(--teal-d)}
+  a{color:var(--teal-d)}a:hover{color:var(--teal)}
+  @keyframes sbBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  @keyframes sbPop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+  @keyframes sbPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+  @keyframes sbFloatUp{0%{transform:translateY(6px);opacity:.4}100%{transform:translateY(-10px);opacity:1}}
+  @keyframes sbSpark{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+  @keyframes sbFall{0%{transform:translateY(-40px) rotate(0);opacity:0}8%{opacity:1}100%{transform:translateY(920px) rotate(720deg);opacity:.85}}
+  @keyframes sbBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+  @keyframes sbStarPop{0%{transform:scale(0) rotate(-40deg);opacity:0}70%{transform:scale(1.28)}100%{transform:scale(1) rotate(0);opacity:1}}
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="22" fill="#33b3a8"/><circle cx="39" cy="44" r="6" fill="#fff"/><circle cx="61" cy="44" r="6" fill="#fff"/><path d="M34 60 q16 18 32 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M30 72 l6 -8 M70 72 l-6 -8" stroke="#ffe08a" stroke-width="5" stroke-linecap="round"/></svg></template>
+<div class="sb-phone">
+
+  <!-- 1 · SPLASH -->
+  <sc-if value="{{ isSplash }}" hint-placeholder-val="{{ true }}">
+  <div class="sb-screen" style="background:#89c43c url('assets/en-splash.png') top center/contain no-repeat">
+    <div style="flex:1"></div>
+    <div style="padding:0 0 56px;display:flex;justify-content:center">
+      <img src="assets/btn-start-en.png" alt="Start Lifting" onClick="{{ start }}" style="width:300px;cursor:pointer;filter:drop-shadow(0 8px 14px rgba(30,90,84,.28));transition:transform .08s" style-active="transform:translateY(3px)">
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- 2 · COUNTDOWN -->
+  <sc-if value="{{ isCount }}" hint-placeholder-val="{{ false }}">
+  <div class="sb-screen" style="background:url('assets/en-countdown.png') center/cover no-repeat">
+    <div class="jua" style="position:absolute;left:0;right:0;top:64%;transform:translateY(-50%);text-align:center;line-height:1;color:#fff;text-shadow:0 8px 0 rgba(38,164,152,.45);font-size:{{ countFontSize }};animation:sbPop .45s ease">{{ countLabel }}</div>
+  </div>
+  </sc-if>
+
+  <!-- 3 · EXERCISE -->
+  <sc-if value="{{ isPlay }}" hint-placeholder-val="{{ false }}">
+  <div class="sb-screen" style="background:url('assets/en-exbg.png') center/cover no-repeat">
+    <div class="jua" style="position:absolute;left:0;right:0;top:2.1%;text-align:center;z-index:4;font-size:20px;color:#15756c;text-shadow:0 2px 0 rgba(255,255,255,.85)">SMILE LIFTING</div>
+    <div class="jua" style="position:absolute;left:5.6%;top:9%;width:19.5%;text-align:center;z-index:5;font-size:13px;color:#fff;text-shadow:0 1px 2px rgba(30,90,84,.6)">{{ repLabel }} / {{ repsLabel }}</div>
+    <div class="jua" style="position:absolute;left:15.5%;right:14%;top:18.3%;text-align:center;z-index:4;font-size:19px;line-height:1.05;color:#15756c;white-space:nowrap">LIFTING YOUR GLOW!</div>
+    <div style="position:absolute;left:15.5%;right:14%;top:22.8%;text-align:center;z-index:4;font-size:11px;line-height:1.3;color:#6f938e">Keep going!</div>
+    <button aria-label="Close" style="position:absolute;left:3.5%;top:2.2%;width:15%;height:5.4%;background:transparent;border:none;cursor:pointer;z-index:6" onClick="{{ stop }}"></button>
+
+    <div style="position:absolute;left:25.2%;top:9.2%;width:67.4%;height:2%;background:#fefefe;border:2px solid #349da3;border-radius:999px;overflow:hidden;z-index:4">
+      <div style="height:100%;width:{{ progressPct }};background:#2aafa7;border-radius:999px;transition:width .12s linear"></div>
+    </div>
+
+    <div class="jua" style="position:absolute;left:11%;top:15.1%;width:18.4%;text-align:center;z-index:4;font-size:12px;letter-spacing:.02em;color:#fff;text-shadow:0 1px 0 rgba(30,90,84,.5)">{{ phaseTitle }}</div>
+
+    <sc-if value="{{ showMirror }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:50%;top:44.2%;transform:translate(-50%,-50%);width:62%;aspect-ratio:1;border-radius:50%;overflow:hidden;z-index:3;box-shadow:0 0 0 5px #7fcfc4">
+      <video ref="{{ videoRef }}" autoplay playsinline muted style="width:100%;height:100%;object-fit:cover;transform:scaleX(-1)"></video>
+      <svg viewBox="0 0 40 60" style="position:absolute;left:24%;bottom:14%;width:11%;animation:{{ arrowAnim }};filter:drop-shadow(0 2px 3px rgba(0,0,0,.4))" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity="{{ arrowOpacity }}"><path d="M20 56 L20 8 M8 22 L20 8 L32 22"/></svg>
+      <svg viewBox="0 0 40 60" style="position:absolute;right:24%;bottom:14%;width:11%;animation:{{ arrowAnim }};filter:drop-shadow(0 2px 3px rgba(0,0,0,.4))" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity="{{ arrowOpacity }}"><path d="M20 56 L20 8 M8 22 L20 8 L32 22"/></svg>
+    </div>
+    </sc-if>
+
+    <div style="position:absolute;left:0;right:0;top:60.3%;z-index:4;display:flex;flex-direction:column;align-items:center;gap:5px">
+      <button class="jua" style="font-size:13px;white-space:nowrap;color:var(--teal-d);background:#fff;border:2px solid #bfe6de;border-radius:999px;padding:7px 16px;cursor:pointer;box-shadow:0 2px 0 #cfe9e3" onClick="{{ toggleMirror }}">📷 {{ mirrorLabel }}</button>
+    </div>
+
+    <div style="position:absolute;left:22%;right:22%;top:68.6%;height:13.5%;z-index:4;display:flex;align-items:center;gap:12px">
+      <div class="jua" style="flex:none;font-size:60px;line-height:.8;color:#33b3a8;text-shadow:0 3px 0 #1b8078">{{ secLabel }}<span style="font-size:22px;margin-left:5px">s</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+        <div class="jua" style="font-size:26px;line-height:1;color:var(--ink)">{{ phaseTitle }}!</div>
+        <div style="font-size:12px;color:var(--ink2);text-align:center">{{ cue }}</div>
+        <div style="display:flex;gap:5px">
+          <sc-for list="{{ dots }}" as="d" hint-placeholder-count="12"><span style="width:7px;height:7px;border-radius:2px;background:{{ d.color }}"></span></sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="position:absolute;left:0;right:0;bottom:3.6%;z-index:5;display:flex;align-items:center;justify-content:center;gap:16px">
+      <img src="assets/btn-stop.png" alt="Stop" onClick="{{ stop }}" style="height:50px;cursor:pointer;filter:drop-shadow(0 3px 5px rgba(30,90,84,.18))">
+      <img src="assets/btn-pause.png" alt="Pause" onClick="{{ togglePause }}" style="height:50px;cursor:pointer;filter:drop-shadow(0 3px 5px rgba(30,90,84,.18))">
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- 4 · DONE -->
+  <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+  <div class="sb-screen" style="background:url('assets/done-bg.png') center/cover no-repeat;padding:0;overflow:hidden">
+    <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3">
+      <i style="position:absolute;top:0;left:6%;width:9px;height:14px;background:#ff9db0;border-radius:2px;animation:sbFall 3.2s linear .0s infinite"></i>
+      <i style="position:absolute;top:0;left:13%;width:9px;height:9px;background:#f1c74d;border-radius:50%;animation:sbFall 3.8s linear .6s infinite"></i>
+      <i style="position:absolute;top:0;left:21%;width:11px;height:11px;background:#3ec2b6;border-radius:2px;animation:sbFall 2.9s linear 1.2s infinite"></i>
+      <i style="position:absolute;top:0;left:29%;width:8px;height:12px;background:#8fd694;border-radius:2px;animation:sbFall 3.6s linear .3s infinite"></i>
+      <i style="position:absolute;top:0;left:38%;width:10px;height:10px;background:#ff9db0;border-radius:50%;animation:sbFall 4s linear 1.7s infinite"></i>
+      <i style="position:absolute;top:0;left:46%;width:9px;height:13px;background:#f1c74d;border-radius:2px;animation:sbFall 3s linear .9s infinite"></i>
+      <i style="position:absolute;top:0;left:54%;width:11px;height:11px;background:#3ec2b6;border-radius:50%;animation:sbFall 3.6s linear .2s infinite"></i>
+      <i style="position:absolute;top:0;left:62%;width:8px;height:12px;background:#8fd694;border-radius:2px;animation:sbFall 2.8s linear 2s infinite"></i>
+      <i style="position:absolute;top:0;left:70%;width:10px;height:10px;background:#ff9db0;border-radius:50%;animation:sbFall 3.9s linear .7s infinite"></i>
+      <i style="position:absolute;top:0;left:78%;width:9px;height:14px;background:#f1c74d;border-radius:2px;animation:sbFall 3.3s linear 1.4s infinite"></i>
+      <i style="position:absolute;top:0;left:86%;width:11px;height:11px;background:#3ec2b6;border-radius:2px;animation:sbFall 3.1s linear .1s infinite"></i>
+      <i style="position:absolute;top:0;left:33%;width:9px;height:9px;background:#f1c74d;border-radius:50%;animation:sbFall 4.1s linear 2.2s infinite"></i>
+      <i style="position:absolute;top:0;left:58%;width:10px;height:13px;background:#8fd694;border-radius:2px;animation:sbFall 3.4s linear 1.1s infinite"></i>
+      <i style="position:absolute;top:0;left:92%;width:8px;height:12px;background:#ff9db0;border-radius:2px;animation:sbFall 2.7s linear .5s infinite"></i>
+    </div>
+
+    <div style="position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 24px 0">
+      <div class="jua" style="font-size:15px;color:#fff;background:linear-gradient(180deg,#3ec2b6,#26a498);padding:6px 20px;border-radius:999px;box-shadow:0 5px 0 #1b8078;letter-spacing:.1em;animation:sbPop .5s ease">STAGE CLEAR</div>
+      <div class="jua" style="font-size:44px;color:var(--teal-d);margin-top:12px;animation:sbPop .5s ease .08s both">MISSION CLEAR!</div>
+
+      <div style="position:relative;margin-top:14px;animation:sbBounce 1.6s ease-in-out infinite">
+        <img src="assets/otter-win.png" style="width:210px;height:210px;object-fit:contain;filter:drop-shadow(0 10px 22px rgba(30,90,84,.18))">
+      </div>
+
+      <div style="display:flex;align-items:flex-end;gap:8px;margin-top:16px">
+        <span style="font-size:42px;animation:sbStarPop .4s ease .3s both">⭐</span>
+        <span style="font-size:54px;animation:sbStarPop .4s ease .45s both">⭐</span>
+        <span style="font-size:42px;animation:sbStarPop .4s ease .6s both">⭐</span>
+      </div>
+
+      <div style="margin-top:16px;display:flex;align-items:center;gap:10px;background:#fff;border-radius:999px;padding:9px 20px;box-shadow:0 6px 16px rgba(30,90,84,.12)">
+        <span class="jua" style="color:var(--teal-d);font-size:15px">SMILE XP</span>
+        <span class="jua" style="color:#d99a1f;font-size:22px">+{{ donePoints }} XP</span>
+      </div>
+
+      <div style="width:100%;background:#fff;border-radius:22px;padding:16px;display:flex;justify-content:space-around;text-align:center;box-shadow:0 8px 22px rgba(30,90,84,.1);margin-top:16px">
+        <div><div class="jua" style="font-size:30px;color:var(--teal)">{{ doneReps }}</div><div style="font-size:11px;color:var(--ink2)">steps done</div></div>
+        <div style="width:1px;background:var(--line)"></div>
+        <div><div class="jua" style="font-size:30px;color:var(--teal)">{{ minLabel }}</div><div style="font-size:11px;color:var(--ink2)">workout time</div></div>
+        <div style="width:1px;background:var(--line)"></div>
+        <div><div class="jua" style="font-size:30px;color:var(--teal)">{{ streakLabel }}</div><div style="font-size:11px;color:var(--ink2)">day streak</div></div>
+      </div>
+    </div>
+
+    <div style="position:relative;z-index:2;padding:16px 24px 46px;display:flex;flex-direction:column;gap:12px">
+      <img src="assets/btn-again.png" alt="One More Round" onClick="{{ start }}" style="width:100%;max-width:300px;align-self:center;cursor:pointer;filter:drop-shadow(0 6px 12px rgba(30,90,84,.22))">
+      <button class="btn btn-ghost" style="height:42px;font-size:15px" onClick="{{ toSplash }}">Back to Start</button>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;holdSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:15,&quot;min&quot;:3,&quot;max&quot;:20,&quot;step&quot;:1,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Intensity&quot;},&quot;reps&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:3,&quot;min&quot;:1,&quot;max&quot;:6,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Intensity&quot;},&quot;initialPhase&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;splash&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;frozen&quot;:{&quot;editor&quot;:null,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { phase:'splash', count:3, running:false, rep:0, seg:0, segLeft:0, lift:0, elapsed:0, streak:1, camError:null, mirrorOn:false, muted:false };
+
+  get READY(){ return 3; }
+  get LIFT(){ return 2; }
+  get HOLD(){ return Math.max(2, this.props.holdSeconds ?? 15); }
+  get RELAX(){ return 3; }
+  get REPS(){ return Math.max(1, this.props.reps ?? 3); }
+  get REPDUR(){ return this.LIFT + this.HOLD + this.RELAX; }
+  get TOTAL(){ return this.REPS*this.REPDUR; }
+
+  componentDidMount(){
+    if(this.props.frozen){
+      const ph=this.props.initialPhase||'splash';
+      const snap={phase:ph};
+      if(ph==='count') snap.count=3;
+      if(ph==='play') Object.assign(snap,{running:false,rep:2,seg:2,segLeft:5,lift:1,elapsed:this.REPDUR*1.5,camError:'frozen'});
+      if(ph==='done') snap.streak=5;
+      this.setState(snap);
+      return;
+    }
+    try{ const s=+localStorage.getItem('sl_streak')||1; this.setState({streak:s}); }catch(e){}
+    try{ if(localStorage.getItem('sl_muted')==='1') this.setState({muted:true}); }catch(e){}
+    this._audio=new Audio('assets/bgm.mp3');
+    this._audio.loop=true; this._audio.volume=.4;
+    this._t=performance.now();
+    this._loop=this._loop.bind(this);
+    this._raf=requestAnimationFrame(this._loop);
+  }
+  componentWillUnmount(){ cancelAnimationFrame(this._raf); clearInterval(this._cd); this.stopCamera(); if(this._audio) this._audio.pause(); }
+
+  playBgm=()=>{ if(this._audio && !this.state.muted) this._audio.play().catch(()=>{}); };
+  toggleMute=()=>{
+    const muted=!this.state.muted;
+    try{ localStorage.setItem('sl_muted', muted?'1':'0'); }catch(e){}
+    if(this._audio){ if(muted) this._audio.pause(); else this._audio.play().catch(()=>{}); }
+    this.setState({muted});
+  };
+
+  startCamera=async()=>{
+    if(this._stream) return;
+    try{
+      const st=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false});
+      this._stream=st;
+      if(this._video){ this._video.srcObject=st; try{await this._video.play();}catch(e){} }
+      this.setState({camError:null});
+    }catch(e){ this.setState({camError:e&&e.name||'error'}); }
+  };
+  stopCamera=()=>{ if(this._stream){ this._stream.getTracks().forEach(t=>t.stop()); this._stream=null; } };
+  retryCamera=()=>{ this.setState({camError:null}); this.startCamera(); };
+  videoRef=(el)=>{ this._video=el; if(el&&this._stream){ el.srcObject=this._stream; el.play&&el.play().catch(()=>{}); } };
+
+  toggleMirror=()=>{ if(!this.state.mirrorOn){ this.setState({mirrorOn:true}); this.startCamera(); } else { this.stopCamera(); this.setState({mirrorOn:false}); } };
+
+  start=()=>{
+    if(this._audio) this._audio.play().catch(()=>{});
+    this.setState({phase:'count',count:3,mirrorOn:false});
+    clearInterval(this._cd);
+    this._cd=setInterval(()=>{
+      const c=this.state.count-1;
+      if(c<0){ clearInterval(this._cd); this._t=performance.now(); this.setState({phase:'play',running:true,rep:1,seg:1,segLeft:this.LIFT,lift:0,elapsed:0}); }
+      else this.setState({count:c});
+    },800);
+  };
+  togglePause=()=>this.setState(st=>({running:!st.running}));
+  stop=()=>{ clearInterval(this._cd); this.stopCamera(); this.setState({phase:'splash',running:false,mirrorOn:false}); };
+  toSplash=()=>{ this.stopCamera(); this.setState({phase:'splash',running:false,mirrorOn:false}); };
+
+  _loop(now){
+    const dt=Math.min(0.05,(now-this._t)/1000); this._t=now;
+    const s=this.state;
+    if(s.phase==='play' && s.running){
+      let segLeft=s.segLeft-dt, seg=s.seg, rep=s.rep, elapsed=Math.min(this.TOTAL,s.elapsed+dt), lift=s.lift;
+      if(segLeft<=0){
+        if(seg===1){ seg=2; segLeft=this.HOLD; }
+        else if(seg===2){ seg=3; segLeft=this.RELAX; }
+        else { if(rep>=this.REPS){ this._finish(); return; } rep++; seg=1; segLeft=this.LIFT; }
+      }
+      if(seg===1) lift=1-Math.max(0,segLeft/this.LIFT);
+      else if(seg===2) lift=1;
+      else if(seg===3) lift=Math.max(0,segLeft/this.RELAX);
+      this.setState({segLeft,seg,rep,elapsed,lift});
+    }
+    this._raf=requestAnimationFrame(this._loop);
+  }
+
+  _finish(){
+    let streak=this.state.streak+1;
+    try{ localStorage.setItem('sl_streak',streak); }catch(e){}
+    this.stopCamera();
+    this.setState({phase:'done',running:false,streak});
+  }
+
+  renderVals(){
+    const s=this.state, p=s.phase, lift=s.lift;
+    const titles={1:'LIFT',2:'HOLD',3:'RELAX'};
+    const cues={1:'Lift cheeks up',2:'Hold steady',3:'Release slowly'};
+    const active = s.seg===1||s.seg===2;
+    const segTotal = s.seg===1?this.LIFT:s.seg===2?this.HOLD:s.seg===3?this.RELAX:1;
+    const frac = Math.min(1,Math.max(0,1-(s.segLeft/segTotal)));
+    const dots = Array.from({length:12},(_,i)=>({color:i<Math.round(frac*12)?'#33b3a8':'#cfe9e3'}));
+    const showMirror = s.mirrorOn && !s.camError;
+    const cornerY=(226-lift*10).toFixed(1), midY=(230+lift*24).toFixed(1);
+    const teal='var(--teal)', tealD='var(--teal-d)';
+    return {
+      isSplash:p==='splash', isCount:p==='count', isPlay:p==='play', isDone:p==='done',
+      countLabel: s.count>0 ? s.count : 'GO!',
+      countFontSize: s.count>0 ? '190px' : '92px',
+      repsLabel:this.REPS, holdLabel:this.HOLD, repLabel:Math.max(1,s.rep),
+      streakLabel:s.streak,
+      progressPct:(s.elapsed/this.TOTAL*100).toFixed(1)+'%',
+      secLabel:Math.ceil(Math.max(0,s.segLeft)),
+      phaseLabel:titles[s.seg]||'READY', phaseTitle:titles[s.seg]||'READY', cue:cues[s.seg]||'',
+      phaseBadgeBg: active?'var(--teal)':'var(--ink2)',
+      phaseColor: active?tealD:'var(--ink2)',
+      countAnim: (active&&s.running)?'sbPulse 1s ease-in-out infinite':'none',
+      zoneShift:(-lift*14).toFixed(1)+'px',
+      zoneOpacity:(0.12+lift*0.5).toFixed(3),
+      otterTransform:`scale(${(1+lift*0.07).toFixed(3)}) translateY(${(-lift*8).toFixed(1)}px)`,
+      glowOpacity:(0.12+lift*0.32).toFixed(3),
+      mouthPath:`M118 ${cornerY} Q150 ${midY} 182 ${cornerY}`,
+      arrowOpacity:(0.35+lift*0.65).toFixed(3),
+      arrowShift:(-lift*30).toFixed(1)+'px',
+      arrowScale:(0.9+lift*0.25).toFixed(3),
+      arrowAnim: active?'sbBob 1.1s ease-in-out infinite':'none',
+      pauseLabel: s.running?'Pause':'Resume',
+      camOn:!s.camError, camOff:!!s.camError,
+      dots, showMirror, mirrorOff:!showMirror,
+      mirrorLabel: s.mirrorOn?'Turn Mirror Off':'Camera Mirror On',
+      toggleMirror:this.toggleMirror,
+      videoRef:this.videoRef, retryCamera:this.retryCamera,
+      doneReps:this.REPS, minLabel:'1 min',
+      donePoints:this.REPS*this.HOLD*10,
+      start:this.start, togglePause:this.togglePause, stop:this.stop, toSplash:this.toSplash,
+      muteIcon: s.muted?'🔇':'🔊', toggleMute:this.toggleMute,
+    };
+  }
+}
+</script>
+</body>
+</html>

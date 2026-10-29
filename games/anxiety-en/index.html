@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: "Nunito", system-ui, sans-serif; color: #3a4a40; background: #d7ecdd; }
+  a { color: #2e7d52; text-decoration: none; }
+  a:hover { color: #24623f; }
+  .round { font-family: "Baloo 2", "Nunito", sans-serif; }
+  ::selection { background: #b6e3c6; }
+  @keyframes titleFloat { 0%,100%{ transform: translateY(0) rotate(-1.5deg); } 50%{ transform: translateY(-15px) rotate(1.5deg); } }
+  @keyframes bob { 0%,100%{ transform: translateY(0) rotate(-2deg); } 50%{ transform: translateY(-8px) rotate(2deg); } }
+  @keyframes drift { 0%{ transform: translateX(0); } 100%{ transform: translateX(34px); } }
+  @keyframes wobble { 0%,100%{ transform: rotate(-4deg); } 50%{ transform: rotate(4deg); } }
+  @keyframes poof { 0%{ transform: scale(1); opacity: 1; } 100%{ transform: scale(1.9); opacity: 0; } }
+  @keyframes floatUp { 0%{ transform: translateY(0); opacity: 1; } 100%{ transform: translateY(-46px); opacity: 0; } }
+  @keyframes sparkOut { 0%{ transform: translate(0,0) scale(1); opacity: 1; } 100%{ transform: translate(var(--dx),var(--dy)) scale(0); opacity: 0; } }
+  @keyframes popIn { 0%{ transform: scale(.6); opacity: 0; } 60%{ transform: scale(1.06); } 100%{ transform: scale(1); opacity: 1; } }
+  @keyframes confFall { 0%{ transform: translateY(-20px) rotate(0); opacity: 1; } 100%{ transform: translateY(300px) rotate(420deg); opacity: 0; } }
+  @keyframes pulseBtn { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-5px); } }
+</style>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="#4fc487"/><circle cx="50" cy="47" r="24" fill="#ffd451"/><circle cx="42" cy="43" r="3.4" fill="#4a3410"/><circle cx="58" cy="43" r="3.4" fill="#4a3410"/><path d="M39 53 Q50 66 61 53" fill="none" stroke="#4a3410" stroke-width="4.5" stroke-linecap="round"/></svg></template>
+</helmet>
+
+<div style="min-height:100dvh;display:flex;align-items:center;justify-content:center;background:radial-gradient(120% 90% at 50% 0%, #eaf7ee 0%, #d3ecdb 70%);padding:16px;font-family:inherit;">
+  <div data-frame="phone" style="position:relative;width:min(100vw,430px);height:min(100dvh,900px);border-radius:34px;overflow:hidden;background:#eef8f1;box-shadow:0 30px 70px rgba(41,102,64,.28);border:1px solid rgba(255,255,255,.7);">
+
+    <!-- ============ S-01 START ============ -->
+    <sc-if value="{{ isStart }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;inset:0;overflow:hidden;background:#f3ede1;display:flex;align-items:center;justify-content:center;">
+      <div style="position:absolute;inset:0;">
+        <img src="uploads/en-start-bg2.png" alt="Catch Worry Monsters — Hana Mind Training Center" style="position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;" />
+        <button onClick="{{ goMission }}" aria-label="Start game" style="position:absolute;left:16%;right:16%;top:82.5%;height:5.8%;border:none;background:transparent;cursor:pointer;border-radius:16px;padding:0;" style-active="transform:translateY(3px);"></button>
+        <button onClick="{{ goMission }}" aria-label="Start game (screen)" style="position:absolute;inset:0;border:none;background:transparent;cursor:pointer;padding:0;"></button>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ============ S-02 MISSION ============ -->
+    <sc-if value="{{ isMission }}">
+    <div style="position:absolute;inset:0;overflow:hidden;background:#f4ecd6;">
+      <img src="uploads/en-mission-bg.png" alt="Today's Mission — Bright Smile" style="position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;" />
+      <button onClick="{{ goHome }}" aria-label="Back" style="position:absolute;left:3.5%;top:2.4%;width:14%;height:5%;border:none;background:transparent;cursor:pointer;border-radius:50%;" style-active="transform:scale(.94);"></button>
+      <button onClick="{{ goPlayCamera }}" aria-label="Turn on camera and start" style="position:absolute;left:14%;right:14%;top:81.5%;height:6.2%;border:none;background:transparent;cursor:pointer;border-radius:18px;" style-active="transform:translateY(3px);"></button>
+    </div>
+    </sc-if>
+
+    <!-- ============ S-03 PLAY ============ -->
+    <sc-if value="{{ isPlay }}">
+    <div style="position:absolute;inset:0;overflow:hidden;background:linear-gradient(180deg,#bfe6f7,#dcf1e7);">
+      <video ref="{{ videoRef }}" playsinline muted autoplay style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);background:linear-gradient(180deg,#cfeafb,#e2f3ea);"></video>
+      <img ref="{{ dustRef }}" src="uploads/dust.png" alt="" style="display:none;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,50,40,.28) 0%,rgba(20,50,40,0) 26%,rgba(20,50,40,0) 62%,rgba(20,50,40,.42) 100%);pointer-events:none;"></div>
+      <div ref="{{ beamRef }}" style="position:absolute;inset:0;background:radial-gradient(58% 46% at 50% 42%,rgba(255,240,170,.85),rgba(255,225,120,0) 70%);opacity:0;pointer-events:none;mix-blend-mode:screen;"></div>
+
+      <div style="position:absolute;top:14px;left:0;right:0;text-align:center;z-index:6;pointer-events:none;"><span class="round" style="color:#fff;font-weight:800;font-size:18px;text-shadow:0 2px 6px rgba(0,0,0,.45);">Catch Worry Monsters</span></div>
+
+      <div style="position:absolute;top:42px;left:0;right:0;display:flex;align-items:flex-start;justify-content:space-between;padding:0 16px;z-index:6;">
+        <div style="position:relative;width:84px;height:84px;flex:none;">
+          <img src="uploads/en-timer-ring.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;display:block;" />
+          <div style="position:absolute;left:19%;right:19%;top:33%;bottom:14%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <span ref="{{ timerRef }}" class="round" style="color:#2e7d52;font-size:20px;font-weight:800;line-height:1;">15.0</span>
+            <span style="font-size:7.5px;color:#5a7263;font-weight:800;margin-top:1px;letter-spacing:.02em;">SEC LEFT</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="display:flex;align-items:center;gap:5px;background:#4fc487;padding:6px 11px;border-radius:18px;box-shadow:0 4px 10px rgba(0,0,0,.18);">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M4 20c0-9 6-15 16-16-1 10-7 16-16 16z"/></svg>
+            <span ref="{{ scoreRef }}" class="round" style="color:#fff;font-size:16px;font-weight:800;min-width:14px;text-align:center;">0</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:5px;background:rgba(48,58,52,.82);padding:6px 11px;border-radius:18px;box-shadow:0 4px 10px rgba(0,0,0,.18);">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="#e4ebe6"><path d="M7 18a4.2 4.2 0 0 1 .3-8.4 5 5 0 0 1 9.5-1A3.6 3.6 0 0 1 17.5 18z"/></svg>
+            <span ref="{{ cloudRef }}" class="round" style="color:#fff;font-size:15px;font-weight:800;">0/15</span>
+          </div>
+          <button onClick="{{ goHome }}" aria-label="Quit" style="width:38px;height:38px;border:none;border-radius:50%;background:rgba(255,255,255,.92);cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;" style-active="transform:scale(.92);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3a5a44" stroke-width="2.6"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        </div>
+      </div>
+
+      <div ref="{{ badgeRef }}" style="position:absolute;top:110px;left:0;right:0;display:flex;justify-content:center;z-index:5;pointer-events:none;display:none;"><img src="uploads/en-badge-nocam.png" alt="No camera — demo mode · press and hold" style="width:62%;height:auto;display:block;filter:drop-shadow(0 3px 6px rgba(0,0,0,.2));" /></div>
+
+      <div ref="{{ fieldRef }}" style="position:absolute;top:112px;left:0;right:0;bottom:96px;z-index:3;touch-action:none;"></div>
+
+      <div ref="{{ comboRef }}" style="position:absolute;left:0;right:0;bottom:200px;text-align:center;z-index:4;pointer-events:none;opacity:0;transition:opacity .15s;"><span class="round" style="color:#fff;font-size:17px;font-weight:800;text-shadow:0 2px 6px rgba(0,0,0,.35);">COMBO <span ref="{{ comboNumRef }}" style="color:#ffd451;font-size:25px;">+2</span></span></div>
+
+      <div style="position:absolute;left:0;right:0;bottom:130px;text-align:center;z-index:4;pointer-events:none;">
+        <svg width="128" height="42" viewBox="0 0 128 42" style="overflow:visible;"><path d="M12 6 Q64 44 116 6" fill="none" stroke="#5fe08a" stroke-width="4" stroke-linecap="round" stroke-dasharray="1.5 10"/><circle cx="50" cy="27" r="7" fill="#fff"/><circle cx="78" cy="27" r="7" fill="#fff"/></svg>
+        <div style="margin-top:4px;color:#fff;font-weight:800;font-size:12.5px;text-shadow:0 2px 6px rgba(0,0,0,.55);">Lift your smile onto the green guide</div>
+      </div>
+
+      <div style="position:absolute;left:0;right:0;bottom:0;z-index:6;padding:14px 20px 22px;background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.9) 40%);">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:7px;"><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#ffc93c"/><circle cx="9" cy="10" r="1.4" fill="#4a3410"/><circle cx="15" cy="10" r="1.4" fill="#4a3410"/><path d="M8 14 Q12 18 16 14" fill="none" stroke="#4a3410" stroke-width="1.8" stroke-linecap="round"/></svg><span style="font-weight:800;font-size:12.5px;color:#2e7d52;letter-spacing:.04em;">SMILE GAUGE</span></div>
+        <div style="position:relative;height:20px;background:#dce9e0;border-radius:12px;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.12);">
+          <div ref="{{ gaugeRef }}" style="position:absolute;left:0;top:0;bottom:0;width:0%;background:linear-gradient(90deg,#8fd6a8,#4fc487,#37a86b);border-radius:12px;transition:width .06s linear;"></div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ============ S-04 RESULT ============ -->
+    <sc-if value="{{ isResult }}">
+    <div style="position:absolute;inset:0;overflow:hidden;background:#f4ecdb;">
+      <img src="uploads/en-result-bg2.png" alt="You caught the worry monsters!" style="position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;" />
+
+      <div style="position:absolute;top:2%;left:0;right:0;height:20%;overflow:hidden;pointer-events:none;">
+        <sc-for list="{{ confetti }}" as="c" hint-placeholder-count="0"><div style="position:absolute;top:-10px;left: {{ c.left }};width:8px;height:12px;border-radius:2px;background: {{ c.color }};animation:confFall {{ c.dur }} linear infinite;animation-delay: {{ c.delay }};"></div></sc-for>
+      </div>
+
+      <!-- Mind Care Score — empty slot in artwork -->
+      <div style="position:absolute;left:13%;width:47%;top:25.5%;height:10.5%;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+        <span class="round" style="font-size:68px;font-weight:800;color:#f9a51a;line-height:1;letter-spacing:-.02em;text-shadow:0 4px 0 #e08a10;animation:popIn .45s ease;">{{ score }}!</span>
+      </div>
+
+      <!-- Caught / Best combo — cover the baked 31s -->
+      <div style="position:absolute;left:29.6%;width:4.5%;top:40.5%;height:1.9%;background:#fefdfb;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+        <span class="round" style="font-size:16px;font-weight:800;color:#1e8a55;line-height:1;">{{ caught }}</span>
+      </div>
+      <div style="position:absolute;left:50%;width:4.5%;top:40.5%;height:1.9%;background:#fefdfb;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+        <span class="round" style="font-size:16px;font-weight:800;color:#1e8a55;line-height:1;">{{ maxCombo }}</span>
+      </div>
+
+      <!-- encouragement — cover the baked paragraph -->
+      <div style="position:absolute;left:27%;right:12%;top:50.6%;height:7.2%;background:#fefdfb;pointer-events:none;display:flex;align-items:flex-start;">
+        <div style="font-size:12.5px;color:#4a5550;font-weight:600;line-height:1.42;">{{ comfort }}</div>
+      </div>
+
+      <!-- streak / points — empty slots in artwork -->
+      <div style="position:absolute;left:17%;width:26%;top:63.5%;height:4%;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+        <span class="round" style="font-size:27px;font-weight:800;color:#f0615b;line-height:1;">{{ streak }} Day</span>
+      </div>
+      <div style="position:absolute;left:57%;width:26%;top:63.5%;height:4%;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+        <span class="round" style="font-size:27px;font-weight:800;color:#1e8a55;line-height:1;">+{{ points }}P</span>
+      </div>
+
+      <!-- buttons artwork sits in the empty lower panel -->
+      <img src="uploads/en-result-btns.png" alt="" style="position:absolute;left:10%;width:80%;top:75.5%;height:auto;display:block;pointer-events:none;" />
+      <button onClick="{{ replay }}" aria-label="Try one more round" style="position:absolute;left:11%;right:11%;top:76.3%;height:5.4%;border:none;background:transparent;cursor:pointer;border-radius:18px;" style-active="transform:translateY(3px);"></button>
+      <button onClick="{{ shareResult }}" aria-label="Share with friends" style="position:absolute;left:11%;right:11%;top:83.6%;height:5.2%;border:none;background:transparent;cursor:pointer;border-radius:18px;" style-active="transform:scale(.98);"></button>
+      <button onClick="{{ goHome }}" aria-label="Close" style="position:absolute;left:82.5%;width:9%;top:5.2%;height:4.6%;border:none;background:transparent;cursor:pointer;border-radius:50%;" style-active="transform:scale(.92);"></button>
+    </div>
+    </sc-if>
+
+    <audio ref="{{ audioRef }}" src="uploads/bgm.mp3" loop preload="auto" style="display:none;"></audio>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:430,&quot;height&quot;:900},&quot;roundTime&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:15,&quot;min&quot;:10,&quot;max&quot;:90,&quot;unit&quot;:&quot;sec&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Game&quot;},&quot;spawnRate&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.6,&quot;max&quot;:1.8,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Game&quot;},&quot;smileSensitivity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.6,&quot;max&quot;:2,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Game&quot;}}">
+class Component extends DCLogic {
+  state = { screen: 'start', score: 0, caught: 0, missed: 0, maxCombo: 0, stars: 0, comfort: '', streak: 1, points: 50, muted: false };
+
+  toggleMute = () => {
+    const muted = !this.state.muted;
+    this.setState({ muted });
+    const a = this.audioRef.current;
+    if (a) a.volume = muted ? 0 : 0.45;
+  };
+
+  constructor(props){
+    super(props);
+    this.videoRef = React.createRef();
+    this.fieldRef = React.createRef();
+    this.beamRef = React.createRef();
+    this.gaugeRef = React.createRef();
+    this.timerRef = React.createRef();
+    this.scoreRef = React.createRef();
+    this.comboRef = React.createRef();
+    this.comboNumRef = React.createRef();
+    this.cloudRef = React.createRef();
+    this.dustRef = React.createRef();
+    this.badgeRef = React.createRef();
+    this.audioRef = React.createRef();
+    this.words = ['Deadline','Judgement','Comparing','Worry','Nagging','Mistakes','Putting off','Burnout','Big talk','Money','The future','Perfection','Social feeds','Exams','Regret','Exhaustion','Sleepless','Impatience','Unread reply','Being judged'];
+    this.relief = ['whoosh','phew','poof','pop','bye~','ahhh'];
+    this.colors = ['#9aa0b4','#a7a2b8','#96a2ac','#aba0a6','#9ba7b0'];
+  }
+
+  componentWillUnmount(){ this.cleanup(); this.stopMusic(); }
+
+  componentDidMount(){
+    const hp = (typeof location !== 'undefined' ? location.hash : '').replace(/^#/, '');
+    const q = new URLSearchParams(hp);
+    this.preview = q.get('preview') === '1' || !!this.props.previewMode;
+    const scr = this.props.initialScreen || q.get('screen');
+    if (!scr || scr === 'start') return;
+    if (scr === 'result') {
+      this.setState({ screen: 'result', score: 88, caught: 24, maxCombo: 9, stars: 4, streak: 3, points: 50,
+        comfort: 'You smiled wide today. Worry is only dust passing through — hold on to that smile a little longer.' });
+      return;
+    }
+    this.setState({ screen: scr }, () => {
+      if (scr !== 'play') return;
+      if (this.preview) this.seedPreviewPlay(); else this.startGame();
+    });
+  }
+
+  seedPreviewPlay(){
+    this.g = { monsters: [], smile: .72, spawnT: 999, time: 33, elapsed: 7, caught: 7, missed: 0,
+      combo: 0, maxCombo: 0, smileTime: 0, hold: false, holdV: 0, demo: true, goal: 15, last: performance.now() };
+    this.dustSrc = (this.dustRef.current && this.dustRef.current.src) ? this.dustRef.current.src : 'uploads/dust.png';
+    if (this.timerRef.current) this.timerRef.current.textContent = '33.0';
+    if (this.scoreRef.current) this.scoreRef.current.textContent = '7';
+    if (this.cloudRef.current) this.cloudRef.current.textContent = '7/15';
+    if (this.gaugeRef.current) this.gaugeRef.current.style.width = '72%';
+    if (this.badgeRef.current) this.badgeRef.current.style.display = 'none';
+    for (let i = 0; i < 4; i++) this.makeMonster();
+    this.g.monsters.forEach((m, i) => {
+      m.y = 150 + i * 150; m.x = 18 + (i % 2) * 180;
+      m.el.style.top = m.y + 'px'; m.el.style.left = m.x + 'px';
+    });
+  }
+
+  goMission = () => { this.startMusic(); this.setState({ screen: 'mission' }); };
+
+  startMusic(){
+    const a = this.audioRef.current;
+    if (!a) return;
+    a.volume = this.state.muted ? 0 : 0.45;
+    a.play().catch(()=>{});
+  }
+
+  stopMusic(){
+    const a = this.audioRef.current;
+    if (a) { a.pause(); a.currentTime = 0; }
+  }
+  goHome = () => { this.cleanup(); this.setState({ screen: 'start' }); };
+
+  shareResult = async () => {
+    const txt = `I scored ${this.state.score} on Catch Worry Monsters! Smiled my worries away today 😊`;
+    try {
+      if (navigator.share) { await navigator.share({ title: 'Catch Worry Monsters', text: txt }); return; }
+      if (navigator.clipboard) { await navigator.clipboard.writeText(txt); }
+      alert('Copied your result!\n\n' + txt);
+    } catch(e) {}
+  };
+  goPlayCamera = () => this.setState({ screen: 'play' }, () => this.startGame());
+  replay = () => this.setState({ screen: 'play' }, () => this.startGame());
+
+  cleanup(){
+    if (this.raf) clearInterval(this.raf);
+    this.raf = null;
+    if (this.stream) { this.stream.getTracks().forEach(t => t.stop()); this.stream = null; }
+    if (this._onDown) { const f = this.fieldRef.current; if (f) { f.removeEventListener('pointerdown', this._onDown); window.removeEventListener('pointerup', this._onUp); } }
+  }
+
+  async initFace(){
+    if (this.faceLandmarker) return;
+    try {
+      const V = await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.6/vision_bundle.mjs');
+      const fs = await V.FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.6/wasm');
+      this.faceLandmarker = await V.FaceLandmarker.createFromOptions(fs, {
+        baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task', delegate: 'GPU' },
+        outputFaceBlendshapes: true, runningMode: 'VIDEO', numFaces: 1
+      });
+    } catch(e) { this.faceLandmarker = null; }
+  }
+
+  startGame(){
+    this.cleanup();
+    const roundTime = this.props.roundTime ?? 15;
+    this.g = { monsters: [], smile: 0, spawnT: 0.7, time: roundTime, elapsed: 0, caught: 0, missed: 0, combo: 0, maxCombo: 0, smileTime: 0, hold: false, holdV: 0, demo: true, goal: 15, last: performance.now() };
+    const field = this.fieldRef.current;
+    if (this.timerRef.current) this.timerRef.current.textContent = roundTime.toFixed(1);
+    if (this.scoreRef.current) this.scoreRef.current.textContent = '0';
+    if (this.cloudRef.current) this.cloudRef.current.textContent = '0/' + this.g.goal;
+
+    this._onDown = () => { if (this.g) this.g.hold = true; };
+    this._onUp = () => { if (this.g) this.g.hold = false; };
+    if (field) { field.addEventListener('pointerdown', this._onDown); window.addEventListener('pointerup', this._onUp); }
+
+    this.dustSrc = (this.dustRef.current && this.dustRef.current.src) ? this.dustRef.current.src : 'uploads/dust.png';
+    this.g.last = performance.now();
+    this.raf = setInterval(this.tick, 16);
+    this.setupCamera();
+  }
+
+  async setupCamera(){
+    const video = this.videoRef.current;
+    try {
+      const req = navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: 640, height: 480 }, audio: false });
+      const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 6000));
+      const stream = await Promise.race([req, timeout]);
+      this.stream = stream;
+      if (video) { video.srcObject = stream; video.play().catch(()=>{}); }
+      await this.initFace();
+      if (this.faceLandmarker && this.g) { this.g.demo = false; this.hideBadge(); }
+      else this.showBadge('🎮 Getting face tracking ready · hold the screen');
+    } catch(e) {
+      if (this.g) this.g.demo = true;
+      this.showBadge('📷 No camera — demo mode · press and hold');
+    }
+  }
+
+  hideBadge(){ const b = this.badgeRef.current; if (b) b.style.display = 'none'; }
+
+  showBadge(){
+    const b = this.badgeRef.current;
+    if (b) b.style.display = 'flex';
+  }
+
+  makeMonster(){
+    const field = this.fieldRef.current; if (!field) return;
+    const w = this.words[Math.floor(Math.random() * this.words.length)];
+    const size = 82 + Math.random() * 34;
+    const x = 6 + Math.random() * Math.max(10, field.clientWidth - size - 12);
+    const el = document.createElement('div');
+    el.style.cssText = `position:absolute;left:${x}px;top:${-size-40}px;width:${size}px;height:${size}px;will-change:top,transform;`;
+    el.innerHTML = `
+      <div class="blob" style="width:100%;height:100%;position:relative;animation:wobble 2s ease-in-out infinite;transform-origin:center;">
+        <img src="${this.dustSrc}" style="width:100%;height:100%;display:block;filter:drop-shadow(0 5px 7px rgba(0,0,0,.28));" alt="Worry monster" />
+        <div style="position:absolute;left:25%;right:22%;top:60.5%;height:18%;display:flex;align-items:center;justify-content:center;text-align:center;">
+          <span style="font-family:Nunito,sans-serif;font-weight:800;font-size:${Math.max(7.5,Math.round(size*0.105))}px;color:#5c4a38;line-height:1.03;">${w}</span>
+        </div>
+      </div>`;
+    field.appendChild(el);
+    const blob = el.querySelector('.blob');
+    const maxHp = 2.4 + Math.random() * 0.8;
+    this.g.monsters.push({ el, blob, x, y: -size - 40, size, vy: 26 + Math.random() * 20, hp: maxHp, maxHp, dead: false });
+  }
+
+  pop(m){
+    m.dead = true;
+    this.g.caught++;
+    this.g.combo++;
+    if (this.g.combo > this.g.maxCombo) this.g.maxCombo = this.g.combo;
+    if (this.scoreRef.current) this.scoreRef.current.textContent = String(this.g.caught * 10 + this.g.maxCombo * 5);
+    if (this.cloudRef.current) this.cloudRef.current.textContent = this.g.caught + '/' + this.g.goal;
+    if (this.g.combo >= 2 && this.comboRef.current) {
+      this.comboRef.current.style.opacity = '1';
+      if (this.comboNumRef.current) this.comboNumRef.current.textContent = '+' + this.g.combo;
+      clearTimeout(this._comboT); this._comboT = setTimeout(() => { if (this.comboRef.current) this.comboRef.current.style.opacity = '0'; }, 900);
+    }
+    const field = this.fieldRef.current; if (!field) return;
+    const cx = m.x + m.size / 2, cy = m.y + m.size / 2;
+    for (let i = 0; i < 7; i++){
+      const a = (Math.PI * 2 * i) / 7, d = 22 + Math.random() * 16;
+      const s = document.createElement('div');
+      s.style.cssText = `position:absolute;left:${cx}px;top:${cy}px;width:8px;height:8px;border-radius:50%;background:${i%2?'#ffd451':'#8fd6a8'};--dx:${Math.cos(a)*d}px;--dy:${Math.sin(a)*d}px;animation:sparkOut .6s ease-out forwards;pointer-events:none;`;
+      field.appendChild(s); setTimeout(() => s.remove(), 620);
+    }
+    const f = document.createElement('div');
+    f.textContent = '+10';
+    f.style.cssText = `position:absolute;left:${cx}px;top:${cy-8}px;transform:translateX(-50%);color:#37a86b;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:20px;text-shadow:0 2px 4px rgba(255,255,255,.8);animation:floatUp .8s ease-out forwards;pointer-events:none;`;
+    field.appendChild(f); setTimeout(() => f.remove(), 820);
+    const r = document.createElement('div');
+    r.textContent = this.relief[Math.floor(Math.random() * this.relief.length)];
+    r.style.cssText = `position:absolute;left:${cx}px;top:${cy+8}px;transform:translateX(-50%);color:#5a7263;font-weight:800;font-size:13px;animation:floatUp 1s ease-out forwards;pointer-events:none;`;
+    field.appendChild(r); setTimeout(() => r.remove(), 1000);
+    m.el.style.animation = 'poof .4s ease-out forwards';
+    setTimeout(() => m.el.remove(), 400);
+  }
+
+  escape(m){
+    m.dead = true;
+    this.g.missed++;
+    this.g.combo = 0;
+    if (this.comboRef.current) this.comboRef.current.style.opacity = '0';
+    m.el.style.transition = 'opacity .3s, transform .3s';
+    m.el.style.opacity = '0';
+    m.el.style.transform = 'translateY(24px)';
+    setTimeout(() => m.el.remove(), 320);
+  }
+
+  tick = () => {
+    if (!this.g) return;
+    const now = performance.now();
+    const g = this.g;
+    const dt = Math.min(0.05, (now - g.last) / 1000); g.last = now;
+    const field = this.fieldRef.current; if (!field) return;
+    const H = field.clientHeight, sens = this.props.smileSensitivity ?? 1;
+
+    let face = 0;
+    const video = this.videoRef.current;
+    if (this.faceLandmarker && video && video.readyState >= 2) {
+      try {
+        const res = this.faceLandmarker.detectForVideo(video, now);
+        const bs = res && res.faceBlendshapes && res.faceBlendshapes[0];
+        if (bs) { let l = 0, r = 0; for (const c of bs.categories) { if (c.categoryName === 'mouthSmileLeft') l = c.score; else if (c.categoryName === 'mouthSmileRight') r = c.score; } const avg = (l + r) / 2; face = Math.min(1, Math.pow(avg, 0.7) * 2.0); }
+      } catch(e) {}
+    }
+    g.holdV = g.hold ? Math.min(1, g.holdV + dt * 3) : Math.max(0, g.holdV - dt * 4);
+    let target = Math.max(face * sens, g.holdV);
+    if (g.demo) target = Math.max(target, Math.sin(now / 620) * 0.5 + 0.5);
+    target = Math.min(1, target);
+    g.smile += (target - g.smile) * Math.min(1, dt * 9);
+    const smile = g.smile;
+
+    if (this.gaugeRef.current) this.gaugeRef.current.style.width = (smile * 100).toFixed(1) + '%';
+    if (this.beamRef.current) this.beamRef.current.style.opacity = smile > 0.35 ? String(((smile - 0.35) / 0.65).toFixed(2)) : '0';
+    if (smile > 0.4) g.smileTime += dt;
+
+    g.spawnT -= dt;
+    if (g.spawnT <= 0) {
+      this.makeMonster();
+      const rate = this.props.spawnRate ?? 1;
+      g.spawnT = Math.max(0.42, (1.45 - g.elapsed * 0.022) / rate);
+    }
+
+    for (const m of g.monsters) {
+      if (m.dead) continue;
+      m.y += m.vy * dt;
+      m.el.style.top = m.y + 'px';
+      if (smile > 0.4) {
+        m.hp -= smile * dt * 1.05;
+        if (m.hp <= 0) { this.pop(m); continue; }
+        const r = m.hp / m.maxHp;
+        if (m.blob) { m.blob.style.transform = 'scale(' + Math.max(0.3, r) + ')'; m.blob.style.opacity = String(0.4 + 0.6 * r); }
+      }
+      if (m.y > H - 30) this.escape(m);
+    }
+    g.monsters = g.monsters.filter(m => !m.dead);
+
+    g.time -= dt; g.elapsed += dt;
+    if (this.timerRef.current) this.timerRef.current.textContent = Math.max(0, g.time).toFixed(1);
+    if (g.time <= 0) { this.endGame(); return; }
+  };
+
+  endGame(){
+    const g = this.g; this.cleanup();
+    const caught = g.caught, smileT = g.smileTime;
+    let fav = Math.round(Math.min(100, 42 + caught * 2.6 + smileT * 1.3));
+    if (caught === 0) fav = Math.max(18, fav - 22);
+    const stars = fav >= 90 ? 5 : fav >= 74 ? 4 : fav >= 56 ? 3 : fav >= 36 ? 2 : 1;
+    let comfort;
+    if (fav >= 74) comfort = 'You smiled wide today. Worry is only dust passing through — hold on to that smile a little longer.';
+    else if (fav >= 46) comfort = 'You are doing well. Just practising a smile made your mind a little lighter. Tomorrow will feel a step easier.';
+    else comfort = 'It is okay — you do not have to force a smile. Getting here today was enough. Let us smile again tomorrow.';
+
+    let streak = 1;
+    try {
+      const today = new Date().toDateString();
+      const last = localStorage.getItem('anxmon_en_last');
+      const yday = new Date(Date.now() - 86400000).toDateString();
+      let prev = parseInt(localStorage.getItem('anxmon_en_streak') || '0', 10) || 0;
+      if (last === today) streak = prev || 1;
+      else { streak = (last === yday) ? prev + 1 : 1; localStorage.setItem('anxmon_en_last', today); localStorage.setItem('anxmon_en_streak', String(streak)); }
+    } catch(e) {}
+
+    this.setState({ screen: 'result', score: fav, caught, missed: g.missed, maxCombo: g.maxCombo, stars, comfort, streak, points: 50 });
+  }
+
+  renderVals(){
+    const s = this.state;
+    const starList = [1,2,3,4,5].map(i => ({ color: i <= s.stars ? '#ffc93c' : '#dfe6e0' }));
+    const palette = ['#ffd451','#4fc487','#7ec8f0','#f5776a','#a78bd0'];
+    const confetti = Array.from({ length: 14 }, (_, i) => ({
+      left: (5 + Math.random() * 90).toFixed(1) + '%',
+      color: palette[i % palette.length],
+      dur: (1.6 + Math.random() * 1.4).toFixed(2) + 's',
+      delay: (Math.random() * 1.2).toFixed(2) + 's'
+    }));
+    return {
+      isStart: s.screen === 'start', isMission: s.screen === 'mission', isPlay: s.screen === 'play', isResult: s.screen === 'result',
+      goMission: this.goMission, goHome: this.goHome, goPlayCamera: this.goPlayCamera, replay: this.replay, shareResult: this.shareResult,
+      videoRef: this.videoRef, fieldRef: this.fieldRef, beamRef: this.beamRef, gaugeRef: this.gaugeRef,
+      timerRef: this.timerRef, scoreRef: this.scoreRef, comboRef: this.comboRef, comboNumRef: this.comboNumRef,
+      badgeRef: this.badgeRef, cloudRef: this.cloudRef, dustRef: this.dustRef, audioRef: this.audioRef,
+      score: s.score, caught: s.caught, maxCombo: s.maxCombo, comfort: s.comfort, streak: s.streak, points: s.points,
+      showMute: s.screen !== 'start', muteIcon: s.muted ? '🔇' : '🔊', toggleMute: this.toggleMute,
+      starList, confetti
+    };
+  }
+}
+</script>
+</body>
+</html>
