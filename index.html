@@ -2299,7 +2299,7 @@ try {
           <div data-sf-idx="{{ v.idx }}" class="sf-item">
             <div class="sf-frame" style="background-image: {{ v.bgImage }};">
               <sc-if value="{{ v.active }}" hint-placeholder-val="{{ false }}">
-                <iframe data-sf-player="1" src="{{ v.src }}" onLoad="{{ v.onLoad }}" title="{{ v.title }}" allow="autoplay; encrypted-media; picture-in-picture" class="{{ v.playerClass }}"></iframe>
+                <iframe data-sf-player="1" data-sf-i="{{ v.idx }}" src="{{ v.src }}" onLoad="{{ v.onLoad }}" title="{{ v.title }}" allow="autoplay; encrypted-media; picture-in-picture" class="{{ v.playerClass }}"></iframe>
               </sc-if>
               <div onClick="{{ v.tap }}" class="sf-tap" role="button" tabindex="0" aria-label="{{ v.tapLabel }}">
                 <sc-if value="{{ v.showPlay }}" hint-placeholder-val="{{ true }}">
@@ -3852,7 +3852,7 @@ try {
           <div data-sf-idx="{{ v.idx }}" class="sf-item">
             <div class="sf-frame" style="background-image: {{ v.bgImage }};">
               <sc-if value="{{ v.active }}" hint-placeholder-val="{{ false }}">
-                <iframe data-sf-player="1" src="{{ v.src }}" onLoad="{{ v.onLoad }}" title="{{ v.title }}" allow="autoplay; encrypted-media; picture-in-picture" class="{{ v.playerClass }}"></iframe>
+                <iframe data-sf-player="1" data-sf-i="{{ v.idx }}" src="{{ v.src }}" onLoad="{{ v.onLoad }}" title="{{ v.title }}" allow="autoplay; encrypted-media; picture-in-picture" class="{{ v.playerClass }}"></iframe>
               </sc-if>
               <div onClick="{{ v.tap }}" class="sf-tap" role="button" tabindex="0" aria-label="{{ v.tapLabel }}">
                 <sc-if value="{{ v.showPlay }}" hint-placeholder-val="{{ true }}">
@@ -6002,10 +6002,14 @@ __P.p11 = (function () { const location = __hash.p11; return class extends SubLo
 }; })();
 
 
-// 쇼츠 피드: 한 화면에 하나씩, 화면 가운데 온 영상만 유튜브 플레이어로 자동재생
+// 쇼츠 피드: 한 화면에 하나씩, 화면 가운데 온 영상이 스크롤 속도에 맞춰 바로 자동재생 (앞뒤 영상은 미리 불러 둠)
 const __SF = {
   subs: {},
-  sound: false,
+  st: {},
+  // 소리: 기본으로 켜 두되, 브라우저 규칙상 사용자가 한 번이라도 누르거나 탭한 뒤에만 실제로 켜짐
+  want: true,
+  armed: !!(navigator.userActivation && navigator.userActivation.hasBeenActive),
+  get sound() { return this.want && this.armed; },
   reg(route, sub) {
     this.subs[route] = sub;
     if (this._on) return;
@@ -6016,6 +6020,16 @@ const __SF = {
     window.addEventListener("scroll", later, { passive: true });
     window.addEventListener("resize", later);
     window.addEventListener("hashchange", () => setTimeout(() => this.sync(true), 120));
+    // 첫 탭·클릭·키 입력이 오면 그때부터 소리를 켬 (소리 버튼·M 키는 스스로 처리)
+    const arm = (e) => {
+      if (this.armed) return;
+      if (e.target && e.target.closest && e.target.closest(".sf-sound")) return;
+      if (e.type === "keydown" && (e.key === "m" || e.key === "M")) return;
+      this.armed = true;
+      const sub = this.cur();
+      if (sub && this.want) { this.apply(sub.state.playing); sub.setState({}); }
+    };
+    ["pointerdown", "touchend", "keydown"].forEach((t) => window.addEventListener(t, arm, true));
     // 휠 한 칸에 한 영상씩 (기본 스냅은 짧은 휠을 제자리로 되돌림)
     let acc = 0, lock = 0;
     window.addEventListener("wheel", (e) => {
@@ -6038,13 +6052,18 @@ const __SF = {
       else if (e.key === "m" || e.key === "M") this.toggleSound();
     });
     setTimeout(() => this.sync(true), 300);
-    // 유튜브 플레이어가 재생(1)·일시정지(2)·대기(5) 상태가 되면 썸네일 대신 플레이어를 보임
+    // 플레이어가 준비되면 지금 영상이면 재생·아니면 멈춤, 재생(1)·일시정지(2)·대기(5)가 되면 썸네일 대신 플레이어를 보임
     window.addEventListener("message", (e) => {
       if ((e.origin || "").indexOf("youtube") === -1) return;
       let d = null; try { d = JSON.parse(e.data); } catch (x) { return; }
-      const st = d && d.info && d.info.playerState;
+      const f = [...document.querySelectorAll("iframe[data-sf-player]")].find((x) => x.contentWindow === e.source);
       const sub = this.cur();
-      if (sub && !sub.state.ready && (d.event === "onReady" || st === 1 || st === 2 || st === 5)) sub.setState({ ready: true });
+      if (!f || !sub || !d) return;
+      const i = +f.getAttribute("data-sf-i");
+      if (d.event === "onReady") this.apply(i);
+      const st = d.info && d.info.playerState;
+      if (st != null) this.st[i] = st;
+      if (i === sub.state.playing && !sub.state.ready && (st === 1 || st === 2 || st === 5)) sub.setState({ ready: true });
     });
   },
   calm() { return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); },
@@ -6066,7 +6085,7 @@ const __SF = {
       const el = this.items()[sub.state.playing];
       if (el) requestAnimationFrame(() => window.scrollTo(0, Math.max(0, window.scrollY + el.getBoundingClientRect().top - topPx)));
     }
-    if (reset && sub.state.playing !== 0 && window.scrollY < 10) { sub.setState({ playing: 0, paused: false }); return; }
+    if (reset && sub.state.playing !== 0 && window.scrollY < 10) { this.switchTo(sub, 0); return; }
     const mid = window.innerHeight / 2;
     let best = -1, bd = Infinity;
     this.items().forEach((el) => {
@@ -6074,7 +6093,13 @@ const __SF = {
       const d = Math.abs(r.top + r.height / 2 - mid);
       if (d < bd) { bd = d; best = +el.getAttribute("data-sf-idx"); }
     });
-    if (best >= 0 && best !== sub.state.playing) sub.setState({ playing: best, paused: this.calm(), ready: false });
+    if (best >= 0 && best !== sub.state.playing) this.switchTo(sub, best);
+  },
+  // 가운데 영상이 바뀌는 즉시: 이전 영상은 멈추고 새 영상을 재생 (미리 불러 둔 영상이면 바로 시작)
+  switchTo(sub, i) {
+    const old = sub.state.playing;
+    sub.setState({ playing: i, paused: this.calm(), ready: false });
+    requestAnimationFrame(() => { this.apply(old); this.apply(i); });
   },
   go(d) {
     const sub = this.cur(); if (!sub) return;
@@ -6082,20 +6107,45 @@ const __SF = {
     const el = els[Math.max(0, Math.min(els.length - 1, sub.state.playing + d))];
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   },
-  send(fn, args) {
-    const f = document.querySelector('iframe[data-sf-player]');
+  send(fn, args, i) {
+    const sub = this.cur();
+    const n = i == null ? (sub ? sub.state.playing : 0) : i;
+    const f = document.querySelector('iframe[data-sf-player][data-sf-i="' + n + '"]');
     if (f && f.contentWindow) f.contentWindow.postMessage(JSON.stringify({ event: "command", func: fn, args: args || [] }), "*");
   },
+  // 영상 i를 지금 상태에 맞춤: 가운데 영상은 재생(소리 설정 반영), 나머지는 소리 끄고 멈춤
+  apply(i) {
+    const sub = this.cur(); if (!sub) return;
+    if (i === sub.state.playing && !sub.state.paused) {
+      if (this.sound) { this.send("unMute", [], i); this.send("setVolume", [100], i); }
+      else this.send("mute", [], i);
+      this.send("playVideo", [], i);
+      // 브라우저가 소리 있는 재생을 막으면 소리 없이라도 계속 재생
+      if (this.sound) {
+        clearTimeout(this._fb);
+        this._fb = setTimeout(() => {
+          const s = this.cur();
+          if (!s || s.state.playing !== i || s.state.paused || this.st[i] === 1 || this.st[i] === 3) return;
+          this.armed = false;
+          this.send("mute", [], i); this.send("playVideo", [], i);
+          s.setState({});
+        }, 2500);
+      }
+    } else {
+      this.send("mute", [], i);
+      this.send("pauseVideo", [], i);
+    }
+  },
   toggleSound() {
-    this.sound = !this.sound;
-    if (this.sound) { this.send("unMute"); this.send("setVolume", [100]); this.send("playVideo"); }
-    else this.send("mute");
-    const sub = this.cur(); if (sub) sub.setState({ paused: false });
+    const on = this.sound;
+    this.armed = true;
+    this.want = !on;
+    const sub = this.cur(); if (!sub) return;
+    sub.setState({ paused: false });
+    requestAnimationFrame(() => this.apply(sub.state.playing));
   },
   vals(sub) {
     const cur = sub.state.playing, paused = sub.state.paused;
-    // '동작 줄이기' 설정이면 자동재생하지 않고 눌러서 재생
-    const calm = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     const origin = encodeURIComponent(window.location.origin);
     return {
       soundIcon: this.sound ? "🔊" : "🔇",
@@ -6110,25 +6160,26 @@ const __SF = {
           title: v.title,
           views: v.views,
           bgImage: sub.cssUrl(__SHTHUMB(v)),
-          active: cur === i,
+          // 가운데 영상과 바로 앞뒤 영상만 플레이어를 띄움 (빠르게 넘겨도 바로 재생)
+          active: Math.abs(cur - i) <= 1,
           playerClass: "sf-player" + (cur === i && sub.state.ready ? " sf-ready" : ""),
           // 플레이어가 뜨면 유튜브가 제목·채널을 직접 보여 주므로 우리 제목은 숨김
           infoClass: "sf-info" + (cur === i && sub.state.ready ? " sf-hide" : ""),
           showPlay: cur !== i || paused,
           tapLabel: cur === i ? (paused ? "재생" : "일시정지") : "이 영상 보기",
-          src: "https://www.youtube.com/embed/" + id + "?autoplay=" + (calm ? 0 : 1) + "&mute=1&playsinline=1&controls=0&loop=1&playlist=" + id + "&rel=0&modestbranding=1&enablejsapi=1&" + __CC() + "&origin=" + origin,
+          // 재생은 apply()가 맡으므로 주소는 고정 (주소가 바뀌면 플레이어가 다시 불러와짐)
+          src: "https://www.youtube.com/embed/" + id + "?autoplay=0&mute=1&playsinline=1&controls=0&loop=1&playlist=" + id + "&rel=0&modestbranding=1&enablejsapi=1&" + __CC() + "&origin=" + origin,
           onLoad: (e) => {
             const f = e && e.currentTarget;
             const listen = () => { try { f.contentWindow.postMessage(JSON.stringify({ event: "listening", id: 1, channel: "widget" }), "*"); } catch (x) {} };
             [0, 400, 1200].forEach((t) => setTimeout(listen, t));
+            [600, 1500].forEach((t) => setTimeout(() => this.apply(i), t));
             setTimeout(() => { if (sub.state.playing === i && !sub.state.ready) sub.setState({ ready: true }); }, 3500);
-            if (!this.sound) return;
-            [300, 900, 1800].forEach((t) => setTimeout(() => { this.send("unMute"); this.send("setVolume", [100]); }, t));
           },
           tap: () => {
             if (cur !== i) { const el = this.items()[i]; if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
-            this.send(paused ? "playVideo" : "pauseVideo");
             sub.setState({ paused: !paused });
+            requestAnimationFrame(() => this.apply(i));
           }
         };
       })
