@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="design_doc_mode" content="canvas">
 <script src="../support.js"></script>
 </head>
 <body>
@@ -16,10 +17,26 @@ a:hover { color: rgb(16,110,71); }
 </helmet>
 <div style="min-height: 100vh; box-sizing: border-box; padding: 40px 24px 56px; display: flex; flex-direction: column; align-items: center; gap: 28px; font-family: Pretendard, sans-serif; color: rgb(46,46,46);">
   <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;">
-    <div style="font-size: 20px; font-weight: 600;">자기조절 툴킷 온보딩 · 모바일 미리보기</div>
-    <div style="font-size: 14px; color: rgb(100,100,96);">각 화면 안에서 직접 눌러보며 진행할 수 있어요.</div>
+    <div style="font-size: 20px; font-weight: 600;">자기조절 툴킷 온보딩 · 화면 크기별 미리보기</div>
+    <div style="font-size: 14px; color: rgb(100,100,96);">모바일 480 · 태블릿 768 · 데스크탑 1280 / 1920 — 각 화면 안에서 직접 눌러보며 진행할 수 있어요.</div>
   </div>
   <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 40px;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+      <div style="padding: 12px; border-radius: 54px; background: rgb(24,24,24); box-shadow: 0 18px 40px rgba(0,0,0,0.18);">
+        <div style="width: 480px; height: 900px; border-radius: 42px; overflow: hidden; background: rgb(251,249,241);">
+          <iframe src="index.html" title="모바일 480 미리보기" style="width: 480px; height: 900px; border: 0; display: block;"></iframe>
+        </div>
+      </div>
+      <div style="font-size: 13px; color: rgb(100,100,96);">모바일 · 480 × 900</div>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+      <div style="padding: 14px; border-radius: 36px; background: rgb(24,24,24); box-shadow: 0 18px 40px rgba(0,0,0,0.18);">
+        <div style="width: 768px; height: 1024px; border-radius: 22px; overflow: hidden; background: rgb(251,249,241);">
+          <iframe src="index.html" title="태블릿 768 미리보기" style="width: 768px; height: 1024px; border: 0; display: block;"></iframe>
+        </div>
+      </div>
+      <div style="font-size: 13px; color: rgb(100,100,96);">태블릿 · 768 × 1024</div>
+    </div>
     <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
       <div style="padding: 12px; border-radius: 54px; background: rgb(24,24,24); box-shadow: 0 18px 40px rgba(0,0,0,0.18);">
         <div style="width: 390px; height: 844px; border-radius: 42px; overflow: hidden; background: rgb(251,249,241);">
@@ -35,6 +52,20 @@ a:hover { color: rgb(16,110,71); }
         </div>
       </div>
       <div style="font-size: 13px; color: rgb(100,100,96);">iPhone SE · 375 × 667</div>
+    </div>
+  </div>
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 40px;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+      <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,0.18); border: 1px solid rgb(210,208,200);">
+        <iframe src="index.html" title="데스크탑 1280 미리보기" style="width: 1280px; height: 800px; border: 0; display: block;"></iframe>
+      </div>
+      <div style="font-size: 13px; color: rgb(100,100,96);">데스크탑 · 1280 × 800</div>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+      <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,0.18); border: 1px solid rgb(210,208,200);">
+        <iframe src="index.html" title="데스크탑 1920 미리보기" style="width: 1920px; height: 1080px; border: 0; display: block;"></iframe>
+      </div>
+      <div style="font-size: 13px; color: rgb(100,100,96);">데스크탑 · 1920 × 1080</div>
     </div>
   </div>
 </div>

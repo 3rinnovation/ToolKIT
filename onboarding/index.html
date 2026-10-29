@@ -20,7 +20,7 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
 html, body { margin: 0; padding: 0; background: rgb(251,249,241); height: 100%; overflow: hidden; overscroll-behavior: none; }
 section[data-screen-label] { min-height: 0 !important; height: 100vh; height: 100dvh; }
-section[data-screen-label^="01"] > div:first-child { width: max(177.65vh, min(100%, 222vh)) !important; }
+@media (min-width: 1024px) and (orientation: landscape) { section[data-screen-label^="01"] > div:first-child { width: max(177.65vh, min(100%, 222vh)) !important; } }
 a { color: rgb(26,159,103); text-decoration: none; }
 a:hover { color: rgb(20,126,82); }
 @property --sweep { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
@@ -36,7 +36,7 @@ button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; bo
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.001ms !important; animation-delay: 0s !important; transition-duration: 0.001ms !important; } }
 </style>
 </helmet>
-<div style="width: 100%; min-height: 100vh; background: rgb(251,249,241); font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; color: rgb(46,46,46); box-sizing: border-box;">
+<div style="width: 100%; min-height: {{ secH }}; background: rgb(251,249,241); font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; color: rgb(46,46,46); box-sizing: border-box;">
   <div aria-live="polite" style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;">{{ liveMsg }}</div>
 
   <div onMouseEnter="{{ openLang }}" onMouseLeave="{{ closeLang }}" onTouchStart="{{ langTouch }}" style="position: fixed; right: min(40px, 2.08vw); top: min(32px, 1.67vw); z-index: 50; display: flex; flex-direction: column; align-items: flex-end;">
@@ -58,8 +58,8 @@ button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; bo
 
 
   <div style="display: {{ d1 }}; animation: {{ a1 }};">
-    <section data-screen-label="01 진입" style="position: relative; width: 100%; min-height: 100vh; display: flex; align-items: center; justify-content: center; box-sizing: border-box; overflow: hidden; background: rgb(150,198,130);">
-      <div style="position: relative; flex: none; width: max(100%, 177.65vh); aspect-ratio: 2560 / 1441; background: rgb(150,198,130);">
+    <section data-screen-label="01 진입" style="position: relative; width: 100%; min-height: {{ secH }}; display: flex; align-items: center; justify-content: center; box-sizing: border-box; overflow: hidden; background: rgb(150,198,130);">
+      <div style="position: relative; flex: none; width: max(100%, {{ bgW }}); aspect-ratio: 2560 / 1441; background: rgb(150,198,130);">
       <img src="assets/bg-landing-kr.jpg" alt="{{ altKr }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{ bgKrOpacity }};">
       <img src="assets/bg-landing-en.jpg" alt="{{ altEn }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{ bgEnOpacity }};">
       <video aria-hidden="true" ref="{{ videoRef }}" src="{{ videoSrc }}" poster="{{ videoPoster }}" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" preload="auto" disablepictureinpicture="disablepictureinpicture" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: {{ videoDisplay }};"></video>
@@ -98,7 +98,7 @@ button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; bo
         <div aria-hidden="true" style="position: absolute; left: 50%; bottom: {{ capBottom }}; transform: translateX(-50%); padding: 6px 14px; border-radius: 6px; background: rgba(0,0,0,0.8); color: rgb(255,255,255); font-family: Pretendard, sans-serif; font-size: clamp(14px, 0.94vw, 18px); line-height: 1.4; white-space: nowrap; z-index: 30;">{{ captionText }}</div>
       </sc-if>
       <sc-if value="{{ mob }}">
-        <div style="position: absolute; left: 50%; bottom: calc(9vh + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; width: 300px; max-width: 86%; box-sizing: border-box; z-index: 20;">
+        <div style="position: absolute; left: 50%; bottom: calc({{ bRole }} + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; width: 300px; max-width: 86%; box-sizing: border-box; z-index: 20;">
           <button type="button" onClick="{{ goTeacher }}" style="display: flex; width: 100%; max-width: 300px; height: 60px; border: none; border-radius: 30px; -webkit-border-radius: 30px; overflow: hidden; -webkit-appearance: none; appearance: none; background: rgb(255,255,255); display: flex; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; cursor: pointer; font: inherit;">
             <span style="font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; font-size: {{ fsRoleMob }}; color: rgb(20,132,85); white-space: nowrap;">{{ tTeacher }}</span>
           </button>
@@ -111,7 +111,7 @@ button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; bo
   </div>
 
   <div style="display: {{ d2 }}; animation: {{ a2 }};">
-    <section data-screen-label="02 기분 선택" style="position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
+    <section data-screen-label="02 기분 선택" style="position: relative; width: 100%; min-height: {{ secH }}; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
       <sc-if value="{{ isStudent }}" hint-placeholder-val="{{ true }}">
         <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubS }}; aspect-ratio: 523 / 290; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble1.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
           <p dir="{{ textDir }}" style="margin: 0 0 7.6% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t2n }}</p>
@@ -148,7 +148,7 @@ button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; bo
   </div>
 
   <div style="display: {{ d3 }}; animation: {{ a3 }};">
-    <section data-screen-label="03 인사" style="position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
+    <section data-screen-label="03 인사" style="position: relative; width: 100%; min-height: {{ secH }}; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
       <sc-if value="{{ isStudent }}" hint-placeholder-val="{{ true }}">
         <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubS }}; aspect-ratio: 523 / 290; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble1.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
           <p dir="{{ textDir }}" style="margin: 0 0 7.6% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t3n }}</p>
@@ -168,7 +168,7 @@ button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; bo
   </div>
 
   <div style="display: {{ d4 }}; animation: {{ a4 }};">
-    <section data-screen-label="04 툴킷 소개" style="position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
+    <section data-screen-label="04 툴킷 소개" style="position: relative; width: 100%; min-height: {{ secH }}; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
       <sc-if value="{{ isStudent }}" hint-placeholder-val="{{ true }}">
         <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubS4 }}; aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
           <p dir="{{ textDir }}" style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.06; text-align: center; color: rgb(46,46,46); white-space: pre;">{{ t4n }}</p>
@@ -189,7 +189,7 @@ button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; bo
   </div>
 
   <div style="display: {{ d5 }}; animation: {{ a5 }};">
-    <section data-screen-label="05 98% 리빌" style="position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
+    <section data-screen-label="05 98% 리빌" style="position: relative; width: 100%; min-height: {{ secH }}; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
       <div style="position: absolute; left: 50%; bottom: 52.5vh; transform: translateX(-50%); width: clamp(200px, 16.09vw, 309px); aspect-ratio: 309 / 308; border-radius: 50%; overflow: hidden;">
         <img loading="eager" decoding="sync" fetchpriority="high" src="assets/circle-happy.png" alt="웃으며 공부하는 포팡이" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
         <div ref="{{ veilRef }}" data-veil="1" style="position: absolute; inset: 0; border-radius: 50%; overflow: hidden; -webkit-mask-image: conic-gradient(from 0deg, transparent 0deg var(--sweep), #000 var(--sweep) 360deg); mask-image: conic-gradient(from 0deg, transparent 0deg var(--sweep), #000 var(--sweep) 360deg); animation: {{ veilAnim }};">
@@ -234,6 +234,7 @@ class Component extends DCLogic {
     [100, 400, 1000].forEach((t) => setTimeout(this._onResize, t));
     window.addEventListener("resize", this._onResize);
     window.addEventListener("orientationchange", this._onResize);
+    if (window.visualViewport) window.visualViewport.addEventListener("resize", this._onResize);
     this._outsideLang = (e) => {
       if (!this.state.langOpen) return;
       const t = e.target;
@@ -586,24 +587,54 @@ moodLabels() {
     const T = this.i18n();
     const teacher = this.state.role === "teacher";
     const m = teacher ? T.mt : T.ms;
-    const coarse = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
-    const mob = this.state.vw < 768 || (this.state.vw < 1024 && this.state.vh > this.state.vw) || (coarse && this.state.vh > this.state.vw);
+    const W = this.state.vw, H = this.state.vh;
+    const mob = W < 1024 || H > W;
     const bubbleTexts = teacher ? [T.s2t, T.s3t, T.s4t] : [T.s2s, T.s3s, T.s4s];
-    const mobFs = () => {
+    const px = (n) => Math.round(n) + "px";
+    const stack = () => {
+      const phone = W < 600;
+      const topPad = phone ? 72 : 96, botPad = phone ? 28 : 56;
+      const avail = H - topPad - botPad;
+      const btnH = 46, g1 = phone ? 18 : 30, g2 = phone ? 22 : 36, ov = 0.06;
+      let bubW = Math.min(W * (phone ? 0.86 : 0.6), phone ? 380 : 500);
+      const cg = phone ? 10 : 14;
+      let cardW = phone ? Math.min((W - 40 - cg) / 2, 170) : Math.min((W - 64 - 3 * cg) / 4, 200);
+      let cols = phone || cardW < 130 ? 2 : 4;
+      if (cols === 2) cardW = Math.min((W - 40 - cg) / 2, phone ? 170 : 200);
+      const rows = 4 / cols;
+      const flex = (k) => {
+        const bw = bubW * k, cw = cardW * k;
+        return bw * 0.612 + bw * 0.81 * 0.6745 - bw * ov + rows * cw * (170 / 254) + (rows - 1) * cg;
+      };
+      const fixed = g1 + g2 + btnH;
+      const k = Math.max(0.55, Math.min(1, (avail - fixed) / flex(1)));
+      bubW *= k; cardW *= k;
+      const bubH = bubW * 0.612, char2H = bubW * 0.81 * 0.6745;
+      const cardsH = rows * cardW * (170 / 254) + (rows - 1) * cg;
+      const content = bubH + char2H - bubW * ov + fixed + cardsH;
+      const top = topPad + Math.max(0, (avail - content) / 2);
+      const feet = top + bubH - bubW * ov + char2H;
+      const cardsTop = feet + g1;
+      const btnTop = cardsTop + cardsH + g2;
+      return {
+        bBub: px(H - top - bubH), wBubS: px(bubW), wBubT: px(bubW), wBubS4: px(bubW),
+        bChar: px(H - feet), wChar2: px(bubW * 0.81), wChar3: px(bubW * 0.9), wChar4: px(bubW * 0.6),
+        bCards: px(H - cardsTop - cardsH), cardsGap: px(cg), cardsW: px(cols * cardW + (cols - 1) * cg + 2), cardW: px(cardW),
+        bNext: px(Math.max(botPad, H - btnTop - btnH)),
+        _bubW: bubW,
+      };
+    };
+    const mobFs = (bubW) => {
       const wide = { KR: 0.82, JA: 0.82, ZH: 0.85, TH: 0.56, AR: 0.44 };
       const em = wide[this.state.lang] || 0.47;
-      const maxLine = Math.max(...bubbleTexts.flatMap((x) => x.split("\n")).map((l) => l.length));
-      const box = teacher ? 76 : 70;
-      const a = Math.round((box / (maxLine * em)) * 100) / 100;
-      const b = Math.round(a * (teacher ? 0.4 : 0.45) * 100) / 100;
-      return "clamp(13px, min(" + a + "vw, " + b + "vh), 26px)";
+      const lines = bubbleTexts.flatMap((x) => x.split("\n"));
+      const maxLine = Math.max(...lines.map((l) => l.length));
+      const rows = Math.max(...bubbleTexts.map((x) => x.split("\n").length));
+      const fW = (bubW * 0.78) / (maxLine * em);
+      const fH = (bubW * 0.5545 * 0.56) / (rows * 1.12);
+      return px(Math.max(13, Math.min(fW, fH, W < 600 ? 26 : 34)));
     };
-    const L = mob ? {
-      bBub: "70vh", wBubS: "min(82vw, 320px, 38vh)", wBubT: "min(88vw, 360px, 36vh)", wBubS4: "min(88vw, 360px, 36vh)",
-      bChar: "50vh", wChar2: "min(58vw, 26vh)", wChar3: "min(62vw, 28vh)", wChar4: "min(44vw, 20vh)",
-      bCards: "16vh", cardsGap: "10px", cardsW: "min(92vw, 380px)", cardW: "min(41vw, 180px)",
-      bNext: "calc(6vh + env(safe-area-inset-bottom, 0px))",
-    } : {
+    const L = mob ? stack() : {
       bBub: "67.87vh", wBubS: "min(clamp(300px, 27.24vw, 523px), 52vh)", wBubT: "min(clamp(340px, 30.63vw, 588px), 48vh)",
       wBubS4: teacher ? "min(clamp(340px, 30.63vw, 588px), 48vh)" : "min(clamp(290px, 26.04vw, 500px), 44vh)",
       bChar: "45.56vh", wChar2: "min(clamp(230px, 22.08vw, 424px), 31vh)", wChar3: "min(clamp(260px, 24.95vw, 479px), 34vh)",
@@ -614,7 +645,10 @@ moodLabels() {
     return {
       ...L,
       mob, desk: !mob,
-      fs: mob ? mobFs() : this.fitFont(bubbleTexts, teacher ? 25.5 : 23.5, 18, 48),
+      secH: mob ? px(H) : "100vh",
+      bgW: mob ? px(H * 1.7765) : "177.65vh",
+      bRole: mob ? px(H * 0.09) : "9vh",
+      fs: mob ? mobFs(L._bubW) : this.fitFont(bubbleTexts, teacher ? 25.5 : 23.5, 18, 48),
       fsMood: this.scaleFont(Math.max(...this.moodLabels().flatMap((x) => x.split("\n")).map((l) => l.length)), 8, 16, 1.46, 28),
       moods: this.moodLabels().map((label, i) => ({
         label, on: this.state.mood === i, off: this.state.mood !== i,
@@ -650,7 +684,7 @@ moodLabels() {
           showMedia: kr,
           showCaption: kr && s === 1 && this.state.playing && !this.state.muted,
           captionText: a.cap,
-          capBottom: mob ? "calc(9vh + 148px + env(safe-area-inset-bottom, 0px))" : "3vh",
+          capBottom: mob ? "calc(" + (Math.round(this.state.vh * 0.09) + 148) + "px + env(safe-area-inset-bottom, 0px))" : "3vh",
           altKr: kr ? "자기조절 툴킷 — 내 마음을 알아가고, 스스로 조절하는 힘!" : "",
           altEn: kr ? "" : "Self-Care Toolkit — Understand your mind and be stronger, on your own!",
           textDir: this.state.lang === "AR" ? "rtl" : "ltr",
