@@ -8,6 +8,19 @@
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<script>
+(function () {
+  // --vh: 실제로 보이는 화면 높이의 1%. 모바일 vh는 주소창이 숨은 높이 기준이라 위치가 밀려 올라감
+  var set = function () {
+    var h = window.innerHeight || document.documentElement.clientHeight;
+    document.documentElement.style.setProperty("--vh", (h / 100) + "px");
+  };
+  set();
+  window.addEventListener("resize", set);
+  window.addEventListener("orientationchange", set);
+  if (window.visualViewport) window.visualViewport.addEventListener("resize", set);
+})();
+</script>
 <script src="../support.js"></script>
 <script src="../a11y.js"></script>
 </head>
@@ -19,8 +32,8 @@
 @font-face { font-family: "Ownglyph PDH"; src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
 html, body { margin: 0; padding: 0; background: rgb(251,249,241); height: 100%; overflow: hidden; overscroll-behavior: none; }
-section[data-screen-label] { min-height: 0 !important; height: 100vh; height: 100dvh; }
-@media (min-width: 1024px) and (orientation: landscape) { section[data-screen-label^="01"] > div:first-child { width: max(177.65vh, min(100%, 222vh)) !important; } }
+section[data-screen-label] { min-height: 0 !important; height: calc(100 * var(--vh, 1vh)); }
+@media (min-width: 1024px) and (orientation: landscape) { section[data-screen-label^="01"] > div:first-child { width: max(calc(177.65 * var(--vh, 1vh)), min(100%, calc(222 * var(--vh, 1vh)))) !important; } }
 a { color: rgb(26,159,103); text-decoration: none; }
 a:hover { color: rgb(20,126,82); }
 @property --sweep { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
@@ -44,7 +57,7 @@ button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; bo
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{ globeColor }}" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"></circle><path d="M2.9 12 H21.1"></path><path d="M12 2.8 C15.2 5.6 15.2 18.4 12 21.2"></path><path d="M12 2.8 C8.8 5.6 8.8 18.4 12 21.2"></path><path d="M4.6 6.6 C7 8.2 17 8.2 19.4 6.6"></path><path d="M4.6 17.4 C7 15.8 17 15.8 19.4 17.4"></path></svg>
     </button>
     <sc-if value="{{ langOpen }}">
-      <div data-lang-menu="1" style="margin-top: 8px; width: 186px; max-height: 70vh; overflow-y: auto; border-radius: 14px; background: rgb(255,255,255); box-shadow: 0 6px 20px rgba(0,0,0,0.14); padding: 8px 7px; box-sizing: border-box; display: flex; flex-direction: column; gap: 1px; font-family: Pretendard, sans-serif;">
+      <div data-lang-menu="1" style="margin-top: 8px; width: 186px; max-height: calc(70 * var(--vh, 1vh)); overflow-y: auto; border-radius: 14px; background: rgb(255,255,255); box-shadow: 0 6px 20px rgba(0,0,0,0.14); padding: 8px 7px; box-sizing: border-box; display: flex; flex-direction: column; gap: 1px; font-family: Pretendard, sans-serif;">
         <sc-for list="{{ langs }}" as="lang" hint-placeholder-count="6">
           <button type="button" onClick="{{ lang.pick }}" aria-current="{{ lang.current }}" style="display: grid; grid-template-columns: 30px 1fr 13px; align-items: center; gap: 7px; width: 100%; min-height: 32px; padding: 0 9px; border: none; border-radius: 8px; background: {{ lang.bg }}; color: {{ lang.color }}; font-family: inherit; font-size: 12.5px; font-weight: {{ lang.weight }}; text-align: left; cursor: pointer;" style-hover="background: rgb(245,245,242);">
             <span style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.02em;">{{ lang.code }}</span>
@@ -111,7 +124,7 @@ button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; bo
   </div>
 
   <div style="display: {{ d2 }}; animation: {{ a2 }};">
-    <section data-screen-label="02 기분 선택" style="position: relative; width: 100%; min-height: {{ secH }}; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
+    <section data-screen-label="02 기분 선택" style="position: relative; width: 100%; min-height: {{ secH }}; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, calc(2 * var(--vh, 1vh))) 24px calc(24 * var(--vh, 1vh)); box-sizing: border-box; overflow: hidden;">
       <sc-if value="{{ isStudent }}" hint-placeholder-val="{{ true }}">
         <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubS }}; aspect-ratio: 523 / 290; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble1.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
           <p dir="{{ textDir }}" style="margin: 0 0 7.6% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t2n }}</p>
@@ -148,7 +161,7 @@ button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; bo
   </div>
 
   <div style="display: {{ d3 }}; animation: {{ a3 }};">
-    <section data-screen-label="03 인사" style="position: relative; width: 100%; min-height: {{ secH }}; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
+    <section data-screen-label="03 인사" style="position: relative; width: 100%; min-height: {{ secH }}; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, calc(2 * var(--vh, 1vh))) 24px calc(24 * var(--vh, 1vh)); box-sizing: border-box; overflow: hidden;">
       <sc-if value="{{ isStudent }}" hint-placeholder-val="{{ true }}">
         <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubS }}; aspect-ratio: 523 / 290; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble1.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
           <p dir="{{ textDir }}" style="margin: 0 0 7.6% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t3n }}</p>
@@ -168,7 +181,7 @@ button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; bo
   </div>
 
   <div style="display: {{ d4 }}; animation: {{ a4 }};">
-    <section data-screen-label="04 툴킷 소개" style="position: relative; width: 100%; min-height: {{ secH }}; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
+    <section data-screen-label="04 툴킷 소개" style="position: relative; width: 100%; min-height: {{ secH }}; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, calc(2 * var(--vh, 1vh))) 24px calc(24 * var(--vh, 1vh)); box-sizing: border-box; overflow: hidden;">
       <sc-if value="{{ isStudent }}" hint-placeholder-val="{{ true }}">
         <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubS4 }}; aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
           <p dir="{{ textDir }}" style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.06; text-align: center; color: rgb(46,46,46); white-space: pre;">{{ t4n }}</p>
@@ -189,8 +202,8 @@ button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; bo
   </div>
 
   <div style="display: {{ d5 }}; animation: {{ a5 }};">
-    <section data-screen-label="05 98% 리빌" style="position: relative; width: 100%; min-height: {{ secH }}; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
-      <div style="position: absolute; left: 50%; bottom: 52.5vh; transform: translateX(-50%); width: clamp(200px, 16.09vw, 309px); aspect-ratio: 309 / 308; border-radius: 50%; overflow: hidden;">
+    <section data-screen-label="05 98% 리빌" style="position: relative; width: 100%; min-height: {{ secH }}; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, calc(2 * var(--vh, 1vh))) 24px calc(24 * var(--vh, 1vh)); box-sizing: border-box; overflow: hidden;">
+      <div style="position: absolute; left: 50%; bottom: calc(52.5 * var(--vh, 1vh)); transform: translateX(-50%); width: clamp(200px, 16.09vw, 309px); aspect-ratio: 309 / 308; border-radius: 50%; overflow: hidden;">
         <img loading="eager" decoding="sync" fetchpriority="high" src="assets/circle-happy.png" alt="웃으며 공부하는 포팡이" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
         <div ref="{{ veilRef }}" data-veil="1" style="position: absolute; inset: 0; border-radius: 50%; overflow: hidden; -webkit-mask-image: conic-gradient(from 0deg, transparent 0deg var(--sweep), #000 var(--sweep) 360deg); mask-image: conic-gradient(from 0deg, transparent 0deg var(--sweep), #000 var(--sweep) 360deg); animation: {{ veilAnim }};">
           <img loading="eager" decoding="sync" fetchpriority="high" src="assets/circle-happy.png" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
@@ -199,10 +212,10 @@ button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; bo
         </div>
       </div>
       <sc-if value="{{ notHappy }}" hint-placeholder-val="{{ true }}">
-        <p style="position: absolute; left: 50%; top: 52.1vh; transform: translateX(-50%); margin: 0; width: min(484px, 25.2vw); font-size: {{ fsStat }}; line-height: 1.08; text-align: center; color: rgb(46,46,46); white-space: pre-line; text-wrap: pretty;">{{ t5 }}</p>
+        <p style="position: absolute; left: 50%; top: calc(52.1 * var(--vh, 1vh)); transform: translateX(-50%); margin: 0; width: min(484px, 25.2vw); font-size: {{ fsStat }}; line-height: 1.08; text-align: center; color: rgb(46,46,46); white-space: pre-line; text-wrap: pretty;">{{ t5 }}</p>
       </sc-if>
       <sc-if value="{{ happy }}">
-        <p style="position: absolute; left: 50%; top: 52.1vh; transform: translateX(-50%); margin: 0; width: min(484px, 25.2vw); font-size: {{ fsStat }}; line-height: 1.08; text-align: center; color: rgb(46,46,46); white-space: pre-line; text-wrap: pretty;">{{ t5 }}</p>
+        <p style="position: absolute; left: 50%; top: calc(52.1 * var(--vh, 1vh)); transform: translateX(-50%); margin: 0; width: min(484px, 25.2vw); font-size: {{ fsStat }}; line-height: 1.08; text-align: center; color: rgb(46,46,46); white-space: pre-line; text-wrap: pretty;">{{ t5 }}</p>
       </sc-if>
       <button type="button" onClick="{{ next }}" style="position: absolute; left: 50%; bottom: {{ bNext }}; transform: translateX(-50%); width: clamp(160px, 13.04vw, 250px); height: clamp(46px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(20,132,85); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: pointer;" style-hover="background: rgb(16,110,71);">{{ tNext }}</button>
     </section>
@@ -635,19 +648,19 @@ moodLabels() {
       return px(Math.max(13, Math.min(fW, fH, W < 600 ? 26 : 34)));
     };
     const L = mob ? stack() : {
-      bBub: "67.87vh", wBubS: "min(clamp(300px, 27.24vw, 523px), 52vh)", wBubT: "min(clamp(340px, 30.63vw, 588px), 48vh)",
-      wBubS4: teacher ? "min(clamp(340px, 30.63vw, 588px), 48vh)" : "min(clamp(290px, 26.04vw, 500px), 44vh)",
-      bChar: "45.56vh", wChar2: "min(clamp(230px, 22.08vw, 424px), 31vh)", wChar3: "min(clamp(260px, 24.95vw, 479px), 34vh)",
-      wChar4: "min(clamp(220px, 17.76vw, 341px), 21vh)",
-      bCards: "24.07vh", cardsGap: "min(20px, 1.04vw)", cardsW: "max-content", cardW: "clamp(150px, 13.23vw, 254px)",
-      bNext: "10.19vh",
+      bBub: "calc(67.87 * var(--vh, 1vh))", wBubS: "min(clamp(300px, 27.24vw, 523px), calc(52 * var(--vh, 1vh)))", wBubT: "min(clamp(340px, 30.63vw, 588px), calc(48 * var(--vh, 1vh)))",
+      wBubS4: teacher ? "min(clamp(340px, 30.63vw, 588px), calc(48 * var(--vh, 1vh)))" : "min(clamp(290px, 26.04vw, 500px), calc(44 * var(--vh, 1vh)))",
+      bChar: "calc(45.56 * var(--vh, 1vh))", wChar2: "min(clamp(230px, 22.08vw, 424px), calc(31 * var(--vh, 1vh)))", wChar3: "min(clamp(260px, 24.95vw, 479px), calc(34 * var(--vh, 1vh)))",
+      wChar4: "min(clamp(220px, 17.76vw, 341px), calc(21 * var(--vh, 1vh)))",
+      bCards: "calc(24.07 * var(--vh, 1vh))", cardsGap: "min(20px, 1.04vw)", cardsW: "max-content", cardW: "clamp(150px, 13.23vw, 254px)",
+      bNext: "calc(10.19 * var(--vh, 1vh))",
     };
     return {
       ...L,
       mob, desk: !mob,
-      secH: mob ? px(H) : "100vh",
-      bgW: mob ? px(H * 1.7765) : "177.65vh",
-      bRole: mob ? px(H * 0.09) : "9vh",
+      secH: mob ? px(H) : "calc(100 * var(--vh, 1vh))",
+      bgW: mob ? px(H * 1.7765) : "calc(177.65 * var(--vh, 1vh))",
+      bRole: mob ? px(H * 0.09) : "calc(9 * var(--vh, 1vh))",
       fs: mob ? mobFs(L._bubW) : this.fitFont(bubbleTexts, teacher ? 25.5 : 23.5, 18, 48),
       fsMood: this.scaleFont(Math.max(...this.moodLabels().flatMap((x) => x.split("\n")).map((l) => l.length)), 8, 16, 1.46, 28),
       moods: this.moodLabels().map((label, i) => ({
@@ -684,7 +697,7 @@ moodLabels() {
           showMedia: kr,
           showCaption: kr && s === 1 && this.state.playing && !this.state.muted,
           captionText: a.cap,
-          capBottom: mob ? "calc(" + (Math.round(this.state.vh * 0.09) + 148) + "px + env(safe-area-inset-bottom, 0px))" : "3vh",
+          capBottom: mob ? "calc(" + (Math.round(this.state.vh * 0.09) + 148) + "px + env(safe-area-inset-bottom, 0px))" : "calc(3 * var(--vh, 1vh))",
           altKr: kr ? "자기조절 툴킷 — 내 마음을 알아가고, 스스로 조절하는 힘!" : "",
           altEn: kr ? "" : "Self-Care Toolkit — Understand your mind and be stronger, on your own!",
           textDir: this.state.lang === "AR" ? "rtl" : "ltr",
