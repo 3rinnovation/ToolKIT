@@ -42,6 +42,31 @@ try {
   a img { transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease; }
   a:hover img { transform: scale(1.035); }
   a:active { transform: scale(0.985); }
+  /* 쇼츠 피드 */
+  html.sf-on { scroll-snap-type: y mandatory; scroll-padding-top: var(--sf-top, 64px); }
+  html.sf-on footer { scroll-snap-align: end; }
+  .sf-feed { display: flex; flex-direction: column; align-items: center; }
+  .sf-item { position: relative; width: 100%; height: calc((100vh - var(--sf-top, 64px)) / var(--z, 1)); height: calc((100dvh - var(--sf-top, 64px)) / var(--z, 1)); scroll-snap-align: start; scroll-snap-stop: always; display: flex; align-items: center; justify-content: center; gap: 20px; padding: 16px 0; box-sizing: border-box; }
+  .sf-frame { position: relative; height: 100%; aspect-ratio: 9 / 16; max-width: calc((100vw - 32px) / var(--z, 1)); border-radius: 18px; overflow: hidden; background-color: #070908; background-size: contain; background-repeat: no-repeat; background-position: center; }
+  .sf-player { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; background: transparent; opacity: 0; transition: opacity 0.25s ease; }
+  .sf-player.sf-ready { opacity: 1; }
+  .sf-tap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .sf-bigplay { width: 64px; height: 64px; border-radius: 999px; background: rgba(7,9,8,0.55); display: flex; align-items: center; justify-content: center; }
+  .sf-bigplay > span { width: 0; height: 0; border-left: 20px solid #FFFFFF; border-top: 12px solid transparent; border-bottom: 12px solid transparent; margin-left: 6px; }
+  .sf-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 18px 18px; display: flex; flex-direction: column; gap: 4px; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%); pointer-events: none; }
+  .sf-info.sf-hide { opacity: 0; }
+  .sf-title { font-size: 17px; line-height: 24px; font-weight: 700; color: #FFFFFF; word-break: keep-all; }
+  .sf-views { font-size: 13px; line-height: 18px; font-weight: 500; color: rgba(255,255,255,0.8); }
+  .sf-sound { position: absolute; z-index: 7; top: 14px; right: 64px; width: 42px; height: 42px; border-radius: 999px; background: rgba(7,9,8,0.45); display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; user-select: none; }
+  .sf-nav { display: flex; flex-direction: column; gap: 12px; }
+  .sf-navbtn { width: 48px; height: 48px; border-radius: 999px; background: #F1F4F2; color: #131C29; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; user-select: none; }
+  .sf-navbtn:hover { background: #E3E8E5; }
+  .sf-tap:focus-visible, .sf-sound:focus-visible, .sf-navbtn:focus-visible { outline: 3px solid #30A967; outline-offset: 2px; }
+  @media (max-width: 768px) {
+    .sf-item { padding: 0; gap: 0; }
+    .sf-frame { width: 100%; height: 100%; max-width: none; aspect-ratio: auto; border-radius: 0; }
+    .sf-nav { display: none; }
+  }
   @media (max-width: 768px) {
     [data-cta-wrap] { padding: 0 0 28px !important; }
     [data-cta-light] { border-radius: 0 !important; aspect-ratio: 2 / 1 !important; min-height: 0 !important; padding: 24px !important; gap: 10px !important; }
@@ -2269,27 +2294,30 @@ try {
     <div>
 
 
-      <div style="max-width: 1200px; margin: 0 auto; padding: 24px 80px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px;">
-        <div data-shorts-list="1" style="scrollbar-width: none; -ms-overflow-style: none; display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 4px;">
-          <sc-for list="{{ p12.items }}" as="v" hint-placeholder-count="5">
-            <div style="flex: 0 0 auto; width: 300px; scroll-snap-align: center; min-width: 0; display: flex; flex-direction: column; align-items: stretch; gap: 10px;">
-              <div onMouseEnter="{{ v.hoverIn }}" onMouseLeave="{{ v.hoverOut }}" style="position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background-color: #070908; background-image: {{ v.bgImage }}; background-size: cover; background-position: center; --m-bg: {{ v.mBg }};">
-                <sc-if value="{{ v.playing }}" hint-placeholder-val="{{ false }}">
-                  <iframe src="{{ v.src }}" allow="autoplay; encrypted-media" allowfullscreen="true" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #070908;"></iframe>
-                </sc-if>
-                <sc-if value="{{ v.idle }}" hint-placeholder-val="{{ true }}">
-                  <div onClick="{{ v.play }}" aria-label="{{ v.title }} 재생" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(7,9,8,0.06); cursor: pointer;">
-                    <span style="width: 54px; height: 54px; border-radius: 999px; background: rgba(7,9,8,0.55); display: flex; align-items: center; justify-content: center;">
-                      <span style="width: 0; height: 0; border-left: 18px solid #FFFFFF; border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 5px;"></span>
-                    </span>
-                  </div>
+      <div data-shorts-feed="p12" class="sf-feed">
+        <sc-for list="{{ p12.items }}" as="v" hint-placeholder-count="3">
+          <div data-sf-idx="{{ v.idx }}" class="sf-item">
+            <div class="sf-frame" style="background-image: {{ v.bgImage }};">
+              <sc-if value="{{ v.active }}" hint-placeholder-val="{{ false }}">
+                <iframe data-sf-player="1" src="{{ v.src }}" onLoad="{{ v.onLoad }}" title="{{ v.title }}" allow="autoplay; encrypted-media; picture-in-picture" class="{{ v.playerClass }}"></iframe>
+              </sc-if>
+              <div onClick="{{ v.tap }}" class="sf-tap" role="button" tabindex="0" aria-label="{{ v.tapLabel }}">
+                <sc-if value="{{ v.showPlay }}" hint-placeholder-val="{{ true }}">
+                  <span class="sf-bigplay"><span></span></span>
                 </sc-if>
               </div>
-              <span style="display: block; width: 100%; font-size: 18px; line-height: 26px; font-weight: 700; color: #070908; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ v.title }}</span>
-              <span style="display: block; width: 100%; margin-top: -4px; font-size: 14px; line-height: 20px; font-weight: 500; color: #5F6964; text-align: left;">{{ v.views }}</span>
+              <div class="{{ v.infoClass }}">
+                <span class="sf-title">{{ v.title }}</span>
+                <span class="sf-views">{{ v.views }}</span>
+              </div>
+              <span onClick="{{ p12.toggleSound }}" class="sf-sound" role="button" tabindex="0" aria-label="{{ p12.soundLabel }}">{{ p12.soundIcon }}</span>
             </div>
-          </sc-for>
-        </div>
+            <div class="sf-nav">
+              <span onClick="{{ p12.prev }}" class="sf-navbtn" role="button" tabindex="0" aria-label="이전 영상">▲</span>
+              <span onClick="{{ p12.next }}" class="sf-navbtn" role="button" tabindex="0" aria-label="다음 영상">▼</span>
+            </div>
+          </div>
+        </sc-for>
       </div>
 
     </div>
@@ -3819,27 +3847,30 @@ try {
     <div>
 
 
-      <div style="max-width: 1200px; margin: 0 auto; padding: 24px 80px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px;">
-        <div data-shorts-list="1" style="scrollbar-width: none; -ms-overflow-style: none; display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 4px;">
-          <sc-for list="{{ p13.items }}" as="v" hint-placeholder-count="5">
-            <div style="flex: 0 0 auto; width: 300px; scroll-snap-align: center; min-width: 0; display: flex; flex-direction: column; align-items: stretch; gap: 10px;">
-              <div onMouseEnter="{{ v.hoverIn }}" onMouseLeave="{{ v.hoverOut }}" style="position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background-color: #070908; background-image: {{ v.bgImage }}; background-size: cover; background-position: center; --m-bg: {{ v.mBg }};">
-                <sc-if value="{{ v.playing }}" hint-placeholder-val="{{ false }}">
-                  <iframe src="{{ v.src }}" allow="autoplay; encrypted-media" allowfullscreen="true" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #070908;"></iframe>
-                </sc-if>
-                <sc-if value="{{ v.idle }}" hint-placeholder-val="{{ true }}">
-                  <div onClick="{{ v.play }}" aria-label="{{ v.title }} 재생" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(7,9,8,0.06); cursor: pointer;">
-                    <span style="width: 54px; height: 54px; border-radius: 999px; background: rgba(7,9,8,0.55); display: flex; align-items: center; justify-content: center;">
-                      <span style="width: 0; height: 0; border-left: 18px solid #FFFFFF; border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 5px;"></span>
-                    </span>
-                  </div>
+      <div data-shorts-feed="p13" class="sf-feed">
+        <sc-for list="{{ p13.items }}" as="v" hint-placeholder-count="3">
+          <div data-sf-idx="{{ v.idx }}" class="sf-item">
+            <div class="sf-frame" style="background-image: {{ v.bgImage }};">
+              <sc-if value="{{ v.active }}" hint-placeholder-val="{{ false }}">
+                <iframe data-sf-player="1" src="{{ v.src }}" onLoad="{{ v.onLoad }}" title="{{ v.title }}" allow="autoplay; encrypted-media; picture-in-picture" class="{{ v.playerClass }}"></iframe>
+              </sc-if>
+              <div onClick="{{ v.tap }}" class="sf-tap" role="button" tabindex="0" aria-label="{{ v.tapLabel }}">
+                <sc-if value="{{ v.showPlay }}" hint-placeholder-val="{{ true }}">
+                  <span class="sf-bigplay"><span></span></span>
                 </sc-if>
               </div>
-              <span style="display: block; width: 100%; font-size: 18px; line-height: 26px; font-weight: 700; color: #070908; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ v.title }}</span>
-              <span style="display: block; width: 100%; margin-top: -4px; font-size: 14px; line-height: 20px; font-weight: 500; color: #5F6964; text-align: left;">{{ v.views }}</span>
+              <div class="{{ v.infoClass }}">
+                <span class="sf-title">{{ v.title }}</span>
+                <span class="sf-views">{{ v.views }}</span>
+              </div>
+              <span onClick="{{ p13.toggleSound }}" class="sf-sound" role="button" tabindex="0" aria-label="{{ p13.soundLabel }}">{{ p13.soundIcon }}</span>
             </div>
-          </sc-for>
-        </div>
+            <div class="sf-nav">
+              <span onClick="{{ p13.prev }}" class="sf-navbtn" role="button" tabindex="0" aria-label="이전 영상">▲</span>
+              <span onClick="{{ p13.next }}" class="sf-navbtn" role="button" tabindex="0" aria-label="다음 영상">▼</span>
+            </div>
+          </div>
+        </sc-for>
       </div>
 
     </div>
@@ -5970,35 +6001,146 @@ __P.p11 = (function () { const location = __hash.p11; return class extends SubLo
 
 }; })();
 
-__P.p12 = (function () { const location = __hash.p12; return class extends SubLogic {
 
-  state = { playing: -1 };
-  renderVals() {
-    const cur = this.state.playing;
+// 쇼츠 피드: 한 화면에 하나씩, 화면 가운데 온 영상만 유튜브 플레이어로 자동재생
+const __SF = {
+  subs: {},
+  sound: false,
+  reg(route, sub) {
+    this.subs[route] = sub;
+    if (this._on) return;
+    this._on = true;
+    let raf = 0;
+    const tick = () => { raf = 0; this.sync(); };
+    const later = () => { if (!raf) raf = requestAnimationFrame(tick); };
+    window.addEventListener("scroll", later, { passive: true });
+    window.addEventListener("resize", later);
+    window.addEventListener("hashchange", () => setTimeout(() => this.sync(true), 120));
+    // 휠 한 칸에 한 영상씩 (기본 스냅은 짧은 휠을 제자리로 되돌림)
+    let acc = 0, lock = 0;
+    window.addEventListener("wheel", (e) => {
+      const sub = this.cur();
+      if (!sub || e.ctrlKey || Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
+      const last = this.items().length - 1;
+      if (e.deltaY > 0 && sub.state.playing >= last) return;
+      if (e.deltaY < 0 && window.scrollY > (this.items()[last] || { offsetTop: 0 }).offsetTop) return;
+      e.preventDefault();
+      if (Date.now() < lock) return;
+      acc += e.deltaY;
+      if (Math.abs(acc) >= 40) { this.go(acc > 0 ? 1 : -1); acc = 0; lock = Date.now() + 650; }
+    }, { passive: false });
+    window.addEventListener("keydown", (e) => {
+      if (!this.cur() || e.altKey || e.ctrlKey || e.metaKey) return;
+      const t = e.target && e.target.tagName;
+      if (t === "INPUT" || t === "TEXTAREA") return;
+      if (e.key === "ArrowDown" || e.key === "PageDown") { e.preventDefault(); this.go(1); }
+      else if (e.key === "ArrowUp" || e.key === "PageUp") { e.preventDefault(); this.go(-1); }
+      else if (e.key === "m" || e.key === "M") this.toggleSound();
+    });
+    setTimeout(() => this.sync(true), 300);
+    // 유튜브 플레이어가 재생(1)·일시정지(2)·대기(5) 상태가 되면 썸네일 대신 플레이어를 보임
+    window.addEventListener("message", (e) => {
+      if ((e.origin || "").indexOf("youtube") === -1) return;
+      let d = null; try { d = JSON.parse(e.data); } catch (x) { return; }
+      const st = d && d.info && d.info.playerState;
+      const sub = this.cur();
+      if (sub && !sub.state.ready && (d.event === "onReady" || st === 1 || st === 2 || st === 5)) sub.setState({ ready: true });
+    });
+  },
+  calm() { return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); },
+  route() { return (window.location.hash || "").replace(/^#/, "").split("/")[0]; },
+  cur() { return this.subs[this.route()] || null; },
+  items() { return [...document.querySelectorAll(".sf-item")]; },
+  sync(reset) {
+    const sub = this.cur();
+    const de = document.documentElement;
+    if (!sub) { de.classList.remove("sf-on"); return; }
+    // 스냅 기준(헤더 높이)을 먼저 정한 뒤 스냅을 켠다
+    const hd = [...document.querySelectorAll("header")].find(h => h.getBoundingClientRect().height > 0);
+    const topPx = hd ? Math.round(hd.getBoundingClientRect().height) : 64;
+    const fresh = !de.classList.contains("sf-on");
+    if (fresh || topPx !== this._top) {
+      this._top = topPx;
+      de.style.setProperty("--sf-top", topPx + "px");
+      de.classList.add("sf-on");
+      const el = this.items()[sub.state.playing];
+      if (el) requestAnimationFrame(() => window.scrollTo(0, Math.max(0, window.scrollY + el.getBoundingClientRect().top - topPx)));
+    }
+    if (reset && sub.state.playing !== 0 && window.scrollY < 10) { sub.setState({ playing: 0, paused: false }); return; }
+    const mid = window.innerHeight / 2;
+    let best = -1, bd = Infinity;
+    this.items().forEach((el) => {
+      const r = el.getBoundingClientRect();
+      const d = Math.abs(r.top + r.height / 2 - mid);
+      if (d < bd) { bd = d; best = +el.getAttribute("data-sf-idx"); }
+    });
+    if (best >= 0 && best !== sub.state.playing) sub.setState({ playing: best, paused: this.calm(), ready: false });
+  },
+  go(d) {
+    const sub = this.cur(); if (!sub) return;
+    const els = this.items();
+    const el = els[Math.max(0, Math.min(els.length - 1, sub.state.playing + d))];
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  },
+  send(fn, args) {
+    const f = document.querySelector('iframe[data-sf-player]');
+    if (f && f.contentWindow) f.contentWindow.postMessage(JSON.stringify({ event: "command", func: fn, args: args || [] }), "*");
+  },
+  toggleSound() {
+    this.sound = !this.sound;
+    if (this.sound) { this.send("unMute"); this.send("setVolume", [100]); this.send("playVideo"); }
+    else this.send("mute");
+    const sub = this.cur(); if (sub) sub.setState({ paused: false });
+  },
+  vals(sub) {
+    const cur = sub.state.playing, paused = sub.state.paused;
+    // '동작 줄이기' 설정이면 자동재생하지 않고 눌러서 재생
+    const calm = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const origin = encodeURIComponent(window.location.origin);
     return {
-      items: __SHLIST().map((v, i) => ({
-        title: v.title,
-        views: v.views,
-        bgImage: this.cssUrl(__SHTHUMB(v)),
-        src: __SHPLAY(v),
-
-        playing: cur === i || !!v.drive,
-        idle: cur !== i && !v.drive,
-        play: () => {
-          this.setState({ playing: i });
-          setTimeout(() => {
-            const f = document.querySelector('iframe[src*="' + v.id + '"]');
-            if (!f || !f.contentWindow) return;
-            const send = (fn) => f.contentWindow.postMessage(JSON.stringify({ event: "command", func: fn, args: [] }), "*");
-            send("unMute"); send("playVideo");
-          }, 900);
-        },
-        hoverIn: () => this.setState({ playing: i }),
-        hoverOut: () => this.setState(s => (s.playing === i ? { playing: -1 } : null)),
-        cardHref: "#scardnews"
-      }))
+      soundIcon: this.sound ? "🔊" : "🔇",
+      soundLabel: this.sound ? "소리 끄기" : "소리 켜기",
+      toggleSound: (e) => { if (e) e.stopPropagation(); this.toggleSound(); },
+      prev: () => this.go(-1),
+      next: () => this.go(1),
+      items: __SHLIST().map((v, i) => {
+        const id = __SHID(v);
+        return {
+          idx: i,
+          title: v.title,
+          views: v.views,
+          bgImage: sub.cssUrl(__SHTHUMB(v)),
+          active: cur === i,
+          playerClass: "sf-player" + (cur === i && sub.state.ready ? " sf-ready" : ""),
+          // 플레이어가 뜨면 유튜브가 제목·채널을 직접 보여 주므로 우리 제목은 숨김
+          infoClass: "sf-info" + (cur === i && sub.state.ready ? " sf-hide" : ""),
+          showPlay: cur !== i || paused,
+          tapLabel: cur === i ? (paused ? "재생" : "일시정지") : "이 영상 보기",
+          src: "https://www.youtube.com/embed/" + id + "?autoplay=" + (calm ? 0 : 1) + "&mute=1&playsinline=1&controls=0&loop=1&playlist=" + id + "&rel=0&modestbranding=1&enablejsapi=1&" + __CC() + "&origin=" + origin,
+          onLoad: (e) => {
+            const f = e && e.currentTarget;
+            const listen = () => { try { f.contentWindow.postMessage(JSON.stringify({ event: "listening", id: 1, channel: "widget" }), "*"); } catch (x) {} };
+            [0, 400, 1200].forEach((t) => setTimeout(listen, t));
+            setTimeout(() => { if (sub.state.playing === i && !sub.state.ready) sub.setState({ ready: true }); }, 3500);
+            if (!this.sound) return;
+            [300, 900, 1800].forEach((t) => setTimeout(() => { this.send("unMute"); this.send("setVolume", [100]); }, t));
+          },
+          tap: () => {
+            if (cur !== i) { const el = this.items()[i]; if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+            this.send(paused ? "playVideo" : "pauseVideo");
+            sub.setState({ paused: !paused });
+          }
+        };
+      })
     };
   }
+};
+
+__P.p12 = (function () { const location = __hash.p12; return class extends SubLogic {
+
+  state = { playing: 0, paused: __SF.calm(), ready: false };
+  componentDidMount() { __SF.reg("sshorts", this); }
+  renderVals() { return __SF.vals(this); }
 
 }; })();
 
@@ -6119,34 +6261,9 @@ const __SHBYID = (id) => __SH.filter(v => v.id === id)[0] || { id: id };
 
 __P.p13 = (function () { const location = __hash.p13; return class extends SubLogic {
 
-  state = { playing: -1 };
-  renderVals() {
-    const cur = this.state.playing;
-    return {
-      items: __SHLIST().map((v, i) => ({
-        title: v.title,
-        views: v.views,
-        bgImage: this.cssUrl(__SHTHUMB(v)),
-        src: __SHPLAY(v),
-
-        playing: cur === i || !!v.drive,
-        idle: cur !== i && !v.drive,
-        play: () => {
-          this.setState({ playing: i });
-          setTimeout(() => {
-            const f = document.querySelector('iframe[src*="' + v.id + '"]');
-            if (!f || !f.contentWindow) return;
-            const send = (fn) => f.contentWindow.postMessage(JSON.stringify({ event: "command", func: fn, args: [] }), "*");
-            send("unMute"); send("playVideo");
-          }, 900);
-        },
-        hoverIn: () => this.setState({ playing: i }),
-        hoverOut: () => this.setState(s => (s.playing === i ? { playing: -1 } : null)),
-        cardHref: "#cardnews",
-        videoHref: "#video"
-      }))
-    };
-  }
+  state = { playing: 0, paused: __SF.calm(), ready: false };
+  componentDidMount() { __SF.reg("shorts", this); }
+  renderVals() { return __SF.vals(this); }
 
 }; })();
 
