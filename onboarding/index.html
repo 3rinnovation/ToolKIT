@@ -9,6 +9,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <script src="../support.js"></script>
+<script src="../a11y.js"></script>
 </head>
 <body>
 <x-dc>
@@ -19,7 +20,7 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
 html, body { margin: 0; padding: 0; background: rgb(251,249,241); height: 100%; overflow: hidden; overscroll-behavior: none; }
 section[data-screen-label] { min-height: 0 !important; height: 100vh; height: 100dvh; }
-section[data-screen-label^="01"] > div { width: max(177.65vh, min(100%, 222vh)) !important; }
+section[data-screen-label^="01"] > div:first-child { width: max(177.65vh, min(100%, 222vh)) !important; }
 a { color: rgb(26,159,103); text-decoration: none; }
 a:hover { color: rgb(20,126,82); }
 @property --sweep { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
@@ -30,21 +31,25 @@ a:hover { color: rgb(20,126,82); }
 @keyframes charIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes scEnterA { from { opacity: 0; } to { opacity: 1; } }
 @keyframes scEnterB { from { opacity: 0; } to { opacity: 1; } }
+video::-webkit-media-controls, video::-webkit-media-controls-start-playback-button, video::-webkit-media-controls-overlay-play-button, video::-webkit-media-controls-panel { display: none !important; -webkit-appearance: none; opacity: 0 !important; }
+button:focus-visible { outline: 3px solid rgb(20,20,20); outline-offset: 2px; box-shadow: 0 0 0 5px rgb(255,255,255); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.001ms !important; animation-delay: 0s !important; transition-duration: 0.001ms !important; } }
 </style>
 </helmet>
 <div style="width: 100%; min-height: 100vh; background: rgb(251,249,241); font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; color: rgb(46,46,46); box-sizing: border-box;">
+  <div aria-live="polite" style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;">{{ liveMsg }}</div>
 
   <div onMouseEnter="{{ openLang }}" onMouseLeave="{{ closeLang }}" onTouchStart="{{ langTouch }}" style="position: fixed; right: min(40px, 2.08vw); top: min(32px, 1.67vw); z-index: 50; display: flex; flex-direction: column; align-items: flex-end;">
-    <button type="button" onClick="{{ toggleLang }}" aria-label="언어 선택" style="width: 44px; height: 44px; border: none; border-radius: 50%; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;">
+    <button type="button" onClick="{{ toggleLang }}" data-lang-btn="1" aria-label="{{ aLang }}" aria-haspopup="true" aria-expanded="{{ langOpenStr }}" style="width: 44px; height: 44px; border: none; border-radius: 50%; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{ globeColor }}" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"></circle><path d="M2.9 12 H21.1"></path><path d="M12 2.8 C15.2 5.6 15.2 18.4 12 21.2"></path><path d="M12 2.8 C8.8 5.6 8.8 18.4 12 21.2"></path><path d="M4.6 6.6 C7 8.2 17 8.2 19.4 6.6"></path><path d="M4.6 17.4 C7 15.8 17 15.8 19.4 17.4"></path></svg>
     </button>
     <sc-if value="{{ langOpen }}">
       <div data-lang-menu="1" style="margin-top: 8px; width: 186px; max-height: 70vh; overflow-y: auto; border-radius: 14px; background: rgb(255,255,255); box-shadow: 0 6px 20px rgba(0,0,0,0.14); padding: 8px 7px; box-sizing: border-box; display: flex; flex-direction: column; gap: 1px; font-family: Pretendard, sans-serif;">
         <sc-for list="{{ langs }}" as="lang" hint-placeholder-count="6">
-          <button type="button" onClick="{{ lang.pick }}" style="display: grid; grid-template-columns: 30px 1fr 13px; align-items: center; gap: 7px; width: 100%; min-height: 32px; padding: 0 9px; border: none; border-radius: 8px; background: {{ lang.bg }}; color: {{ lang.color }}; font-family: inherit; font-size: 12.5px; font-weight: {{ lang.weight }}; text-align: left; cursor: pointer;" style-hover="background: rgb(245,245,242);">
+          <button type="button" onClick="{{ lang.pick }}" aria-current="{{ lang.current }}" style="display: grid; grid-template-columns: 30px 1fr 13px; align-items: center; gap: 7px; width: 100%; min-height: 32px; padding: 0 9px; border: none; border-radius: 8px; background: {{ lang.bg }}; color: {{ lang.color }}; font-family: inherit; font-size: 12.5px; font-weight: {{ lang.weight }}; text-align: left; cursor: pointer;" style-hover="background: rgb(245,245,242);">
             <span style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.02em;">{{ lang.code }}</span>
-            <span>{{ lang.label }}</span>
-            <span style="color: rgb(26,159,103); font-size: 11px;">{{ lang.check }}</span>
+            <span lang="{{ lang.htmlLang }}">{{ lang.label }}</span>
+            <span aria-hidden="true" style="color: rgb(20,132,85); font-size: 11px;">{{ lang.check }}</span>
           </button>
         </sc-for>
       </div>
@@ -55,9 +60,9 @@ a:hover { color: rgb(20,126,82); }
   <div style="display: {{ d1 }}; animation: {{ a1 }};">
     <section data-screen-label="01 진입" style="position: relative; width: 100%; min-height: 100vh; display: flex; align-items: center; justify-content: center; box-sizing: border-box; overflow: hidden; background: rgb(150,198,130);">
       <div style="position: relative; flex: none; width: max(100%, 177.65vh); aspect-ratio: 2560 / 1441; background: rgb(150,198,130);">
-      <img src="assets/bg-landing-kr.jpg" alt="자기조절 툴킷 — 내 마음을 알아가고, 스스로 조절하는 힘!" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{ bgKrOpacity }};">
-      <img src="assets/bg-landing-en.jpg" alt="Self-Care Toolkit — Understand your mind and be stronger, on your own!" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{ bgEnOpacity }};">
-      <video ref="{{ videoRef }}" src="{{ videoSrc }}" poster="{{ videoPoster }}" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" preload="auto" disablepictureinpicture="disablepictureinpicture" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: {{ videoDisplay }};"></video>
+      <img src="assets/bg-landing-kr.jpg" alt="{{ altKr }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{ bgKrOpacity }};">
+      <img src="assets/bg-landing-en.jpg" alt="{{ altEn }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{ bgEnOpacity }};">
+      <video aria-hidden="true" ref="{{ videoRef }}" src="{{ videoSrc }}" poster="{{ videoPoster }}" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" preload="auto" disablepictureinpicture="disablepictureinpicture" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: {{ videoDisplay }};"></video>
       <sc-if value="{{ desk }}" hint-placeholder-val="{{ true }}">
       <div style="position: absolute; left: 50%; top: 82%; transform: translate(-50%, -50%); display: flex; flex-wrap: nowrap; gap: min(35px, 1.82vw); justify-content: center;">
         <button type="button" onClick="{{ goTeacher }}" style="width: auto; min-width: clamp(230px, 16.8vw, 322px); max-width: min(92vw, 460px); height: clamp(66px, 4.43vw, 85px); border: none; border-radius: 66px; background: rgb(255,255,255); display: flex; align-items: center; justify-content: center; padding: 0 min(34px, 1.77vw); cursor: pointer; font: inherit; transition: transform .15s ease;" style-hover="transform: translateY(-2px);">
@@ -69,13 +74,36 @@ a:hover { color: rgb(20,126,82); }
       </div>
       </sc-if>
       </div>
-      <sc-if value="{{ mob }}">
-        <div style="position: absolute; left: 50%; bottom: calc(9vh + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; width: min(84vw, 340px);">
-          <button type="button" onClick="{{ goTeacher }}" style="width: 100%; height: 60px; border: none; border-radius: 60px; background: rgb(255,255,255); display: flex; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; cursor: pointer; font: inherit;">
-            <span style="font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; font-size: 22px; color: rgb(20,132,85); white-space: nowrap;">{{ tTeacher }}</span>
+      <sc-if value="{{ showMedia }}" hint-placeholder-val="{{ true }}">
+        <div style="position: absolute; left: min(40px, 2.08vw); top: min(32px, 1.67vw); z-index: 40; display: flex; gap: 2px;">
+          <button type="button" onClick="{{ togglePlay }}" aria-label="{{ aPlay }}" style="width: 44px; height: 44px; border: none; border-radius: 50%; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;">
+            <sc-if value="{{ isPlaying }}" hint-placeholder-val="{{ true }}">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="rgb(255,255,255)"><rect x="6" y="5" width="4" height="14" rx="1.2"></rect><rect x="14" y="5" width="4" height="14" rx="1.2"></rect></svg>
+            </sc-if>
+            <sc-if value="{{ isPaused }}">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="rgb(255,255,255)"><path d="M7.5 5.2 L18.5 12 L7.5 18.8 Z"></path></svg>
+            </sc-if>
           </button>
-          <button type="button" onClick="{{ goStudent }}" style="width: 100%; height: 60px; border: none; border-radius: 60px; background: rgb(20,132,85); display: flex; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; cursor: pointer; font: inherit;">
-            <span style="font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; font-size: 22px; color: rgb(255,255,255); white-space: nowrap;">{{ tStudent }}</span>
+          <button type="button" onClick="{{ toggleSound }}" aria-label="{{ aSound }}" style="width: 44px; height: 44px; border: none; border-radius: 50%; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;">
+            <sc-if value="{{ soundOff }}" hint-placeholder-val="{{ true }}">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(255,255,255)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9 L8 9 L13 5 L13 19 L8 15 L4 15 Z"></path><path d="M17 9 L22 15"></path><path d="M22 9 L17 15"></path></svg>
+            </sc-if>
+            <sc-if value="{{ soundOn }}">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(255,255,255)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9 L8 9 L13 5 L13 19 L8 15 L4 15 Z"></path><path d="M17 8.5 C19 10.5 19 13.5 17 15.5"></path><path d="M20 6 C23 9.5 23 14.5 20 18"></path></svg>
+            </sc-if>
+          </button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ showCaption }}">
+        <div aria-hidden="true" style="position: absolute; left: 50%; bottom: {{ capBottom }}; transform: translateX(-50%); padding: 6px 14px; border-radius: 6px; background: rgba(0,0,0,0.8); color: rgb(255,255,255); font-family: Pretendard, sans-serif; font-size: clamp(14px, 0.94vw, 18px); line-height: 1.4; white-space: nowrap; z-index: 30;">{{ captionText }}</div>
+      </sc-if>
+      <sc-if value="{{ mob }}">
+        <div style="position: absolute; left: 50%; bottom: calc(9vh + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; width: 300px; max-width: 86%; box-sizing: border-box; z-index: 20;">
+          <button type="button" onClick="{{ goTeacher }}" style="display: flex; width: 100%; max-width: 300px; height: 60px; border: none; border-radius: 30px; -webkit-border-radius: 30px; overflow: hidden; -webkit-appearance: none; appearance: none; background: rgb(255,255,255); display: flex; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; cursor: pointer; font: inherit;">
+            <span style="font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; font-size: {{ fsRoleMob }}; color: rgb(20,132,85); white-space: nowrap;">{{ tTeacher }}</span>
+          </button>
+          <button type="button" onClick="{{ goStudent }}" style="display: flex; width: 100%; max-width: 300px; height: 60px; border: none; border-radius: 30px; -webkit-border-radius: 30px; overflow: hidden; -webkit-appearance: none; appearance: none; background: rgb(20,132,85); display: flex; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; cursor: pointer; font: inherit;">
+            <span style="font-family: 'Ownglyph PDH', 'Pretendard', sans-serif; font-size: {{ fsRoleMob }}; color: rgb(255,255,255); white-space: nowrap;">{{ tStudent }}</span>
           </button>
         </div>
       </sc-if>
@@ -86,12 +114,12 @@ a:hover { color: rgb(20,126,82); }
     <section data-screen-label="02 기분 선택" style="position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
       <sc-if value="{{ isStudent }}" hint-placeholder-val="{{ true }}">
         <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubS }}; aspect-ratio: 523 / 290; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble1.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
-          <p style="margin: 0 0 7.6% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t2n }}</p>
+          <p dir="{{ textDir }}" style="margin: 0 0 7.6% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t2n }}</p>
         </div>
       </sc-if>
       <sc-if value="{{ isTeacher }}">
         <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubT }}; aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
-          <p style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t2n }}</p>
+          <p dir="{{ textDir }}" style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t2n }}</p>
         </div>
       </sc-if>
       <div style="position: absolute; left: 50%; bottom: {{ bChar }}; transform: translateX(-50%); width: {{ wChar2 }}; aspect-ratio: 424 / 286;">
@@ -101,10 +129,10 @@ a:hover { color: rgb(20,126,82); }
       <div style="position: absolute; left: 50%; bottom: {{ bCards }}; transform: translateX(-50%); display: flex; flex-wrap: wrap; justify-content: center; gap: {{ cardsGap }}; width: {{ cardsW }}; max-width: 96vw;">
         <sc-for list="{{ moods }}" as="m" hint-placeholder-count="4">
           <sc-if value="{{ m.off }}" hint-placeholder-val="{{ true }}">
-            <button type="button" onClick="{{ m.pick }}" style="width: {{ cardW }}; aspect-ratio: 254 / 170; border-radius: clamp(24px, 2.08vw, 40px); background: rgb(255,255,255); border: 3px solid rgb(196,196,196); box-sizing: border-box; padding: 0 2%; display: flex; align-items: center; justify-content: center; font: inherit; font-size: {{ fsMood }}; line-height: 1.64; text-align: center; white-space: pre; word-break: keep-all; color: rgb(46,46,46); cursor: pointer;" style-hover="border-color: rgb(160,160,160);">{{ m.label }}</button>
+            <button type="button" onClick="{{ m.pick }}" aria-pressed="false" style="width: {{ cardW }}; aspect-ratio: 254 / 170; border-radius: clamp(24px, 2.08vw, 40px); background: rgb(255,255,255); border: 3px solid rgb(140,140,135); box-sizing: border-box; padding: 0 2%; display: flex; align-items: center; justify-content: center; font: inherit; font-size: {{ fsMood }}; line-height: 1.64; text-align: center; white-space: pre; word-break: keep-all; color: rgb(46,46,46); cursor: pointer;" style-hover="border-color: rgb(90,90,86);">{{ m.label }}</button>
           </sc-if>
           <sc-if value="{{ m.on }}">
-            <button type="button" onClick="{{ m.pick }}" style="width: {{ cardW }}; aspect-ratio: 254 / 170; border-radius: clamp(24px, 2.08vw, 40px); background: rgb(255,255,255); border: 3px solid rgb(26,159,103); box-sizing: border-box; padding: 0 2%; display: flex; align-items: center; justify-content: center; font: inherit; font-size: {{ fsMood }}; line-height: 1.64; text-align: center; white-space: pre; word-break: keep-all; color: rgb(20,132,85); cursor: pointer;">{{ m.label }}</button>
+            <button type="button" onClick="{{ m.pick }}" aria-pressed="true" style="position: relative; width: {{ cardW }}; aspect-ratio: 254 / 170; border-radius: clamp(24px, 2.08vw, 40px); background: rgb(240,249,244); border: 4px solid rgb(20,132,85); box-sizing: border-box; padding: 0 2%; display: flex; align-items: center; justify-content: center; font: inherit; font-size: {{ fsMood }}; line-height: 1.64; text-align: center; white-space: pre; word-break: keep-all; color: rgb(20,132,85); cursor: pointer;">{{ m.label }}<span aria-hidden="true" style="position: absolute; top: 9%; right: 7%; width: clamp(20px, 1.46vw, 28px); height: clamp(20px, 1.46vw, 28px); border-radius: 50%; background: rgb(20,132,85); display: flex; align-items: center; justify-content: center;"><svg width="60%" height="60%" viewBox="0 0 24 24" fill="none" stroke="rgb(255,255,255)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 L10 17.5 L19 7"></path></svg></span></button>
           </sc-if>
         </sc-for>
       </div>
@@ -113,7 +141,7 @@ a:hover { color: rgb(20,126,82); }
           <button type="button" onClick="{{ next }}" style="width: clamp(160px, 13.04vw, 250px); height: clamp(46px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(20,132,85); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: pointer;" style-hover="background: rgb(16,110,71);">{{ tNext }}</button>
         </sc-if>
         <sc-if value="{{ moodEmpty }}" hint-placeholder-val="{{ true }}">
-          <button type="button" disabled="disabled" style="width: clamp(160px, 13.04vw, 250px); height: clamp(46px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(205,205,200); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: not-allowed;">{{ tNext }}</button>
+          <button type="button" disabled="disabled" aria-disabled="true" style="width: clamp(160px, 13.04vw, 250px); height: clamp(46px, 3.21vw, 62px); border: none; border-radius: 54px; background: rgb(205,205,200); font: inherit; font-size: {{ fsBtn }}; color: rgb(255,255,255); cursor: not-allowed;">{{ tNext }}</button>
         </sc-if>
       </div>
     </section>
@@ -123,12 +151,12 @@ a:hover { color: rgb(20,126,82); }
     <section data-screen-label="03 인사" style="position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
       <sc-if value="{{ isStudent }}" hint-placeholder-val="{{ true }}">
         <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubS }}; aspect-ratio: 523 / 290; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble1.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
-          <p style="margin: 0 0 7.6% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t3n }}</p>
+          <p dir="{{ textDir }}" style="margin: 0 0 7.6% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t3n }}</p>
         </div>
       </sc-if>
       <sc-if value="{{ isTeacher }}">
         <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubT }}; aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
-          <p style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t3n }}</p>
+          <p dir="{{ textDir }}" style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.12; text-align: center; color: rgb(0,0,0); white-space: pre;">{{ t3n }}</p>
         </div>
       </sc-if>
       <div style="position: absolute; left: 50%; bottom: {{ bChar }}; transform: translateX(-50%); width: {{ wChar3 }}; aspect-ratio: 479 / 301;">
@@ -143,12 +171,12 @@ a:hover { color: rgb(20,126,82); }
     <section data-screen-label="04 툴킷 소개" style="position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: min(40px, 2vh) 24px 24vh; box-sizing: border-box; overflow: hidden;">
       <sc-if value="{{ isStudent }}" hint-placeholder-val="{{ true }}">
         <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubS4 }}; aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
-          <p style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.06; text-align: center; color: rgb(46,46,46); white-space: pre;">{{ t4n }}</p>
+          <p dir="{{ textDir }}" style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.06; text-align: center; color: rgb(46,46,46); white-space: pre;">{{ t4n }}</p>
         </div>
       </sc-if>
       <sc-if value="{{ isTeacher }}">
         <div style="position: absolute; left: 50%; bottom: {{ bBub }}; transform: translateX(-50%); width: {{ wBubT }}; aspect-ratio: 500 / 306; display: flex; align-items: center; justify-content: center; background-image: url('assets/bubble2.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
-          <p style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.06; text-align: center; color: rgb(46,46,46); white-space: pre;">{{ t4n }}</p>
+          <p dir="{{ textDir }}" style="margin: 0 0 6.5% 0; width: 88%; font-size: {{ fs }}; line-height: 1.06; text-align: center; color: rgb(46,46,46); white-space: pre;">{{ t4n }}</p>
         </div>
       </sc-if>
       <div style="position: absolute; left: 50%; bottom: {{ bChar }}; transform: translateX(-50%); width: {{ wChar4 }}; aspect-ratio: 1 / 1;">
@@ -189,16 +217,27 @@ class Component extends DCLogic {
     this.veilRef = React.createRef();
     this.videoRef = React.createRef();
     this.state = { screen: 1, mood: -1, happy: false, muted: true, videoOk: false, lang: "KR", langOpen: false, role: "student", navCount: 0,
-      vw: window.innerWidth, vh: window.innerHeight };
+      vw: window.innerWidth, vh: window.innerHeight, playing: true };
   }
   componentDidMount() {
-    this._onResize = () => this.setState({ vw: window.innerWidth, vh: window.innerHeight });
+    this._reduced = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    try { document.documentElement.lang = "ko"; } catch (e) {}
+    this._onKey = (e) => { if (e.key === "Escape" && this.state.langOpen) this.setState({ langOpen: false }); };
+    document.addEventListener("keydown", this._onKey);
+    this._onResize = () => {
+      const de = document.documentElement;
+      const vw = Math.min(window.innerWidth || 9999, (de && de.clientWidth) || 9999, (window.screen && window.screen.width) || 9999);
+      const vh = window.innerHeight || (de && de.clientHeight) || 800;
+      this.setState({ vw, vh });
+    };
+    this._onResize();
+    [100, 400, 1000].forEach((t) => setTimeout(this._onResize, t));
     window.addEventListener("resize", this._onResize);
     window.addEventListener("orientationchange", this._onResize);
     this._outsideLang = (e) => {
       if (!this.state.langOpen) return;
       const t = e.target;
-      if (t && t.closest && t.closest('[aria-label="언어 선택"]')) return;
+      if (t && t.closest && t.closest("[data-lang-btn]")) return;
       if (t && t.closest && t.closest("[data-lang-menu]")) return;
       this.setState({ langOpen: false });
     };
@@ -217,8 +256,19 @@ class Component extends DCLogic {
     if (s !== 1) this.go(s);
     const tryPlay = () => {
       const v = this.videoRef.current;
-      if (!v || this.state.screen !== 1 || this.state.lang !== "KR") return;
+      if (!v || this.state.screen !== 1 || this.state.lang !== "KR" || this._userPaused || this._reduced) return;
       v.volume = 1;
+      if (!this._unmutedOnce && !this._triedLoud && v.paused && !this._userMuted) {
+        this._triedLoud = true;
+        v.muted = false;
+        v.removeAttribute("muted");
+        try { v.currentTime = 0; } catch (e) {}
+        v.play().then(() => { this._unmutedOnce = true; this.setState({ muted: false, needSound: false }); }).catch(() => {
+          v.muted = true;
+          v.play().catch(() => {});
+        });
+        return;
+      }
       if (!this._unmutedOnce) { v.muted = true; v.setAttribute("muted", ""); }
       v.play().catch(() => {
         v.muted = true;
@@ -228,11 +278,14 @@ class Component extends DCLogic {
     tryPlay();
     requestAnimationFrame(tryPlay);
     const v0 = this.videoRef.current || document.querySelector("video");
-    if (v0) { try { v0.muted = true; v0.play().catch(() => {}); } catch (e) {} }
+    if (v0 && !this._reduced) { try { v0.muted = true; v0.play().catch(() => {}); } catch (e) {} }
+    if (v0 && this._reduced) { try { v0.pause(); } catch (e) {} this.setState({ playing: false }); }
     if (v0) {
+      const sync = () => this.setState({ playing: !v0.paused, muted: v0.muted });
+      ["play", "pause", "volumechange"].forEach((ev) => v0.addEventListener(ev, sync));
       ["loadedmetadata", "loadeddata", "canplay", "canplaythrough", "pause", "ended", "stalled"].forEach((ev) =>
         v0.addEventListener(ev, tryPlay));
-      v0.addEventListener("ended", () => { try { v0.currentTime = 0; } catch (e) {} v0.play().catch(() => {}); });
+      v0.addEventListener("ended", () => { if (this._userPaused || this._reduced) return; try { v0.currentTime = 0; } catch (e) {} v0.play().catch(() => {}); });
     }
     [60, 150, 400, 900, 1500, 2500].forEach((t) => setTimeout(tryPlay, t));
     document.addEventListener("visibilitychange", tryPlay);
@@ -283,10 +336,11 @@ class Component extends DCLogic {
     };
     setTimeout(() => {
       const v = this.videoRef.current || document.querySelector("video");
-      if (!v || !v.muted || this._userMuted) return;
+      if (!v || !v.muted || this._userMuted || v.paused) return;
+      if (!this._unmutedOnce) { try { v.currentTime = 0; } catch (e) {} }
       v.muted = false;
       v.volume = 1;
-      v.play().then(() => this.setState({ muted: false })).catch(() => {
+      v.play().then(() => { this._unmutedOnce = true; this.setState({ muted: false }); }).catch(() => {
         v.muted = true;
         v.play().catch(() => {});
       });
@@ -294,7 +348,8 @@ class Component extends DCLogic {
     this._autoUnmute = () => {
       if (this._userMuted || this.state.screen !== 1 || this.state.lang !== "KR") return;
       const v = this.videoRef.current || document.querySelector("video");
-      if (!v || !v.muted) return;
+      if (!v || !v.muted || v.paused || this._userPaused) return;
+      if (!this._unmutedOnce) { try { v.currentTime = 0; } catch (e) {} }
       v.muted = false;
       v.volume = 1;
       v.play().then(() => { this._unmutedOnce = true; this.setState({ muted: false, needSound: false }); }).catch(() => { v.muted = true; v.play().catch(() => {}); });
@@ -316,6 +371,7 @@ class Component extends DCLogic {
     window.removeEventListener("resize", this._onResize);
     window.removeEventListener("orientationchange", this._onResize);
     document.removeEventListener("touchstart", this._outsideLang);
+    document.removeEventListener("keydown", this._onKey);
     clearInterval(this._soundTimer);
     document.removeEventListener("pointerdown", this._onClickPop, true); clearTimeout(this._swapT); cancelAnimationFrame(this._raf); }
   componentDidUpdate(prevProps, prevState) {
@@ -329,7 +385,7 @@ class Component extends DCLogic {
   go(n) {
     const v = this.videoRef.current || document.querySelector("video");
     if (v) {
-      if (n === 1) { v.play().catch(() => {}); }
+      if (n === 1) { if (!this._userPaused && !this._reduced) v.play().catch(() => {}); }
       else {
         v.pause();
         v.muted = true;
@@ -476,6 +532,12 @@ fitFont(texts, boxVW, minPx, maxPx) {
     return "clamp(" + r(minPx) + "px, " + r(vw) + "vw, " + r(maxPx) + "px)";
   }
 typeNodes(text, tag) {
+    const sr = React.createElement("span", { key: tag + "-sr", style: {
+      position: "absolute", width: "1px", height: "1px", margin: "-1px", padding: 0, overflow: "hidden",
+      clip: "rect(0 0 0 0)", whiteSpace: "nowrap", border: 0 } }, text.replace(/\n/g, " "));
+    return [sr, React.createElement("span", { key: tag + "-vis", "aria-hidden": "true" }, this.typeChars(text, tag))];
+  }
+typeChars(text, tag) {
     const step = 0.038, lead = 0.26;
     let i = 0;
     const out = [];
@@ -508,7 +570,7 @@ moodLabels() {
   componentDidUpdate(prevProps, prevState) {
     if (prevState && prevState.lang !== this.state.lang && this.state.screen === 1) {
       const v = this.videoRef.current || document.querySelector("video");
-      if (v) {
+      if (v && !this._userPaused && !this._reduced) {
         const wasMuted = v.muted;
         setTimeout(() => { v.muted = wasMuted; v.play().catch(() => { v.muted = true; v.play().catch(() => {}); }); }, 0);
       }
@@ -524,7 +586,8 @@ moodLabels() {
     const T = this.i18n();
     const teacher = this.state.role === "teacher";
     const m = teacher ? T.mt : T.ms;
-    const mob = this.state.vw < 768 || (this.state.vw < 1024 && this.state.vh > this.state.vw);
+    const coarse = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+    const mob = this.state.vw < 768 || (this.state.vw < 1024 && this.state.vh > this.state.vw) || (coarse && this.state.vh > this.state.vw);
     const bubbleTexts = teacher ? [T.s2t, T.s3t, T.s4t] : [T.s2s, T.s3s, T.s4s];
     const mobFs = () => {
       const wide = { KR: 0.82, JA: 0.82, ZH: 0.85, TH: 0.56, AR: 0.44 };
@@ -559,7 +622,8 @@ moodLabels() {
       })),
       fsStat: this.scaleFont(Math.max(...T.stat.split("\n").map((l) => l.length)), 18, 22, 2.5, 48),
       fsBtn: this.scaleFont(Math.max(T.next.length, T.cont.length), 7, 18, 2, 38),
-      fsRole: this.scaleFont(Math.max(T.teacher.length, T.student.length), 11, 21, 1.72, 33),
+      fsRole: this.state.lang === "EN" ? "clamp(23px, 1.88vw, 36px)" : this.scaleFont(Math.max(T.teacher.length, T.student.length), 11, 21, 1.72, 33),
+      fsRoleMob: this.state.lang === "EN" ? "25px" : "22px",
       tTeacher: T.teacher, tStudent: T.student, tNext: T.next, tCont: T.cont,
       t2: teacher ? T.s2t : T.s2s,
       t3: teacher ? T.s3t : T.s3s,
@@ -569,6 +633,36 @@ moodLabels() {
       t3n: this.typeNodes(teacher ? T.s3t : T.s3s, "t3-" + this.state.lang + this.state.role + this.state.navCount),
       t4n: this.typeNodes(teacher ? T.s4t : T.s4s, "t4-" + this.state.lang + this.state.role + this.state.navCount),
       veilRef: this.veilRef,
+      ...(() => {
+        const A = {
+          KR: { lang: "언어 선택", pause: "배경 영상 일시정지", play: "배경 영상 재생", mute: "소리 끄기", unmute: "소리 켜기", cap: "♪ 잔잔한 배경음악" },
+          EN: { lang: "Choose language", pause: "Pause background video", play: "Play background video", mute: "Mute", unmute: "Unmute", cap: "♪ Calm background music" },
+        };
+        const a = A[this.state.lang] || A.EN;
+        const kr = this.state.lang === "KR";
+        const live = s === 2 ? (teacher ? T.s2t : T.s2s) : s === 3 ? (teacher ? T.s3t : T.s3s) : s === 4 ? (teacher ? T.s4t : T.s4s) : "";
+        return {
+          aLang: a.lang,
+          langOpenStr: this.state.langOpen ? "true" : "false",
+          aPlay: this.state.playing ? a.pause : a.play,
+          aSound: this.state.muted ? a.unmute : a.mute,
+          isPlaying: this.state.playing, isPaused: !this.state.playing,
+          showMedia: kr,
+          showCaption: kr && s === 1 && this.state.playing && !this.state.muted,
+          captionText: a.cap,
+          capBottom: mob ? "calc(9vh + 148px + env(safe-area-inset-bottom, 0px))" : "3vh",
+          altKr: kr ? "자기조절 툴킷 — 내 마음을 알아가고, 스스로 조절하는 힘!" : "",
+          altEn: kr ? "" : "Self-Care Toolkit — Understand your mind and be stronger, on your own!",
+          textDir: this.state.lang === "AR" ? "rtl" : "ltr",
+          liveMsg: live.replace(/\n/g, " "),
+          togglePlay: () => {
+            const v = this.videoRef.current || document.querySelector("video");
+            if (!v) return;
+            if (v.paused) { this._userPaused = false; this._reduced = false; v.play().catch(() => { v.muted = true; v.play().catch(() => {}); }); }
+            else { this._userPaused = true; v.pause(); }
+          },
+        };
+      })(),
       globeColor: s === 1 ? "rgb(255,255,255)" : "rgb(20,132,85)",
       videoDisplay: this.state.lang === "KR" ? "block" : "none",
       videoSrc: this.state.lang === "KR" ? "assets/intro-bg.mp4" : "assets/intro-bg-en.mp4",
@@ -632,7 +726,12 @@ moodLabels() {
           color: on ? "rgb(20,132,85)" : "rgb(70,70,70)",
           weight: on ? 700 : 500,
           check: on ? "✓" : "",
-          pick: () => this.setState({ lang: code, langOpen: false }),
+          current: on ? "true" : "false",
+          htmlLang: { KR: "ko", EN: "en", ZH: "zh", VI: "vi", FR: "fr", JA: "ja", ES: "es", ID: "id", TH: "th", AR: "ar" }[code],
+          pick: () => {
+            try { document.documentElement.lang = { KR: "ko", EN: "en", ZH: "zh", VI: "vi", FR: "fr", JA: "ja", ES: "es", ID: "id", TH: "th", AR: "ar" }[code]; } catch (e) {}
+            this.setState({ lang: code, langOpen: false });
+          },
         };
       }),
       isS1: s === 1, isS2: s === 2, isS3: s === 3, isS4: s === 4, isS5: s === 5,
